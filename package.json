@@ -1,0 +1,24 @@
+{
+  "name": "press",
+  "version": "0.0.1",
+  "description": "An HTML layout and templating framework for static websites.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:patrickarlt/press.git"
+  },
+  "keywords": [
+    "static",
+    "site",
+    "template",
+    "templating"
+  ],
+  "author": "Patrick Arlt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/patrickarlt/press/issues"
+  }
+}
