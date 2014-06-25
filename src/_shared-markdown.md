@@ -1,0 +1,1 @@
+This Markdown can be shared across lots of files.

@@ -1,0 +1,14 @@
+---
+data:
+  - jsonData
+  - yamlData
+  - moduleData
+---
+
+{% extends "_layout" %}
+
+{% block content %}
+jsonData.foo is {{jsonData.foo}}
+yamlData.foo is {{yamlData.foo}}
+moduleData.foo is {{moduleData.foo}}
+{% endblock %}
