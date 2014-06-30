@@ -2,10 +2,15 @@
 <html>
 <head>
   <title>{{title}} | Site</title>
+  {% block head %}
+    <link rel="stylesheet" href="foo.css">
+  {% endblock %}
 </head>
 <body>
-  OVERRIDE LAYOUT!
   {% block content %}{% endblock %}
   {% block footer %}{% endblock %}
+  <!-- Last Modified: {{ page.stats.mtime }} -->
+  <!-- {{ globals.config.environment }} -->
+  <!-- {{ globals.rootUrl }} -->
 </body>
 </html>
