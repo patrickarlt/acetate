@@ -46,14 +46,22 @@ function Press(options){
   this.marked = marked;
   marked.setOptions(this.config.marked);
 
-  this.nunjucks = new nunjucks.Environment(new PressTemplateLoader({
+  this._nunjucksTemplateLoader = new PressTemplateLoader({
     templates: path.join(this.config.root, this.config.src),
-  }), this.config.nunjucks);
+  });
+
+  this.nunjucks = new nunjucks.Environment(this._nunjucksTemplateLoader, this.config.nunjucks);
 }
 
 /**
  * Press Watcher
  */
+
+Press.prototype._invalidateNunjucksCache = function(filepath){
+  var name = filepath.replace(this.config.src + path.sep, '').replace(path.extname(filepath), '');
+  console.log('invalidate', name);
+  this._nunjucksTemplateLoader.emit('update', name);
+};
 
 Press.prototype.startWatcher = function(){
   var pageMatcher = path.join(this.config.src, pageGlob);
@@ -72,9 +80,12 @@ Press.prototype.startWatcher = function(){
     if(e === 'renamed' && oldpath){
       if(!minimatch(filepath, pageMatcher) && minimatch(oldpath, pageMatcher)){
         console.log('handle page rename like delete');
+        this._invalidateNunjucksCache(oldpath);
         this.handlePageDelete(oldpath);
       } else if(minimatch(filepath, pageMatcher)) {
         console.log('handle page rename');
+        this._invalidateNunjucksCache(oldpath);
+        this._invalidateNunjucksCache(filepath);
         this.handlePageRename(filepath, oldpath);
       }
       if(!minimatch(filepath, dataMatcher) && minimatch(oldpath, dataMatcher)){
@@ -87,6 +98,7 @@ Press.prototype.startWatcher = function(){
     }
 
     if(minimatch(filepath, pageMatcher)){
+      this._invalidateNunjucksCache(filepath);
       switch (e){
         case 'added':
           this.handlePageAdd(filepath);
@@ -174,12 +186,14 @@ Press.prototype._removeOldPage = function(filepath){
 Press.prototype._loadNewPage = function(filepath){
   filepath = filepath.replace(path.join(this.config.root, this.config.src) + path.sep, '');
   console.log(filepath);
-  this.loadPage(filepath, _.bind(function(error, page){
-    this.pages.push(page);
-    this.build(function(error,results){
-      console.log(error, results);
-    });
-  }, this));
+  if(path.basename(filepath)[0] !== '_'){
+    this.loadPage(filepath, _.bind(function(error, page){
+      this.pages.push(page);
+      this.build(function(error,results){
+        console.log(error, results);
+      });
+    }, this));
+  }
 };
 
 Press.prototype.handlePageAdd = function(filepath){
