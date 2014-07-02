@@ -7,6 +7,9 @@ var yaml = require('js-yaml');
 var nunjucks  = require('nunjucks');
 var mkdirp = require('mkdirp');
 var marked = require('marked');
+var Gaze = require('gaze').Gaze;
+var fse = require('fs-extra');
+var minimatch = require('minimatch');
 
 var PressTemplateLoader = require('./lib/press-loader');
 var markdownHelpers = require('./lib/extensions/markdown-helpers');
@@ -17,6 +20,8 @@ var prettyUrls = require('./lib/extensions/pretty-urls');
 var pressUtils = require('./lib/utils');
 
 var markdownExt = /\.(md|markdown)/;
+var pageGlob = '**/*.+(md|markdown|html)';
+var dataGlob = '**/*.+(js|json|yaml|yml)';
 
 function Press(options){
   this.config = _.defaults(options, {
@@ -44,6 +49,164 @@ function Press(options){
     templates: path.join(this.config.root, this.config.src),
   }), this.config.nunjucks);
 }
+
+/**
+ * Press Watcher
+ */
+
+Press.prototype.startWatcher = function(){
+  var pageMatcher = path.join(this.config.src, pageGlob);
+  var dataMatcher = path.join(this.config.data, dataGlob);
+
+  console.log(pageMatcher, dataMatcher);
+
+  this.watcher = new Gaze([pageMatcher, dataMatcher]);
+
+  this.watcher.on('all', _.bind(function(e, filepath, oldpath){
+    filepath = filepath.replace(process.cwd() + path.sep, '');
+    oldpath = (oldpath) ? oldpath.replace(process.cwd() + path.sep, '') : undefined;
+
+    console.log('watched', e, filepath, oldpath);
+
+    if(e === 'renamed' && oldpath){
+      if(!minimatch(filepath, pageMatcher) && minimatch(oldpath, pageMatcher)){
+        console.log('handle page rename like delete');
+        this.handlePageDelete(oldpath);
+      } else if(minimatch(filepath, pageMatcher)) {
+        console.log('handle page rename');
+        this.handlePageRename(filepath, oldpath);
+      }
+      if(!minimatch(filepath, dataMatcher) && minimatch(oldpath, dataMatcher)){
+        console.log('handle data rename like delete');
+        this.handleDataDelete(oldpath);
+      } else if(minimatch(filepath, dataMatcher)) {
+        console.log('handle data rename');
+        this.handleDataRename(filepath, oldpath);
+      }
+    }
+
+    if(minimatch(filepath, pageMatcher)){
+      switch (e){
+        case 'added':
+          this.handlePageAdd(filepath);
+          break;
+        case 'changed':
+          this.handlePageChange(filepath);
+          break;
+        case 'deleted':
+          this.handlePageDelete(filepath);
+          break;
+      }
+    }
+
+    if(minimatch(filepath, dataMatcher)){
+      switch (e){
+        case 'added':
+          this.handleDataAdd(filepath);
+          break;
+        case 'changed':
+          this.handleDataChange(filepath);
+          break;
+        case 'deleted':
+          this.handleDataDelete(filepath);
+          break;
+      }
+    }
+  }, this));
+
+};
+
+Press.prototype._dirtyPagesWithData = function(name){
+  _.each(this.pages, function(page){
+    if(page.data && _.contains(page.data, name)){
+      page.dirty = true;
+    }
+  });
+};
+
+Press.prototype._rebuildPagesWithData = function(error, obj){
+  this.data[obj.name] = obj.data;
+  this._dirtyPagesWithData(obj.name);
+  this.build();
+};
+
+Press.prototype._removeData = function(name){
+  console.log('removing data keyed in', name);
+  delete this.data[name];
+};
+
+Press.prototype.handleDataAdd = function(filepath){
+  console.log('data add', filepath);
+  this.parseData(filepath, this._rebuildPagesWithData);
+};
+
+Press.prototype.handleDataChange = function(filepath){
+  console.log('data change', filepath);
+  this.parseData(filepath, this._rebuildPagesWithData);
+};
+
+Press.prototype.handleDataDelete = function(filepath){
+  console.log('data delete', filepath);
+  var name = pressUtils.getFilename(filepath);
+  this._removeData(name);
+  this._dirtyPagesWithData(name);
+  this.build();
+};
+
+Press.prototype.handleDataRename = function(newpath, oldpath){
+  console.log('data rename', newpath, oldpath);
+  var oldname = pressUtils.getFilename(oldpath);
+  this._removeData(oldname);
+  this._dirtyPagesWithData(oldname);
+  this.parseData(newpath, this._rebuildPagesWithData);
+};
+
+Press.prototype._removeOldPage = function(filepath){
+  filepath = filepath.replace(this.config.src + path.sep, '');
+  var page = _.remove(this.pages, {src: filepath})[0];
+  if(page && page.dest){
+    var buildpath = path.join(this.config.dest, page.dest);
+    fse.remove(buildpath);
+  }
+};
+
+Press.prototype._loadNewPage = function(filepath){
+  filepath = filepath.replace(path.join(this.config.root, this.config.src) + path.sep, '');
+  console.log(filepath);
+  this.loadPage(filepath, _.bind(function(error, page){
+    this.pages.push(page);
+    this.build(function(error,results){
+      console.log(error, results);
+    });
+  }, this));
+};
+
+Press.prototype.handlePageAdd = function(filepath){
+  console.log('page add', filepath);
+  this._loadNewPage(filepath);
+};
+
+Press.prototype.handlePageChange = function(filepath){
+  console.log('page change', filepath);
+  this._removeOldPage(filepath);
+  this._loadNewPage(filepath);
+};
+
+Press.prototype.handlePageDelete = function(filepath){
+  console.log('page delete', filepath);
+  this._removeOldPage(filepath);
+};
+
+Press.prototype.handlePageRename = function(newpath, oldpath){
+  console.log('page rename', newpath, oldpath);
+  this._removeOldPage(oldpath);
+  this._loadNewPage(newpath);
+};
+
+Press.prototype.stopWatcher = function(){
+  this.pageWatcher.close();
+  this.dataWatcher.close();
+};
 
 /**
  * Press Helpers
@@ -88,9 +251,7 @@ Press.prototype.use = function(extension){
  */
 
 Press.prototype.loadPages = function (callback) {
-  glob('**/*.+(md|markdown|html)',{
-    cwd: path.join(this.config.root, this.config.src)
-  }, this._loadPagesCallback(callback));
+  glob(path.join(this.config.src, pageGlob), this._loadPagesCallback(callback));
 };
 
 Press.prototype._loadPagesCallback = function (callback){
@@ -104,21 +265,22 @@ Press.prototype._loadPagesCallback = function (callback){
   }, this);
 };
 
-Press.prototype.loadPage = function(filePath, callback){
-  filePath = path.join(this.config.src, filePath);
-  fs.readFile(filePath, this._processPage(filePath, callback));
+Press.prototype.loadPage = function(filepath, callback){
+  console.log('loading', filepath);
+  fs.readFile(filepath, this._processPage(filepath, callback));
 };
 
-Press.prototype._processPage = function(filePath, callback){
+Press.prototype._processPage = function(filepath, callback){
   return _.bind(function(error, buffer){
-    var relativePath = filePath.replace(this.config.src + path.sep, '');
-    var isMarkdown = markdownExt.test(path.extname(relativePath));
+    var relativePath = filepath.replace(this.config.src + path.sep, '');
+    var markdown = markdownExt.test(path.extname(relativePath));
     var page = _.merge({
       src: relativePath,
-      template: filePath,
+      template: filepath,
       dest: relativePath.replace(markdownExt, '.html'),
-      markdown: isMarkdown
-    }, pressUtils.parseMetadata(buffer, filePath));
+      markdown: markdown,
+      dirty: true
+    }, pressUtils.parseMetadata(buffer, filepath));
     callback(error, page);
   },this);
 };
@@ -128,12 +290,12 @@ Press.prototype._processPage = function(filePath, callback){
  */
 
 Press.prototype.loadData = function (callback) {
-  glob(this.config.data + '**/*.+(json|js|yml|yaml)', this._loadDataCallback(callback));
+  glob(path.join(this.config.data, dataGlob), this._loadDataCallback(callback));
 };
 
 Press.prototype._loadDataCallback = function(callback){
   return _.bind(function(error, filePaths){
-    async.map(filePaths, this._parseData, this._postProcessData(callback));
+    async.map(filePaths, this.parseData, this._postProcessData(callback));
   }, this);
 };
 
@@ -145,9 +307,9 @@ Press.prototype._postProcessData = function(callback) {
   }, this);
 };
 
-Press.prototype._parseData = function (filePath, callback) {
+Press.prototype.parseData = function (filePath, callback) {
   var ext = path.extname(filePath);
-  var parseCallback = Press.prototype._parseDataCallback(callback);
+  var parseCallback = Press.prototype.parseDataCallback(callback);
 
   if(ext === '.js') {
     this._parseModuleData(filePath, parseCallback);
@@ -162,7 +324,7 @@ Press.prototype._parseData = function (filePath, callback) {
   }
 };
 
-Press.prototype._parseDataCallback = function(callback){
+Press.prototype.parseDataCallback = function(callback){
   return function (error, name, data){
     callback(error, {
       name: name,
@@ -171,28 +333,29 @@ Press.prototype._parseDataCallback = function(callback){
   };
 };
 
-Press.prototype._parseYamlData = function(filePath, callback){
-  var filename = pressUtils.getFilename(filePath);
+Press.prototype._parseYamlData = function(filepath, callback){
+  var filename = pressUtils.getFilename(filepath);
 
-  fs.readFile(path.join(this.config.root, filePath), function(error, content){
+  fs.readFile(filepath, function(error, content){
     // @TODO error handling
     callback(null, filename, yaml.safeLoad(content.toString()));
   });
 };
 
-Press.prototype._parseModuleData = function(filePath, callback){
-  var filename = pressUtils.getFilename(filePath);
-
-  require(path.join(this.config.root,filePath))(function(error, data){
+Press.prototype._parseModuleData = function(filepath, callback){
+  console.log(filepath);
+  var modulepath = path.join(this.config.root, filepath);
+  var filename = pressUtils.getFilename(filepath);
+  delete require.cache[modulepath];
+  require(modulepath)(function(error, data){
     // @TODO error handling
     callback(error, filename, data);
   });
 };
 
-Press.prototype._parseJsonData = function(filePath, callback){
-  var filename = pressUtils.getFilename(filePath);
-
-  fs.readFile(path.join(this.config.root, filePath), function(error, content){
+Press.prototype._parseJsonData = function(filepath, callback){
+  var filename = pressUtils.getFilename(filepath);
+  fs.readFile(filepath, function(error, content){
     // @TODO error handling
     callback(error, filename, JSON.parse(content.toString()));
   });
@@ -224,14 +387,20 @@ Press.prototype._loadCallback = function (callback) {
 Press.prototype.buildPage = function (page, callback){
   page.globals = this.globals;
   page.page = page;
-  if(!page.ignore){
+
+  if(page.ignore || !page.dirty){
+    callback(undefined, undefined);
+  } else {
+    console.log('building page', page.src);
     async.waterfall([
       this._setupPageBuild(page),
       this._renderPage(page),
       this._writePage(page),
-    ], callback);
-  } else {
-    callback(undefined, false);
+    ], function(error, bytes){
+      // @TODO catch error
+      page.dirty = false;
+      callback(error, bytes);
+    });
   }
 };
 
@@ -295,6 +464,7 @@ Press.prototype._renderNunjucksWithLayout = function (page, template, callback) 
 };
 
 Press.prototype.build = function(callback){
+  console.log('build');
   async.series([
     this.runExtensions,
     this.buildPages
@@ -306,12 +476,16 @@ Press.prototype.buildPages = function(callback){
 };
 
 Press.prototype.runExtensions = function(callback) {
+  var originalUse = this.use;
+  var extensions = this._extensions.slice(0);
+  var press = this;
+
   var checkForExtensions = _.bind(function(){
-    return this._extensions.length;
+    return extensions.length;
   }, this);
 
   var runNextExtension = _.bind(function(cb){
-    var extension = this._extensions.shift();
+    var extension = extensions.shift();
     extension(this, cb);
   },this);
 

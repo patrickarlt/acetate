@@ -13,5 +13,4 @@ module.exports = function (press) {
 
   press.layout('**/*', 'layouts/_layout:content');
   press.layout('posts/**/*', 'layouts/_post:post');
-
 };

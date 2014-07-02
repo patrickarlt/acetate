@@ -26,13 +26,7 @@ function startServer (press) {
 }
 
 function startWatcher (press) {
-  gaze(path.join(press.config.root, press.config.src, '**/*.+(html|md|markdown)'), function(err, watcher) {
-    watcher.on('all', function(event, filepath) {
-      clean(press, function (argument) {
-        rebuild(press);
-      });
-    });
-  });
+  press.startWatcher();
 }
 
 function clean (press, callback) {
@@ -55,22 +49,10 @@ function build (press) {
   });
 }
 
-function rebuild(press){
-  console.time('pressed in');
-  press.load(function(){
-    press.build(function(error, press){
-      console.timeEnd('pressed in');
-    });
-  });
-}
-
 setup(function (error, press) {
   var action = argv._[0];
-  if(action === 'watch' || action === 'server'){
+  if(action === 'watch'){
     startWatcher(press);
-  }
-  if(action === 'server'){
-    startServer(press);
   }
   clean(press, function (argument) {
     build(press);
