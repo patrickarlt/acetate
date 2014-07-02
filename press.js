@@ -337,8 +337,23 @@ Press.prototype._parseYamlData = function(filepath, callback){
   var filename = pressUtils.getFilename(filepath);
 
   fs.readFile(filepath, function(error, content){
-    // @TODO error handling
-    callback(null, filename, yaml.safeLoad(content.toString()));
+    if(error){
+      // @TODO warn about load error
+      callback(null, {});
+      return null;
+    }
+
+    var data = {};
+
+    try {
+      console.log('loading yaml');
+      var data = yaml.safeLoad(content.toString(), {
+        strict: true
+      });
+    } catch (e) {
+      console.log("yaml error!" + e);
+    }
+    callback(null, filename, data);
   });
 };
 
@@ -348,7 +363,10 @@ Press.prototype._parseModuleData = function(filepath, callback){
   var filename = pressUtils.getFilename(filepath);
   delete require.cache[modulepath];
   require(modulepath)(function(error, data){
-    // @TODO error handling
+    data = data || {};
+    if(error){
+      // @TODO warn about error
+    }
     callback(error, filename, data);
   });
 };
@@ -356,8 +374,16 @@ Press.prototype._parseModuleData = function(filepath, callback){
 Press.prototype._parseJsonData = function(filepath, callback){
   var filename = pressUtils.getFilename(filepath);
   fs.readFile(filepath, function(error, content){
-    // @TODO error handling
-    callback(error, filename, JSON.parse(content.toString()));
+    var data = {};
+
+    try {
+      data = JSON.parse(content.toString());
+    } catch() {
+      // @TODO warn about error
+      console.log('JSON Error');
+    }
+
+    callback(error, filename, data));
   });
 };
 
