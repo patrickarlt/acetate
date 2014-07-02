@@ -347,10 +347,11 @@ Press.prototype._parseYamlData = function(filepath, callback){
 
     try {
       console.log('loading yaml');
-      var data = yaml.safeLoad(content.toString(), {
+      data = yaml.safeLoad(content.toString(), {
         strict: true
       });
     } catch (e) {
+      // @TODO warn about load error
       console.log("yaml error!" + e);
     }
     callback(null, filename, data);
@@ -375,6 +376,11 @@ Press.prototype._parseJsonData = function(filepath, callback){
   var filename = pressUtils.getFilename(filepath);
   fs.readFile(filepath, function(error, content){
     var data = {};
+    if(error){
+      // @TODO warn about load error
+      callback(null, {});
+      return null;
+    }
 
     try {
       data = JSON.parse(content.toString());

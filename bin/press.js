@@ -6,8 +6,6 @@
 
 var path = require('path');
 var Press = require('../press');
-var gaze = require('gaze');
-var rimraf = require('rimraf');
 var static = require('node-static');
 
 var argv = require('yargs')
@@ -51,6 +49,10 @@ function build (press) {
 
 setup(function (error, press) {
   var action = argv._[0];
+  if(action === 'server'){
+    startServer(press);
+    startWatcher(press);
+  }
   if(action === 'watch'){
     startWatcher(press);
   }
