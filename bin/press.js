@@ -6,6 +6,7 @@
 
 var path = require('path');
 var Press = require('../press');
+var rimraf = require('rimraf');
 var static = require('node-static');
 
 var argv = require('yargs')

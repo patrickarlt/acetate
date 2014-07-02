@@ -16,6 +16,7 @@ var markdownHelpers = require('./lib/extensions/markdown-helpers');
 var metadataInjector = require('./lib/extensions/metadata');
 var dataInjector = require('./lib/extensions/data');
 var statsInjector = require('./lib/extensions/stats');
+var codeHighlighting = require('./lib/extensions/code-highlighting');
 var prettyUrls = require('./lib/extensions/pretty-urls');
 var pressUtils = require('./lib/utils');
 
@@ -375,21 +376,22 @@ Press.prototype._parseModuleData = function(filepath, callback){
 Press.prototype._parseJsonData = function(filepath, callback){
   var filename = pressUtils.getFilename(filepath);
   fs.readFile(filepath, function(error, content){
-    var data = {};
     if(error){
       // @TODO warn about load error
       callback(null, {});
       return null;
     }
 
+    var data = {};
+
     try {
       data = JSON.parse(content.toString());
-    } catch() {
+    } catch (e) {
       // @TODO warn about error
       console.log('JSON Error');
     }
 
-    callback(error, filename, data));
+    callback(error, filename, data);
   });
 };
 
@@ -532,6 +534,7 @@ function createPress(options, callback){
   var press = new Press(options);
   press.load(function(error){
     press.use(markdownHelpers);
+    press.use(codeHighlighting);
     callback(undefined, press);
     press.use(prettyUrls);
     press.use(dataInjector);

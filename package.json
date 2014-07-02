@@ -37,6 +37,7 @@
     "gaze": "~0.6.4",
     "node-static": "~0.7.3",
     "rimraf": "~2.2.8",
-    "fs-extra": "~0.10.0"
+    "fs-extra": "~0.10.0",
+    "highlight.js": "~8.0.0"
   }
 }

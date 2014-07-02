@@ -12,7 +12,6 @@
 * Error Handling
 * Logging
 * Collections
-* Progressive Rebuild(watch/server)?
 * Grunt Task!
 * Docs
 * Code Highlighting
