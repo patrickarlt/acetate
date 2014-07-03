@@ -35,8 +35,9 @@ function clean (press, callback) {
 }
 
 function setup (callback) {
-  Press({}, function(error, press){
-    require(path.join(process.cwd(), argv.config))(press);
+  var config = require(path.join(process.cwd(), argv.config));
+  Press(config.options, function(error, press){
+    config(press);
     callback(error, press);
   });
 }
