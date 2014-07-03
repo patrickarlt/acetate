@@ -14,6 +14,8 @@ var minimatch = require('minimatch');
 var PressTemplateLoader = require('./lib/press-loader');
 var markdownHelpers = require('./lib/extensions/markdown-helpers');
 var metadataInjector = require('./lib/extensions/metadata');
+var collectionInjector = require('./lib/extensions/collection-injector');
+var collectionBuilder = require('./lib/extensions/collection-builder');
 var dataInjector = require('./lib/extensions/data');
 var statsInjector = require('./lib/extensions/stats');
 var codeHighlighting = require('./lib/extensions/code-highlighting');
@@ -40,7 +42,7 @@ function Press(options){
 
   this._extensions = [];
   this.pages = [];
-
+  this.collections = {};
   this.globals = {};
 
   this.marked = marked;
@@ -243,8 +245,8 @@ Press.prototype.layout = function(pattern, layout){
   }));
 };
 
-Press.prototype.collect = function(){
-  // todo
+Press.prototype.collect = function(name, pattern){
+  this._extensions.push(collectionBuilder(name, pattern));
 };
 
 Press.prototype.global = function(key, value){
@@ -495,7 +497,10 @@ Press.prototype._renderMarkdown = function (page, template, callback) {
     _.partial(this._renderNunjucks, page, template),
     this.marked,
     _.partial(this._renderNunjucksWithLayout, page),
-  ], callback);
+  ], function(error, result){
+    console.log(error, result);
+    callback(error, result);
+  });
 };
 
 Press.prototype._renderNunjucks = function (page, template, callback) {
@@ -553,6 +558,7 @@ function createPress(options, callback){
     press.use(prettyUrls);
     press.use(dataInjector);
     press.use(statsInjector);
+    press.use(collectionInjector);
   });
 }
 

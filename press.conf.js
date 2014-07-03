@@ -11,6 +11,8 @@ module.exports = function (press) {
 
   press.ignore('ignore-me.html');
 
+  press.collect('blog', 'posts/**/*');
+
   press.layout('**/*', 'layouts/_layout:content');
   press.layout('posts/**/*', 'layouts/_post:post');
 };

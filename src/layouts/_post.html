@@ -7,6 +7,13 @@
 
 {% block content %}
   <main>
+    <aside>
+      <ul>
+        {% for post in blog.sortBy('title').value() %}
+          <li>{{ post.title }}</li>
+        {% endfor %}
+      </ul>
+    </aside>
     <h1> {{title}} </h1>
     <h3> {{ description }}</h3>
     {% block post %}{% endblock %}

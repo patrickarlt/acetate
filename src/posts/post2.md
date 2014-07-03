@@ -1,17 +1,17 @@
 ---
-title: Hello Blog
+title: 2nd Post
 description: My first blog post.
 layout: layouts/_post:post
 ---
 
 My post...
 
-```js
+``` js
 var foo = {
-    key: 'value'
+    bar: 'baz'
 };
 
-function bar(obj){
+function blog(obj){
     console.log('key', obj.key);
 };
 ```
