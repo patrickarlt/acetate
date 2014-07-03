@@ -9,7 +9,7 @@
   <main>
     <aside>
       <ul>
-        {% for post in blog.sortBy('title').value() %}
+        {% for post in blog|sort(false, false, "title") %}
           <li>{{ post.title }}</li>
         {% endfor %}
       </ul>

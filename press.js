@@ -69,66 +69,51 @@ Press.prototype.startWatcher = function(){
   var pageMatcher = path.join(this.config.src, pageGlob);
   var dataMatcher = path.join(this.config.data, dataGlob);
 
-  console.log(pageMatcher, dataMatcher);
-
   this.watcher = new Gaze([pageMatcher, dataMatcher]);
 
-  this.watcher.on('all', _.bind(function(e, filepath, oldpath){
+  this.watcher.on('renamed', _.bind(function(filepath, oldpath){
     filepath = filepath.replace(process.cwd() + path.sep, '');
     oldpath = (oldpath) ? oldpath.replace(process.cwd() + path.sep, '') : undefined;
 
-    console.log('watched', e, filepath, oldpath);
-
-    if(e === 'renamed' && oldpath){
-      if(!minimatch(filepath, pageMatcher) && minimatch(oldpath, pageMatcher)){
-        console.log('handle page rename like delete');
-        this._invalidateNunjucksCache(oldpath);
-        this.handlePageDelete(oldpath);
-      } else if(minimatch(filepath, pageMatcher)) {
-        console.log('handle page rename');
-        this._invalidateNunjucksCache(oldpath);
-        this._invalidateNunjucksCache(filepath);
-        this.handlePageRename(filepath, oldpath);
-      }
-      if(!minimatch(filepath, dataMatcher) && minimatch(oldpath, dataMatcher)){
-        console.log('handle data rename like delete');
-        this.handleDataDelete(oldpath);
-      } else if(minimatch(filepath, dataMatcher)) {
-        console.log('handle data rename');
-        this.handleDataRename(filepath, oldpath);
-      }
-    }
-
-    if(minimatch(filepath, pageMatcher)){
+    if(!minimatch(filepath, pageMatcher) && minimatch(oldpath, pageMatcher)){
+      console.log('handle page rename like delete');
+      this._invalidateNunjucksCache(oldpath);
+      this.handlePageDelete(oldpath);
+    } else if(minimatch(filepath, pageMatcher)) {
+      console.log('handle page rename');
+      this._invalidateNunjucksCache(oldpath);
       this._invalidateNunjucksCache(filepath);
-      switch (e){
-        case 'added':
-          this.handlePageAdd(filepath);
-          break;
-        case 'changed':
-          this.handlePageChange(filepath);
-          break;
-        case 'deleted':
-          this.handlePageDelete(filepath);
-          break;
-      }
+      this.handlePageRename(filepath, oldpath);
     }
 
-    if(minimatch(filepath, dataMatcher)){
-      switch (e){
-        case 'added':
-          this.handleDataAdd(filepath);
-          break;
-        case 'changed':
-          this.handleDataChange(filepath);
-          break;
-        case 'deleted':
-          this.handleDataDelete(filepath);
-          break;
-      }
+    if(!minimatch(filepath, dataMatcher) && minimatch(oldpath, dataMatcher)){
+      console.log('handle data rename like delete');
+      this.handleDataDelete(oldpath);
+    } else if(minimatch(filepath, dataMatcher)) {
+      console.log('handle data rename');
+      this.handleDataRename(filepath, oldpath);
     }
   }, this));
 
+  this.watcher.on('changed', _.bind(function(filepath){
+    filepath = filepath.replace(process.cwd() + path.sep, '');
+    if(minimatch(filepath, pageMatcher)){
+      this.handlePageChange(filepath);
+    }
+    if(minimatch(filepath, dataMatcher)){
+     this.handleDataChange(filepath);
+    }
+  }, this));
+
+  this.watcher.on('deleted', _.bind(function(filepath){
+    filepath = filepath.replace(process.cwd() + path.sep, '');
+    if(minimatch(filepath, pageMatcher)){
+      this.handlePageDelete(filepath);
+    }
+    if(minimatch(filepath, dataMatcher)){
+     this.handleDataDelete(filepath);
+    }
+  }, this));
 };
 
 Press.prototype._dirtyPagesWithData = function(name){
@@ -191,9 +176,7 @@ Press.prototype._loadNewPage = function(filepath){
   if(path.basename(filepath)[0] !== '_'){
     this.loadPage(filepath, _.bind(function(error, page){
       this.pages.push(page);
-      this.build(function(error,results){
-        console.log(error, results);
-      });
+      this.build();
     }, this));
   }
 };
@@ -221,8 +204,7 @@ Press.prototype.handlePageRename = function(newpath, oldpath){
 };
 
 Press.prototype.stopWatcher = function(){
-  this.pageWatcher.close();
-  this.dataWatcher.close();
+  this.watcher.close();
 };
 
 /**
@@ -497,10 +479,7 @@ Press.prototype._renderMarkdown = function (page, template, callback) {
     _.partial(this._renderNunjucks, page, template),
     this.marked,
     _.partial(this._renderNunjucksWithLayout, page),
-  ], function(error, result){
-    console.log(error, result);
-    callback(error, result);
-  });
+  ], callback);
 };
 
 Press.prototype._renderNunjucks = function (page, template, callback) {

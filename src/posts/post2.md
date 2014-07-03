@@ -1,5 +1,5 @@
 ---
-title: 2nd Post
+title: B
 description: My first blog post.
 layout: layouts/_post:post
 ---
