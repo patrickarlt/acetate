@@ -1,9 +1,5 @@
 #!/usr/bin/env node
 
-// watch
-// serve
-// build
-
 var path = require('path');
 var Press = require('../press');
 var rimraf = require('rimraf');

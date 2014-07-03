@@ -31,6 +31,7 @@ function Press(options){
     dest: 'build',
     src: 'src',
     data: 'data',
+    metadataBuffer: 1024,
     root: process.cwd(),
     nunjucks: {},
     marked: {}
