@@ -11,7 +11,7 @@ function config(press) {
 
   press.ignore('ignore-me.html');
 
-  press.collect('blog', 'posts/**/*');
+  press.collection('blog', 'posts/**/*');
 
   press.layout('**/*', 'layouts/_layout:content');
   press.layout('posts/**/*', 'layouts/_post:post');

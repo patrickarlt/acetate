@@ -14,9 +14,9 @@ var argv = require('yargs')
 function startServer (press) {
   var file = new static.Server(path.join(press.config.root, press.config.dest));
   require('http').createServer(function (request, response) {
-      request.addListener('end', function () {
-          file.serve(request, response);
-      }).resume();
+    request.addListener('end', function () {
+      file.serve(request, response);
+    }).resume();
   }).listen(argv.port);
 }
 
