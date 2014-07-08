@@ -5,7 +5,6 @@ var fs = require('fs');
 var path = require('path');
 var yaml = require('js-yaml');
 var nunjucks  = require('nunjucks');
-var mkdirp = require('mkdirp');
 var marked = require('marked');
 var Gaze = require('gaze').Gaze;
 var fse = require('fs-extra');
@@ -21,6 +20,7 @@ var codeHighlighting = require('./lib/extensions/code-highlighting');
 var prettyUrls = require('./lib/extensions/pretty-urls');
 var pressUtils = require('./lib/utils');
 var relativeUrls = require('./lib/extensions/relative-path');
+var Page = require('./lib/page');
 
 var markdownExt = /\.(md|markdown)/;
 var pageGlob = '**/*.+(md|markdown|html)';
@@ -266,23 +266,18 @@ Press.prototype._loadPagesCallback = function (callback){
 };
 
 Press.prototype.loadPage = function(filepath, callback){
-  console.log('loading', filepath);
-  fs.readFile(filepath, this._processPage(filepath, callback));
-};
-
-Press.prototype._processPage = function(filepath, callback){
-  return _.bind(function(error, buffer){
+  fs.readFile(filepath, _.bind(function(error, buffer){
     var relativePath = filepath.replace(this.config.src + path.sep, '');
     var markdown = markdownExt.test(path.extname(relativePath));
-    var page = _.merge({
+    var metadata = _.merge({
       src: relativePath,
       template: filepath,
       dest: relativePath.replace(markdownExt, '.html'),
       markdown: markdown,
       dirty: true
     }, pressUtils.parseMetadata(buffer, filepath));
-    callback(error, page);
-  },this);
+    callback(error, new Page(metadata, this));
+  },this));
 };
 
 /**
@@ -417,85 +412,6 @@ Press.prototype._loadCallback = function (callback) {
  * Press Building
  */
 
-Press.prototype.buildPage = function (page, callback){
-  page.globals = this.globals;
-  page.page = page;
-
-  if(page.ignore || !page.dirty){
-    callback(undefined, undefined);
-  } else {
-    console.log('building page', page.src);
-    async.waterfall([
-      this._setupPageBuild(page),
-      this._renderPage(page),
-      this._writePage(page),
-    ], function(error, bytes){
-      // @TODO catch error
-      page.dirty = false;
-      callback(error, bytes);
-    });
-  }
-};
-
-Press.prototype._setupPageBuild = function(page){
-  var outputDir =  path.join(this.config.root, this.config.dest, path.dirname(page.dest));
-
-  return function(callback){
-    async.parallel({
-      directory: function(cb){
-        mkdirp(outputDir, cb);
-      },
-      template: function(cb){
-        fs.readFile(page.template, function(error, buffer){
-          cb(error, pressUtils.parseBody(buffer.toString()));
-        });
-      }
-    }, function(error, results){
-      callback(error, results.template);
-    });
-  };
-};
-
-Press.prototype._renderPage = function(page){
-  return _.bind(function(template, callback){
-    if(page.markdown){
-      this._renderMarkdown(page, template, callback);
-    } else {
-      this._renderNunjucksWithLayout(page, template, callback);
-    }
-  }, this);
-};
-
-Press.prototype._writePage = function (page){
-  var outputPath = path.join(this.config.root, this.config.dest, page.dest);
-  return _.bind(function(html, callback){
-    fs.writeFile(outputPath, html, function(error, bytes){
-      callback(error, bytes);
-    });
-  }, this);
-};
-
-Press.prototype._renderMarkdown = function (page, template, callback) {
-  async.waterfall([
-    _.partial(this._renderNunjucks, page, template),
-    this.marked,
-    _.partial(this._renderNunjucksWithLayout, page),
-  ], callback);
-};
-
-Press.prototype._renderNunjucks = function (page, template, callback) {
-  this.nunjucks.renderString(template, page, callback);
-};
-
-Press.prototype._renderNunjucksWithLayout = function (page, template, callback) {
-  if(page.layout){
-    var parent = page.layout.split(':')[0];
-    var block = page.layout.split(':')[1];
-    template = "{% extends '" + parent + "' %}\n{% block " + block + " %}\n" + template + "\n{% endblock %}";
-  }
-  this.nunjucks.renderString(template, page, callback);
-};
-
 Press.prototype.build = function(callback){
   console.log('build');
   async.series([
@@ -505,7 +421,9 @@ Press.prototype.build = function(callback){
 };
 
 Press.prototype.buildPages = function(callback){
-  async.each(this.pages, this.buildPage, callback);
+  async.each(this.pages, _.bind(function(page, callback){
+    page._build(callback);
+  }, this), callback);
 };
 
 Press.prototype.runExtensions = function(callback) {
