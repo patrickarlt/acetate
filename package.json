@@ -1,17 +1,17 @@
 {
-  "name": "press",
+  "name": "acetate",
   "version": "0.0.1",
-  "description": "An HTML layout and templating framework for static websites.",
+  "description": "Layout and templating framework for static websites.",
   "main": "index.js",
   "scripts": {
     "test": "npm test"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:patrickarlt/press.git"
+    "url": "git@github.com:patrickarlt/acetate.git"
   },
   "bin": {
-    "press": "./bin/press.js"
+    "acetate": "./bin/acetate.js"
   },
   "keywords": [
     "static",
@@ -22,7 +22,7 @@
   "author": "Patrick Arlt",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/patrickarlt/press/issues"
+    "url": "https://github.com/patrickarlt/acetate/issues"
   },
   "dependencies": {
     "lodash": "~2.4.1",
