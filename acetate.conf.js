@@ -1,4 +1,4 @@
-function config(acetate) {
+module.exports = function (acetate) {
   acetate.global('config', {
     environment: 'dev'
   });
@@ -11,11 +11,4 @@ function config(acetate) {
 
   acetate.layout('**/*', 'layouts/_layout:content');
   acetate.layout('posts/**/*', 'layouts/_post:post');
-
-}
-
-config.options = {
-  src: 'src'
 };
-
-module.exports = config;

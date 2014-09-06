@@ -1,6 +1,6 @@
 ---
 title: I'm Markdown!
-description: Press easily handles Markdown
+description: Acetate easily handles Markdown
 layout: _layout:content
 ---
 
@@ -8,4 +8,4 @@ layout: _layout:content
 
 {{description}}
 
-Press is great!
+Acetate is great!

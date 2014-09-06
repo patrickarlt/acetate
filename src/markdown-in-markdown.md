@@ -8,6 +8,6 @@ layout: _layout:content
 
 {{description}}
 
-Press is great!
+Acetate is great!
 
 {% include '_shared-markdown' %}
