@@ -10,8 +10,10 @@ var argv = require('yargs')
       .default('port', 3000)
       .default('config', 'acetate.conf.js').argv;
 
-Acetate.init(path.join(process.cwd(), argv.config), function(error, acetate){
+Acetate.init(function(error, acetate){
   var action = argv._[0];
+
+  acetate.loadConfig(argv.config);
 
   if(action === 'server'){
     var file = new static.Server(path.join(acetate.root, acetate.dest));

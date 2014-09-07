@@ -1,10 +1,10 @@
 {
   "name": "acetate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Layout and templating framework for static websites.",
-  "main": "index.js",
+  "main": "acetate.js",
   "scripts": {
-    "test": "npm test"
+    "test": "./node_modules/tape/bin/tape test/*.js | ./node_modules/tap-dot/bin/dot"
   },
   "repository": {
     "type": "git",
@@ -40,5 +40,11 @@
     "fs-extra": "~0.10.0",
     "highlight.js": "~8.0.0",
     "minimist": "~1.1.0"
+  },
+  "devDependencies": {
+    "tap": "^0.4.12",
+    "tap-dot": "^0.2.3",
+    "tap-min": "^0.1.0",
+    "tape": "^2.14.0"
   }
 }

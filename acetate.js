@@ -23,21 +23,17 @@ var relativeUrls = require('./lib/extensions/relative-path');
 var Page = require('./lib/page');
 var AcetateWatcher = require('./lib/acetate-watcher');
 
-var markdownExt = /\.(md|markdown)/;
-var pageGlob = '**/*.+(md|markdown|html)';
-var dataGlob = '**/*.+(js|json|yaml|yml)';
-
-function Acetate(configPath){
-  var config = require(configPath);
-  var defaults = {
+function Acetate(){
+  this.options = {
     dest: 'build',
     src: 'src',
     data: 'data',
     root: process.cwd(),
-    autoescape: true
+    markdownExt: /\.(md|markdown)/,
+    pageMatcher: '**/*.+(md|markdown|html)',
+    dataMatcher: '**/*.+(js|json|yaml|yml)'
   };
 
-  _.extend(this, defaults);
   _.bindAll(this);
 
   this.args = require('minimist')(process.argv.slice(2));
@@ -47,27 +43,25 @@ function Acetate(configPath){
   this.collections = {};
   this.globals = {};
 
-  config(this);
-
   this.marked = marked;
 
   this.nunjucks = new nunjucks.Environment(new AcetateTemplateLoader({
-    templates: path.join(this.root, this.src),
-  }),{
-    autoescape: this.autoescape
-  });
+    templates: path.join(process.cwd(), this.options.src),
+  }));
 
   this.watcher = new AcetateWatcher(this);
 }
 
-Acetate.prototype.clean = function(callback){
-  this.runExtensions(this.cleanCallback(callback));
+Acetate.prototype.loadConfig = function(configPath){
+  require(path.join(process.cwd(), configPath))(this);
 };
 
-Acetate.prototype.cleanCallback= function(callback){
-  async.each(this.pages, function(page, callback){
-    page.clean(callback);
-  }, callback);
+Acetate.prototype.clean = function(callback){
+  this.runExtensions(_.bind(function(){
+    async.each(this.pages, function(page, cb){
+      page.clean(cb);
+    }, callback);
+  }, this));
 };
 
 /**
@@ -113,7 +107,7 @@ Acetate.prototype.use = function(extension){
  */
 
 Acetate.prototype.loadPages = function (callback) {
-  glob(path.join(this.src, pageGlob), this._loadPagesCallback(callback));
+  glob(path.join(this.options.src, this.options.pageMatcher), this._loadPagesCallback(callback));
 };
 
 Acetate.prototype._loadPagesCallback = function (callback){
@@ -129,12 +123,12 @@ Acetate.prototype._loadPagesCallback = function (callback){
 
 Acetate.prototype.loadPage = function(filepath, callback){
   fs.readFile(filepath, _.bind(function(error, buffer){
-    var relativePath = filepath.replace(this.src + path.sep, '');
-    var markdown = markdownExt.test(path.extname(relativePath));
+    var relativePath = filepath.replace(this.options.src + path.sep, '');
+    var markdown = this.options.markdownExt.test(path.extname(relativePath));
     var metadata = _.merge({
       src: relativePath,
       template: filepath,
-      dest: relativePath.replace(markdownExt, '.html'),
+      dest: relativePath.replace(this.options.markdownExt, '.html'),
       markdown: markdown,
       dirty: true
     }, acetateUtils.parseMetadata(buffer, filepath));
@@ -147,7 +141,7 @@ Acetate.prototype.loadPage = function(filepath, callback){
  */
 
 Acetate.prototype.loadData = function (callback) {
-  glob(path.join(this.data, dataGlob), this._loadDataCallback(callback));
+  glob(path.join(this.options.data, this.options.dataMatcher), this._loadDataCallback(callback));
 };
 
 Acetate.prototype._loadDataCallback = function(callback){
@@ -215,7 +209,7 @@ Acetate.prototype._parseYamlData = function(filepath, callback){
 };
 
 Acetate.prototype._parseModuleData = function(filepath, callback){
-  var modulepath = path.join(this.root, filepath);
+  var modulepath = path.join(process.cwd(), filepath);
   var filename = acetateUtils.getFilename(filepath);
   delete require.cache[modulepath];
   require(modulepath)(function(error, data){
@@ -281,7 +275,7 @@ Acetate.prototype.build = function(callback){
 
 Acetate.prototype.buildPages = function(callback){
   async.each(this.pages, _.bind(function(page, callback){
-    page._build(callback);
+    page.build(callback);
   }, this), callback);
 };
 
@@ -305,8 +299,8 @@ Acetate.prototype.runExtensions = function(callback) {
  * Exports
  */
 
-function init(configPath, callback){
-  var acetate = new Acetate(configPath);
+function init(callback){
+  var acetate = new Acetate();
 
   acetate.use(markdownHelpers);
   acetate.use(codeHighlighting);
