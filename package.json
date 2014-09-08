@@ -1,6 +1,6 @@
 {
   "name": "acetate",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Layout and templating framework for static websites.",
   "main": "acetate.js",
   "scripts": {
@@ -42,9 +42,7 @@
     "minimist": "~1.1.0"
   },
   "devDependencies": {
-    "tap": "^0.4.12",
     "tap-dot": "^0.2.3",
-    "tap-min": "^0.1.0",
     "tape": "^2.14.0"
   }
 }

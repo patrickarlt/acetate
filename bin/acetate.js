@@ -13,7 +13,7 @@ var argv = require('yargs')
 Acetate.init(function(error, acetate){
   var action = argv._[0];
 
-  acetate.loadConfig(argv.config);
+  acetate.loadConfig(path.join(process.cwd(), argv.config));
 
   if(action === 'server'){
     var file = new static.Server(path.join(acetate.root, acetate.dest));

@@ -53,7 +53,7 @@ function Acetate(){
 }
 
 Acetate.prototype.loadConfig = function(configPath){
-  require(path.join(process.cwd(), configPath))(this);
+  require(configPath)(this);
 };
 
 Acetate.prototype.clean = function(callback){
