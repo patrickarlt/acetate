@@ -43,6 +43,13 @@
     "yargs": "~1.2.6"
   },
   "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-escomplex": "^1.0.0",
+    "gulp-escomplex-reporter-html": "^1.0.0",
+    "gulp-jshint": "^1.8.4",
+    "gulp-shell": "^0.2.9",
+    "istanbul": "^0.3.2",
+    "jshint-stylish": "^1.0.0",
     "tap-dot": "^0.2.3",
     "tape": "^2.14.0"
   }
