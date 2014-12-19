@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Acetate | Site</title>
+  
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+  
+</head>
+<body>
+
+  <nav class="navigation ">
+    <div class="container">
+      <a href="../">Acetate</a>
+      <div class="right">
+        <a href="../" class="">Getting Started</a>
+        <a href="..//documentation/" class="is-active">Documentation</a>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  
+  <div class="layout-sidebar">
+    <aside>
+      <nav>
+        <section>
+          <h3>Configuration</h3>
+          <ul>
+            <li><a href="">Basic Example</a></li>
+            <li><a href="">Options</a></li>
+            <li><a href="">Globals</a></li>
+            <li><a href="">Extensions</a></li>
+            <li><a href="">Sources</a></li>
+            <li><a href="">Command-line Flags</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Pages</h3>
+          <ul>
+            <li><a href="">Creating Pages</a></li>
+            <li><a href="">Metadata</a></li>
+            <li><a href="">Templating</a></li>
+            <li><a href="">Built-in Helpers</a></li>
+            <li><a href="">Layouts</a></li>
+            <li><a href="">Nested Layouts</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Data</h3>
+          <ul>
+            <li><a href="">Loading Data</a></li>
+            <li><a href="">YAML</a></li>
+            <li><a href="">JSON</a></li>
+            <li><a href="">JavaScript</a></li>
+            <li><a href="">Accessing Data</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Collections</h3>
+            <ul>
+              <li><a href="">Creating Collections</a></li>
+              <li><a href="">Using Collections</a></li>
+            </ul>
+        </section>
+
+        <section>
+          <h3>Custom Extensions</h3>
+          <ul>
+            <li><a href="">Basic Example</a></li>
+            <li><a href="">Extending Nunjucks</a></li>
+            <li><a href="">Extending Markdown</a></li>
+          </ul>
+        </section>
+      </nav>
+    </aside>
+
+    <article>
+      
+<h1 id="configuration">Configuration</h1>
+<p>Configuration is handled in the <code>acetate.conf.js</code> file. Besides setting where your source and build folders are, you can also set up environments, global variables, load extensions, configure <code>collections</code>, and ignore files.</p>
+<h2 id="basic-example">Basic Example</h2>
+<p>A basic working <code>acetate.conf.js</code> could look something like this:</p>
+<pre><code><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(acetate)</span></span> {
+  acetate.global(<span class="hljs-string">'config'</span>, {
+    environment: <span class="hljs-string">'dev'</span>
+  });
+
+  acetate.layout(<span class="hljs-string">'**/*'</span>, <span class="hljs-string">'layouts/_layout:content'</span>);
+
+  acetate.options.src = <span class="hljs-string">'source/'</span>;
+  acetate.options.dest = <span class="hljs-string">'build/'</span>;
+};
+</code></pre><p>This does four things:</p>
+<ol>
+<li>Creates a &#39;dev&#39; environment. This is useful if you&#39;d like to have multiple environments.</li>
+<li>Assigns a default layout. All pages&#39; content will be inserted into the content block of <code>layouts/_layouts.html</code>.</li>
+<li>Sets the source folder. All source files will be kept in <code>source/</code>.</li>
+<li>Sets the build folder. Running <code>acetate</code> will build the site to <code>build/</code>.</li>
+</ol>
+<h2 id="options">Options</h2>
+<p>The <code>acetate.options</code> object can has a variety of properties you can set from the config. You set these in your <code>acetate.conf.js</code> by assigning the property to the string you&#39;d like to use, like this:</p>
+<pre><code>acetate.options.src = <span class="hljs-string">'source'</span>;
+</code></pre><p>Properties on the options object you can set from the config:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dest</td>
+<td>Folder you&#39;d like to build the site to</td>
+<td><code>&#39;build&#39;</code></td>
+</tr>
+<tr>
+<td>src</td>
+<td>Folder containing the site&#39;s source files</td>
+<td><code>&#39;src&#39;</code></td>
+</tr>
+<tr>
+<td>data</td>
+<td>Folder containing data files (json, js, yml)</td>
+<td><code>&#39;data&#39;</code></td>
+</tr>
+<tr>
+<td>root</td>
+<td>Root directory for the acetate folder</td>
+<td><code>process.cwd()</code></td>
+</tr>
+<tr>
+<td>markdownExt</td>
+<td>RegEx for the markdown file extension</td>
+<td><code>/.(md&#124;markdown)/</code></td>
+</tr>
+<tr>
+<td>pageMatcher</td>
+<td>Blob of all files that should become pages</td>
+<td><code><em>*/</em>.+(md&#124;markdown&#124;html)</code></td>
+</tr>
+<tr>
+<td>dataMathcer</td>
+<td>Blob of all files that can be site data</td>
+<td><code><em>*/</em>.+(js&#124;json&#124;yaml&#124;yml)</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="global">Global</h1>
+<h1 id="layouts">Layouts</h1>
+<h1 id="options">Options</h1>
+<h1 id="collections">Collections</h1>
+
+
+    </article>
+  </div>
+
+  
+</body>
+</html>
