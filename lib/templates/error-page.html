@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Error | Acetate</title>
+    <style>
+      body {
+        background: #f1f1f1;
+        font-family: monospace;
+        font-weight: 500;
+      }
+
+      .error {
+        display: table;
+        background: #C22B18;
+        font-size: 1.5em;
+        padding: 1.5em;
+        max-width: 75%;
+        margin: 20% auto;
+        color: #f1f1f1;
+      }
+
+      h1 {
+        font-weight: 500;
+        margin: 0 0 1em 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error">
+      <h1>Error building {{template}}</h1>
+      <code>{{error}}</code>
+    <div>
+  </body>
+</html>
