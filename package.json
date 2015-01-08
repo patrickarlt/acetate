@@ -39,6 +39,7 @@
     "opener": "^1.4.0",
     "portscanner": "^1.0.0",
     "rimraf": "~2.2.8",
+    "slug": "^0.8.0",
     "winston": "^0.7.3",
     "yargs": "~1.2.6"
   },
