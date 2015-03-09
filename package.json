@@ -41,7 +41,7 @@
     "rimraf": "~2.2.8",
     "slug": "^0.8.0",
     "winston": "^0.7.3",
-    "yargs": "~1.2.6"
+    "yargs": "^3.4.5"
   },
   "devDependencies": {
     "gulp": "^3.8.8",
