@@ -1,6 +1,6 @@
 {
   "name": "acetate",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Layout and templating framework for static websites.",
   "main": "lib/index.js",
   "scripts": {
@@ -40,7 +40,6 @@
     "portscanner": "^1.0.0",
     "rimraf": "~2.2.8",
     "slug": "^0.8.0",
-    "winston": "^0.7.3",
     "yargs": "^3.4.5"
   },
   "devDependencies": {
