@@ -1,23 +1,8 @@
 {
   "name": "acetate",
-  "version": "0.0.12",
   "description": "Layout and templating framework for static websites.",
-  "main": "lib/index.js",
-  "scripts": {
-    "test": "./node_modules/tape/bin/tape test/*.js | ./node_modules/tap-dot/bin/dot"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:patrickarlt/acetate.git"
-  },
-  "keywords": [
-    "static",
-    "site",
-    "template",
-    "templating"
-  ],
+  "version": "0.0.12",
   "author": "Patrick Arlt",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/patrickarlt/acetate/issues"
   },
@@ -52,5 +37,21 @@
     "jshint-stylish": "^1.0.0",
     "tap-dot": "^0.2.3",
     "tape": "^2.14.0"
+  },
+  "homepage": "https://github.com/patrickarlt/acetate",
+  "keywords": [
+    "site",
+    "static",
+    "template",
+    "templating"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:patrickarlt/acetate.git"
+  },
+  "scripts": {
+    "test": "./node_modules/tape/bin/tape test/*.js | ./node_modules/tap-dot/bin/dot"
   }
 }
