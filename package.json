@@ -52,6 +52,6 @@
     "url": "git@github.com:patrickarlt/acetate.git"
   },
   "scripts": {
-    "test": "./node_modules/tape/bin/tape test/*.js | ./node_modules/tap-dot/bin/dot"
+    "test": "tape test/*.js | tap-dot"
   }
 }
