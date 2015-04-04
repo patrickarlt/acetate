@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <nav class="navigation fade-in delay-3 on-blue">
+  <nav class="navigation fade-in delay-1 on-blue">
     <div class="container">
       <a href="">Acetate</a>
       <div class="right">
@@ -21,10 +21,15 @@
   </nav>
 
   
+
 <!-- Top Banner -->
 <div class="banner fade-in">
 
-  <h1 class="logo fade-in delay-2">Acetate</h1>
+  <div class="logo">
+    <h1 class="fade-in delay-1">Acetate</h1>
+    <h2 class="fade-in delay-2">A Node.js Static Site Generator</h2>
+    <p class="fade-in delay-2">A static site generator with a focus on extensibility and easy integration into existing toolchains.</p>
+  </div>
 
   <!-- Floating Graphics -->
   <span class="files"></span><span class="files center"></span><span class="files back"></span>
@@ -35,11 +40,7 @@
 <!-- Article acts as Container -->
 <article class="padded">
 
-<h1 id="a-node-js-static-site-generator">A Node.js Static Site Generator</h1>
-<p>After using almost a dozen static site generators, the same problems kept presenting themselves: hard to extend, not flexible enough, a pain to add data, and too slow. Acetate is a static site generator for people who wrestle with static site generators.</p>
-
-
-<div class="block-group padded">
+<div class="block-group padded fade-in delay-3">
   <div class="block one-third">
     <img src="assets/img/focus.svg" alt="Focused">
     <h3>Focus</h3>
@@ -55,12 +56,14 @@
   <div class="block one-third">
     <img src="assets/img/data.svg" alt="Data">
     <h3>Data</h3>
-    <p class="small">Acetate accepts JSON, YML, and JS out of the box. Add data syncronously or asycronously with custom extensions.</p>
+    <p class="small">Acetate accepts JSON, YML, and JS out of the box. You can even add data with custom extensions.</p>
   </div>
 </div>
 
 <h1 id="install">Install</h1>
-<p>To install Acetate, just use the npm module:</p>
+<p>To install Acetate, install the command line runner globally and Acetate locally in your project :</p>
+<pre><code class="lang-bash">npm install acetate --save-dev
+</code></pre>
 <pre><code class="lang-bash">npm install -g acetate-cli
 </code></pre>
 <p>Then create a config file named <code>acetate.conf.js</code> in your project. Here&#39;s a simple example:</p>
@@ -70,22 +73,22 @@
   });
 
   acetate.layout(<span class="hljs-string">'**/*'</span>, <span class="hljs-string">'layouts/_layout:content'</span>);
-
-  acetate.options.src = <span class="hljs-string">'source/'</span>;
-  acetate.options.dest = <span class="hljs-string">'build/'</span>;
 };
 </code></pre>
-<p>Then, to build your site to the <code>build/</code> folder, just type:</p>
+<p>Then, to build your site just run:</p>
 <pre><code class="lang-bash">actetate
 </code></pre>
 <p>If you&#39;d like to use the built-in server, use:</p>
 <pre><code class="lang-bash">acetate server
 </code></pre>
-<p>If you&#39;d like to start from an existing acetate site, you can use the <a href="https://github.com/patrickarlt/acetate-sample">sample site</a>:</p>
-<pre><code>git clone https:<span class="hljs-comment">//github.com/patrickarlt/acetate-sample.git</span>
-cd acetate<span class="hljs-attribute">-sample</span>
-acetate<span class="hljs-attribute">-server</span>
-</code></pre><h1 id="using-grunt">Using Grunt</h1>
+<p>If you&#39;d like to start from an existing Acetate project, you can use the <a href="https://github.com/patrickarlt/acetate-sample">sample site</a>:</p>
+<pre><code class="lang-bash">npm install -g acetate-cli
+git clone https://github.com/patrickarlt/acetate-sample.git acetate-sample
+<span class="hljs-built_in">cd</span> acetate-sample
+npm install
+acetate-server --open
+</code></pre>
+<h1 id="using-grunt">Using Grunt</h1>
 <p>Acetate also works quite well with <a href="http://gruntjs.com/">Grunt</a>. In your grunt project just run:</p>
 <pre><code class="lang-bash">npm install grunt-acetate --save-dev
 </code></pre>
@@ -107,12 +110,12 @@ acetate<span class="hljs-attribute">-server</span>
 }
 </code></pre>
 <p>Then, you can run a development server on port 3000:</p>
-<pre><code><span class="hljs-tag">grunt</span> <span class="hljs-tag">acetate</span><span class="hljs-pseudo">:watch</span>
-</code></pre><p>This way you can use grunt-acetate as part of a larger Gruntfile where each module has one responsibility. Imagemin compresses your images, sass compiles your css, and uglify/concat create your production javascript. See <a href="https://github.com/patrickarlt/acetate-site/blob/master/Gruntfile.js">this site&#39;s Gruntfile</a> for an example.</p>
+<pre><code class="lang-bash">grunt acetate:watch
+</code></pre>
+<p>This way you can use grunt-acetate as part of a larger Gruntfile where each module has one responsibility. Imagemin compresses your images, sass compiles your css, and uglify/concat create your production javascript. See <a href="https://github.com/patrickarlt/acetate-site/blob/master/Gruntfile.js">this site&#39;s Gruntfile</a> for an example.</p>
 
 
 </article>
-
   
 </body>
 </html>

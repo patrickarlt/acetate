@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> | Site</title>
+  
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+  
+</head>
+<body>
+
+  <nav class="navigation ">
+    <div class="container">
+      <a href="">Acetate</a>
+      <div class="right">
+        <a href="" class="">Getting Started</a>
+        <a href="/documentation/" class="">Documentation</a>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  acetate.io
+www.acetate.io
+  
+</body>
+</html>
