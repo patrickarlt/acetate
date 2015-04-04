@@ -1,6 +1,6 @@
 {
   "name": "acetate",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Layout and templating framework for static websites.",
   "main": "lib/index.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "async": "~0.9.0",
     "chalk": "^1.0.0",
     "fs-extra": "~0.10.0",
-    "gaze": "~0.5.1",
+    "chokidar": "^1.0.0-rc5",
     "glob": "~4.0.2",
     "highlight.js": "~8.0.0",
     "js-yaml": "~3.0.2",
@@ -43,7 +43,6 @@
     "yargs": "^3.4.5"
   },
   "devDependencies": {
-    "chokidar": "^1.0.0-rc5",
     "gulp": "^3.8.11",
     "gulp-escomplex": "^1.0.0",
     "gulp-escomplex-reporter-html": "^1.0.0",
