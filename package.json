@@ -1,6 +1,6 @@
 {
   "name": "acetate",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Layout and templating framework for static websites.",
   "main": "lib/index.js",
   "scripts": {
