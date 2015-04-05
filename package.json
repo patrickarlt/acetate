@@ -4,7 +4,8 @@
   "description": "Layout and templating framework for static websites.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/tape/bin/tape test/*.js | ./node_modules/tap-dot/bin/dot"
+    "test": "jshint lib && tape test/*.js | tap-dot",
+    "prepublish": "jshint"
   },
   "repository": {
     "type": "git",
@@ -49,6 +50,7 @@
     "gulp-jshint": "^1.8.4",
     "gulp-shell": "^0.2.9",
     "istanbul": "^0.3.2",
+    "jshint": "^2.6.3",
     "jshint-stylish": "^1.0.0",
     "tap-dot": "^0.2.3",
     "tape": "^2.14.0"
