@@ -1,4 +1,4 @@
-# Ascetate
+# Acetate
 
 [![](https://img.shields.io/npm/v/acetate.svg?style=flat-square)](https://www.npmjs.com/package/acetate)
 
