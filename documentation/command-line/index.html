@@ -2,7 +2,7 @@
 <html>
 <head>
   
-    <title>Getting Started | Acetate</title>
+    <title>Command Line | Acetate</title>
   
 
   
@@ -15,7 +15,7 @@
     <div class="grid-container">
       <a href="/">Acetate</a>
       <div class="right">
-        <a href="/documentation/" class="is-active">Getting Started</a>
+        <a href="/documentation/" class="">Getting Started</a>
         <a href="/documentation/" class="">Documentation</a>
         <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
       </div>
@@ -84,8 +84,32 @@
     </aside>
 
     <article class="column-18">
-      <h1>Getting Started</h1>
-      <p>For now refer to the <a href="https://github.com/patrickarlt/acetate-sample">Acetate Sample</a> and the guides for <a href="/documentation/grunt-plugin/">Grunt</a>, <a href="/documentation/gulp-usage">Gulp</a>, or the <a href="/documentation/command-line">command line</a>.</p>
+      <h1>Command Line</h1>
+      <p>You can install a command line with npm:</p>
+<pre><code class="lang-bash">npm install -g acetate-cli
+</code></pre>
+<p>Then access the built in help:</p>
+<pre><code class="lang-bash">acetate --help
+Usage: acetate [command] [options]
+
+Commands:
+  build     run a single build of the project and <span class="hljs-keyword">exit</span>
+  watch     build site, <span class="hljs-keyword">then</span> watch files <span class="hljs-keyword">for</span> changes and rebuild
+  server    build site and watch <span class="hljs-keyword">for</span> changes, serve output folder with built-in server
+
+Options:
+  -h, --help    Show <span class="hljs-built_in">help</span>
+  --host        host server should use                                          [default: <span class="hljs-string">"localhost"</span>]
+  --findPort    find new port <span class="hljs-keyword">if</span> port is <span class="hljs-keyword">in</span> use                                 [default: <span class="hljs-literal">false</span>]
+  --open        open browser when server starts up                              [default: <span class="hljs-literal">false</span>]
+  --clean       clean out files from build folder                               [default: <span class="hljs-literal">false</span>]
+  --log         log levels: debug|verbose|info|success|warn|error|stack|silent  [default: <span class="hljs-string">"info"</span>]
+  -p, --port                                                                    [default: <span class="hljs-number">8000</span>]
+  -c, --config                                                                  [default: <span class="hljs-string">"acetate.conf.js"</span>]
+
+Examples:
+  acetate build --clean    build site, cleaning the output folder before beginning
+</code></pre>
 
     </article>
   </div>

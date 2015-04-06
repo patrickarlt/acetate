@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Acetate | Site</title>
   
-    <link rel="stylesheet" href="assets/css/main.css">
+    <title>Acetate</title>
+  
+
+  
+    <link rel="stylesheet" href="/assets/css/main.css">
     <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
   
 </head>
 <body>
-
-  <nav class="navigation fade-in delay-1 on-blue">
-    <div class="container">
-      <a href="">Acetate</a>
+  <nav class="navigation on-blue">
+    <div class="grid-container">
+      <a href="/">Acetate</a>
       <div class="right">
-        <a href="" class="is-active">Getting Started</a>
+        <a href="/documentation/" class="">Getting Started</a>
         <a href="/documentation/" class="">Documentation</a>
-        <a href="#">GitHub</a>
+        <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
       </div>
     </div>
   </nav>
@@ -27,8 +29,7 @@
 
   <div class="logo">
     <h1 class="fade-in delay-1">Acetate</h1>
-    <h2 class="fade-in delay-2">A Node.js Static Site Generator</h2>
-    <p class="fade-in delay-2">A static site generator with a focus on extensibility and easy integration into existing toolchains.</p>
+    <h2 class="fade-in delay-1">A Node.js Static Site Generator</h2>
   </div>
 
   <!-- Floating Graphics -->
@@ -37,85 +38,54 @@
 
 </div>
 
-<!-- Article acts as Container -->
-<article class="padded">
+<div class="grid-container">
+  <!-- Article acts as Container -->
+  <article class="column-24">
 
-<div class="block-group padded fade-in delay-3">
-  <div class="block one-third">
-    <img src="assets/img/focus.svg" alt="Focused">
-    <h3>Focus</h3>
-    <p class="small">Acetate doesn't do everything for you. It only handles html, markdown, and data. That keeps it fast, simple, and effective.</p>
-  </div>
-
-  <div class="block one-third">
+  <div class="block-group padded fade-in delay-1">
+    <div class="block one-third">
     <img src="assets/img/extend.svg" alt="Extensions">
-    <h3>Extentions</h3>
-    <p class="small">Write custom extensions in plain old JavaScript and use Nunjucks to write your own template tags.</p>
-  </div>
+      <h3>Extensiblity</h3>
+      <p>Bring in custom data with Node or write an extenstion to manipulate the extend Acetae's build process.</p>
+    </div>
 
-  <div class="block one-third">
-    <img src="assets/img/data.svg" alt="Data">
-    <h3>Data</h3>
-    <p class="small">Acetate accepts JSON, YML, and JS out of the box. You can even add data with custom extensions.</p>
+    <div class="block one-third">
+      <img src="assets/img/data.svg" alt="Data">
+      <h3>Integration</h3>
+      <p>Integrate Acetate into your existing toolchain and build process, whether its Gulp, Grunt or just the command line.</p>
+    </div>
+
+    <div class="block one-third">
+      <img src="assets/img/focus.svg" alt="Focused">
+      <h3>Focus</h3>
+      <p>Acetate only handles templating and building pages and lets you use whatever you want to build the rest of your application.</p>
+    </div>
+  </div>
+  </article>
+
+  <article class="column-24">
+  <h1 id="quick-start">Quick Start</h1>
+<p>  To install Acetate, install the command line runner globally:</p>
+<pre><code class="lang-bash">  $ npm install -g acetate-cli
+</code></pre>
+<p>  Then you can clone the Acetate sample project and <code>cd</code> into it:</p>
+<pre><code class="lang-bash">  $ git clone https://github.com/patrickarlt/acetate-sample.git &amp;&amp; <span class="hljs-built_in">cd</span> ./acetate-sample
+</code></pre>
+<p>  Intall the dependencies with NPM:</p>
+<pre><code class="lang-bash">  $ npm install
+</code></pre>
+<p>  Run the built-in development server:</p>
+<pre><code class="lang-bash">  $ acetate server --open
+</code></pre>
+
+
+  </article>
+
+  <div  class="column-24 text-center padding-leader-3 padding-trailer-3">
+    <a href="/documentation" class="btn">Get Started</a>
   </div>
 </div>
 
-<h1 id="install">Install</h1>
-<p>To install Acetate, install the command line runner globally and Acetate locally in your project :</p>
-<pre><code class="lang-bash">npm install acetate --save-dev
-</code></pre>
-<pre><code class="lang-bash">npm install -g acetate-cli
-</code></pre>
-<p>Then create a config file named <code>acetate.conf.js</code> in your project. Here&#39;s a simple example:</p>
-<pre><code class="lang-js">module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(acetate)</span> {</span>
-  acetate.global(<span class="hljs-string">'config'</span>, {
-    environment: <span class="hljs-string">'dev'</span>,
-  });
-
-  acetate.layout(<span class="hljs-string">'**/*'</span>, <span class="hljs-string">'layouts/_layout:content'</span>);
-};
-</code></pre>
-<p>Then, to build your site just run:</p>
-<pre><code class="lang-bash">actetate
-</code></pre>
-<p>If you&#39;d like to use the built-in server, use:</p>
-<pre><code class="lang-bash">acetate server
-</code></pre>
-<p>If you&#39;d like to start from an existing Acetate project, you can use the <a href="https://github.com/patrickarlt/acetate-sample">sample site</a>:</p>
-<pre><code class="lang-bash">npm install -g acetate-cli
-git clone https://github.com/patrickarlt/acetate-sample.git acetate-sample
-<span class="hljs-built_in">cd</span> acetate-sample
-npm install
-acetate-server --open
-</code></pre>
-<h1 id="using-grunt">Using Grunt</h1>
-<p>Acetate also works quite well with <a href="http://gruntjs.com/">Grunt</a>. In your grunt project just run:</p>
-<pre><code class="lang-bash">npm install grunt-acetate --save-dev
-</code></pre>
-<p>And load it in the <code>Gruntfile.js</code>:</p>
-<pre><code class="lang-js">grunt.loadNpmTasks(<span class="hljs-string">'grunt-acetate'</span>);
-</code></pre>
-<p>In the task, you can have multiple targets. A common setup might be one task that just builds (for deployment) and one task that runs a server (for development):</p>
-<pre><code class="lang-js"><span class="hljs-string">'acetate'</span>: {
-  build: {
-    config: <span class="hljs-string">'acetate.conf.js'</span>
-  },
-  watch: {
-    config: <span class="hljs-string">'acetate.conf.js'</span>,
-    options: {
-      watch: <span class="hljs-literal">true</span>,
-      server: <span class="hljs-literal">true</span>
-    }
-  }
-}
-</code></pre>
-<p>Then, you can run a development server on port 3000:</p>
-<pre><code class="lang-bash">grunt acetate:watch
-</code></pre>
-<p>This way you can use grunt-acetate as part of a larger Gruntfile where each module has one responsibility. Imagemin compresses your images, sass compiles your css, and uglify/concat create your production javascript. See <a href="https://github.com/patrickarlt/acetate-site/blob/master/Gruntfile.js">this site&#39;s Gruntfile</a> for an example.</p>
-
-
-</article>
   
 </body>
 </html>

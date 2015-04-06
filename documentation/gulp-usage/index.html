@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <title>Using with Gulp | Acetate</title>
+  
+
+  
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+  
+</head>
+<body>
+  <nav class="navigation ">
+    <div class="grid-container">
+      <a href="/">Acetate</a>
+      <div class="right">
+        <a href="/documentation/" class="">Getting Started</a>
+        <a href="/documentation/" class="">Documentation</a>
+        <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  
+  <div class="grid-container">
+  <aside class="column-6">
+    <nav class="topic-list">
+      <section>
+        <a href="/documentation/">Getting Started</a>
+
+        <h4>Tools &amp; Plugins</h4>
+        <ul>
+          <li><a href="/documentation/command-line/">Command Line</a></li>
+          <li><a href="/documentation/grunt-plugin/">Grunt Plugin</a></li>
+          <li><a href="/documentation/gulp-usage/">Using with Gulp</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="/documentation/introduction-to-pages/">Introduction</a></li>
+          <li><a href="/documentation/frontmatter/">Frontmatter</a></li>
+          <li><a href="/documentation/templating/">Templating</a></li>
+          <li><a href="/documentation/data/">Data Sources</a></li>
+          <li><a href="/documentation/layouts/">Layouts</a></li>
+          <li><a href="/documentation/partials/">Partials</a></li>
+          <li><a href="/documentation/page-helpers/">Built-in Helpers</a></li>
+
+        </ul>
+      </section>
+
+      <section>
+        <h4>Configuration</h4>
+        <ul>
+          <li><a href="/documentation/config-options/">Options</a></li>
+          <li><a href="/documentation/global-variables/">Globals</a></li>
+          <li><a href="/documentation/page-sources/">Sources</a></li>
+          <li><a href="/documentation/config-helpers/">Helpers</a></li>
+          <li><a href="/documentation/command-line-flags/">Command-line Flags</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>Organizing Pages</h4>
+        <ul>
+          <li><a href="/documentation/collections/">Collections</a></li>
+          <li><a href="/documentation/groups/">Groups</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>Extending</h4>
+        <ul>
+          <li><a href="/documentation/writing-custom-extensions/">Custom Extensions</a></li>
+          <li><a href="/documentation/adding-template-helpers/">Template Helpers</a></li>
+          <li><a href="/documentation/adding-filters/">Adding Filters</a></li>
+          <li><a href="/documentation/adding-custom-tags/">Custom Tags</a></li>
+          <li><a href="/documentation/customizing-markdown/">Customizing Markdown</a></li>
+        </ul>
+      </section>
+    </nav>
+    </aside>
+
+    <article class="column-18">
+      <h1>Using with Gulp</h1>
+      <p>There is no Gulp plugin for Acetate and none is needed. Just use Acetate&#39;s existing API.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> acetate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'acetate'</span>);
+<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">var</span> configFile = path.join(process.cwd(), <span class="hljs-string">'acetate.conf.js'</span>);
+
+gulp.task(<span class="hljs-string">'acetate:watch'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+  acetate({
+    config: configFile,
+    watcher: <span class="hljs-literal">true</span>,
+    server: <span class="hljs-literal">true</span>,
+    open: <span class="hljs-literal">true</span>
+  });
+});
+
+gulp.task(<span class="hljs-string">'acetate:build'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+  acetate({
+    config: configFile,
+  });
+});
+</code></pre>
+<h3 id="options">Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config</code></td>
+<td><code>undefined</code></td>
+<td>The path to your configuration file.</td>
+</tr>
+<tr>
+<td><code>server</code></td>
+<td><code>false</code></td>
+<td>Enable to built-in development server.</td>
+</tr>
+<tr>
+<td><code>watcher</code></td>
+<td><code>false</code></td>
+<td>Enable wathcing and rebuilding files as they change.</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td><code>3000</code></td>
+<td>Integer. The port on which the webserver will respond.</td>
+</tr>
+<tr>
+<td><code>host</code></td>
+<td><code>&#39;localhost&#39;</code></td>
+<td>The hostname to server the website on.</td>
+</tr>
+<tr>
+<td><code>findPort</code></td>
+<td><code>true</code></td>
+<td>If <code>port</code> is occupied by another process, find another port to use.</td>
+</tr>
+<tr>
+<td><code>open</code></td>
+<td><code>false</code></td>
+<td>Open the served page in your default browser.</td>
+</tr>
+<tr>
+<td><code>clean</code></td>
+<td><code>false</code></td>
+<td>Removes pages created by Acetate in the build directory before building.</td>
+</tr>
+<tr>
+<td><code>log</code></td>
+<td><code>&#39;info&#39;</code></td>
+<td>Logging level to use. Should be one of <code>debug</code>,<code>verbose</code>,<code>info</code>,<code>success</code>,<code>warn</code>,<code>error</code>,<code>stack</code>,<code>silent</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example">Example</h3>
+<p><a href="http://patrickarlt.com">patrickarlt.com</a> is built with Gulp and Acetate. Take a look at it&#39;s <a href="https://github.com/patrickarlt/patrickarlt.github.io/blob/source/tasks/acetate.js">gulpfile</a>.</p>
+
+    </article>
+  </div>
+
+  
+</body>
+</html>
