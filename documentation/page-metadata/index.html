@@ -2,7 +2,7 @@
 <html>
 <head>
   
-    <title>Frontmatter | Acetate</title>
+    <title>Page Metadata | Acetate</title>
   
 
   
@@ -41,9 +41,9 @@
         <h4>Pages</h4>
         <ul>
           <li><a href="/documentation/introduction-to-pages/">Introduction</a></li>
-          <li><a href="/documentation/frontmatter/">Frontmatter</a></li>
+          <li><a href="/documentation/page-metadata/">Page Metadata</a></li>
           <li><a href="/documentation/templating/">Templating</a></li>
-          <li><a href="/documentation/data/">Data Sources</a></li>
+          <li><a href="/documentation/data/">External Data</a></li>
           <li><a href="/documentation/layouts/">Layouts</a></li>
           <li><a href="/documentation/partials/">Partials</a></li>
           <li><a href="/documentation/page-helpers/">Built-in Helpers</a></li>
@@ -84,16 +84,10 @@
     </aside>
 
     <article class="column-18">
-      <h1>Frontmatter</h1>
-      <p>All pages can declare local metadata to use in their tempaltes and configure their behavior. Acetate supports using both YAML and JSON to declare frontmatter.</p>
+      <h1>Page Metadata</h1>
+      <p>All pages can declare local metadata (as YAML) to use in their tempaltes and configure their behavior. Anything you declare in the frontmatter is accessable as a variable in your templates.</p>
 <pre><code><span class="hljs-bullet">---
 </span><span class="hljs-header">title: Page with YAML metadata
----</span>
-
-&lt;h1&gt;{{ title }}&lt;/h1&gt;
-</code></pre><pre><code>{
-<span class="hljs-code">  "title": "Page with JSON metadata"</span>
-<span class="hljs-header">}
 ---</span>
 
 &lt;h1&gt;{{ title }}&lt;/h1&gt;
