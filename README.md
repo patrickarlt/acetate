@@ -1,6 +1,7 @@
 # Acetate
 
 [![](https://img.shields.io/npm/v/acetate.svg?style=flat-square)](https://www.npmjs.com/package/acetate)
+[![](https://david-dm.org/patrickarlt/acetate.svg)]
 
 Layout and templating framework for static websites (work in progress).
 
