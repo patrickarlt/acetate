@@ -16,7 +16,7 @@
       <a href="/">Acetate</a>
       <div class="right">
         <a href="/documentation/" class="">Getting Started</a>
-        <a href="/documentation/" class="">Documentation</a>
+        <a href="/documentation/" class="is-active">Documentation</a>
         <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
       </div>
     </div>
@@ -27,57 +27,47 @@
   <aside class="column-6">
     <nav class="topic-list">
       <section>
-        <a href="/documentation/">Getting Started</a>
+
+        <a href="../../documentation/" class="not-active">Getting Started</a>
 
         <h4>Tools &amp; Plugins</h4>
         <ul>
-          <li><a href="/documentation/command-line/">Command Line</a></li>
-          <li><a href="/documentation/grunt-plugin/">Grunt Plugin</a></li>
-          <li><a href="/documentation/gulp-usage/">Using with Gulp</a></li>
+          <li><a href="../../documentation/command-line/" class="not-active">Command Line</a></li>
+          <li><a href="../../documentation/grunt-plugin/" class="not-active">Grunt Plugin</a></li>
+          <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
         </ul>
       </section>
 
       <section>
         <h4>Pages</h4>
         <ul>
-          <li><a href="/documentation/introduction-to-pages/">Introduction</a></li>
-          <li><a href="/documentation/page-metadata/">Page Metadata</a></li>
-          <li><a href="/documentation/templating/">Templating</a></li>
-          <li><a href="/documentation/data/">External Data</a></li>
-          <li><a href="/documentation/layouts/">Layouts</a></li>
-          <li><a href="/documentation/partials/">Partials</a></li>
-          <li><a href="/documentation/page-helpers/">Built-in Helpers</a></li>
-
+          <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
+          <li><a href="../../documentation/page-metadata/" class="is-active">Page Metadata</a></li>
+          <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
+          <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
+          <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
+          <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
+          <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
+          <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
         </ul>
       </section>
 
       <section>
         <h4>Configuration</h4>
         <ul>
-          <li><a href="/documentation/config-options/">Options</a></li>
-          <li><a href="/documentation/global-variables/">Globals</a></li>
-          <li><a href="/documentation/page-sources/">Sources</a></li>
-          <li><a href="/documentation/config-helpers/">Helpers</a></li>
-          <li><a href="/documentation/command-line-flags/">Command-line Flags</a></li>
+          <li><a href="../../documentation/config-options/" class="not-active">Options</a></li>
+          <li><a href="../../documentation/global-variables/" class="not-active">Globals</a></li>
+          <li><a href="../../documentation/page-sources/" class="not-active">Sources</a></li>
+          <li><a href="../../documentation/config-helpers/" class="not-active">Helpers</a></li>
+          <li><a href="../../documentation/command-line-flags/" class="not-active">Command-line Flags</a></li>
         </ul>
       </section>
 
       <section>
         <h4>Organizing Pages</h4>
         <ul>
-          <li><a href="/documentation/collections/">Collections</a></li>
-          <li><a href="/documentation/groups/">Groups</a></li>
-        </ul>
-      </section>
-
-      <section>
-        <h4>Extending</h4>
-        <ul>
-          <li><a href="/documentation/writing-custom-extensions/">Custom Extensions</a></li>
-          <li><a href="/documentation/adding-template-helpers/">Template Helpers</a></li>
-          <li><a href="/documentation/adding-filters/">Adding Filters</a></li>
-          <li><a href="/documentation/adding-custom-tags/">Custom Tags</a></li>
-          <li><a href="/documentation/customizing-markdown/">Customizing Markdown</a></li>
+          <li><a href="../../documentation/collections/" class="not-active">Collections</a></li>
+          <li><a href="../../documentation/groups/" class="not-active">Groups</a></li>
         </ul>
       </section>
     </nav>
@@ -86,12 +76,115 @@
     <article class="column-18">
       <h1>Page Metadata</h1>
       <p>All pages can declare local metadata (as YAML) to use in their tempaltes and configure their behavior. Anything you declare in the frontmatter is accessable as a variable in your templates.</p>
-<pre><code><span class="hljs-bullet">---
-</span><span class="hljs-header">title: Page with YAML metadata
----</span>
-
-&lt;h1&gt;{{ title }}&lt;/h1&gt;
+<pre><code>-<span class="ruby">--
+</span>title: Page with YAML metadata
+layout: _layout:master
+theme: blue
+-<span class="ruby">--
+</span>
+&lt;h1&gt;My Page&lt;/h1&gt;
+</code></pre><h2 id="applying-metadata-in-bulk">Applying Metadata in Bulk</h2>
+<p>In your config file you can also use the <code>acetate.metadata</code> helper to apply metadata to all pages matching a glob.</p>
+<p><code class="filename">acetate.conf.js</code></p>
+<pre><code class="lang-js"><span class="hljs-comment">// would match anything in the src/blog folder</span>
+acetate.metadata(<span class="hljs-string">'blog/**/*'</span>, {
+    author: <span class="hljs-string">'Patrick Arlt'</span>
+});
 </code></pre>
+<p>Local Metadata declared on the page is always kept. So if a page aleady had <code>author</code> defined locally this would not override it.</p>
+<h2 id="using-metadata-in-templates">Using Metadata in Templates</h2>
+<p>Values in the metadata are passed directly to the local template context. See <a href="/documentation/templating">templating</a> to learn the basics fo the <a href="https://mozilla.github.io/nunjucks/">Nunjucks</a> templating language.</p>
+<pre><code><span class="xml">---
+title: Page with YAML metadata
+layout: _layout:master
+theme: blue
+---
+
+<span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"</span></span></span><span class="hljs-expression">{{<span class="hljs-variable">theme</span>}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-value">"</span>&gt;</span></span><span class="hljs-expression">{{<span class="hljs-variable">title</span>}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span></span>
+</code></pre><h2 id="reserved-metadata-keys">Reserved Metadata Keys</h2>
+<p>Acetate reserves the following keys for its own internal use or for you to use in your templates. You should use any of these key names for any other purpose.</p>
+<h3 id="editable">Editable</h3>
+<p>You can set or change these metadata keys to change basic Acetate behavior.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>layout</code></td>
+<td>The layout this page uses to render.</td>
+<td><a href="/documentation/layouts/">Page Layouts</a></td>
+</tr>
+<tr>
+<td><code>groups</code></td>
+<td>Groups that this page should load.</td>
+<td><a href="/documentation/groups/">Grouping Pages</a></td>
+</tr>
+<tr>
+<td><code>collections</code></td>
+<td>Collections that this page should load.</td>
+<td><a href="/documentation/collections/">Page Collections</a></td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td>Data that this page should load.</td>
+<td><a href="/documentation/external-data">External Data</a></td>
+</tr>
+<tr>
+<td><code>ignore</code></td>
+<td>Should the page be ignored during the build?</td>
+<td><code>false</code> by default.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="read-only">Read Only</h3>
+<p>These metadata keys are available for you to use in your templates but are read only can cannot be changed.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stats</code></td>
+<td>File statistics for this pages template.</td>
+<td><a href="/documentation/built-in-helpers">Built-in Helpers</a></td>
+</tr>
+<tr>
+<td><code>src</code></td>
+<td>Path to this file from the <code>acetate.src</code> folder</td>
+<td><a href="/documentation/built-in-helpers">Built-in Helpers</a></td>
+</tr>
+<tr>
+<td><code>dest</code></td>
+<td>Output path for this file relative to the <code>acetate.dest</code> folder</td>
+<td><a href="/documentation/built-in-helpers">Built-in Helpers</a></td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>URL for this page.</td>
+<td><a href="/documentation/built-in-helpers">Built-in Helpers</a></td>
+</tr>
+<tr>
+<td><code>fullpath</code></td>
+<td>Full path to this template from root.</td>
+<td><a href="/documentation/built-in-helpers">Built-in Helpers</a></td>
+</tr>
+<tr>
+<td><code>relativePath</code></td>
+<td>Relative path back to root from this page.</td>
+<td><a href="/documentation/built-in-helpers">Built-in Helpers</a></td>
+</tr>
+</tbody>
+</table>
+
     </article>
   </div>
 

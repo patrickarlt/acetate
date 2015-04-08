@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <title>External Data | Acetate</title>
+  
+
+  
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+  
+</head>
+<body>
+  <nav class="navigation ">
+    <div class="grid-container">
+      <a href="/">Acetate</a>
+      <div class="right">
+        <a href="/documentation/" class="">Getting Started</a>
+        <a href="/documentation/" class="is-active">Documentation</a>
+        <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  
+  <div class="grid-container">
+  <aside class="column-6">
+    <nav class="topic-list">
+      <section>
+
+        <a href="../../documentation/" class="not-active">Getting Started</a>
+
+        <h4>Tools &amp; Plugins</h4>
+        <ul>
+          <li><a href="../../documentation/command-line/" class="not-active">Command Line</a></li>
+          <li><a href="../../documentation/grunt-plugin/" class="not-active">Grunt Plugin</a></li>
+          <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
+          <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
+          <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
+          <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
+          <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
+          <li><a href="../../documentation/external-data/" class="is-active">External Data</a></li>
+          <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
+          <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>Configuration</h4>
+        <ul>
+          <li><a href="../../documentation/config-options/" class="not-active">Options</a></li>
+          <li><a href="../../documentation/global-variables/" class="not-active">Globals</a></li>
+          <li><a href="../../documentation/page-sources/" class="not-active">Sources</a></li>
+          <li><a href="../../documentation/config-helpers/" class="not-active">Helpers</a></li>
+          <li><a href="../../documentation/command-line-flags/" class="not-active">Command-line Flags</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>Organizing Pages</h4>
+        <ul>
+          <li><a href="../../documentation/collections/" class="not-active">Collections</a></li>
+          <li><a href="../../documentation/groups/" class="not-active">Groups</a></li>
+        </ul>
+      </section>
+    </nav>
+    </aside>
+
+    <article class="column-18">
+      <h1>External Data</h1>
+      <p>Acetate can include data from external JSON and YAML files or use load Node modules to query data dynamically at built time. To load data files place the <code>.json</code> <code>.yaml</code> <code>.yml</code> or <code>.js</code> files in your source folder. Then inside a data object provide a map of data files to local template variables.</p>
+<pre><code class="lang-html">title: Loading Data
+layout: _layout:main
+data:
+    projects: projects.json
+    people: people.yaml
+    status: status.js
+---
+
+<span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>I have data now!<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+</code></pre>
+<p>The above metadata would assign the <code>projects.json</code> file to the local varaible <code>projects</code> (the key in the object) so you can access it in your templates.</p>
+<h2 id="json">JSON</h2>
+<p><code class="filename">src/company.json</code></p>
+<pre><code class="lang-json">{
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"ACME Widgets"</span></span>,
+    "<span class="hljs-attribute">employees</span>": <span class="hljs-value">[{
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Bob"</span></span>,
+        "<span class="hljs-attribute">age</span>": <span class="hljs-value"><span class="hljs-number">32</span>
+    </span>},{
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Alice"</span></span>,
+        "<span class="hljs-attribute">age</span>": <span class="hljs-value"><span class="hljs-number">28</span>
+    </span>}]
+</span>}
+</code></pre>
+<p><code class="filename">src/company.html</code></p>
+<pre><code class="lang-html">---
+title: Employee Directory
+layout: _layout:main
+data:
+    company: company.json
+---
+
+<span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{{company.name}} {{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+{% for employee in  company.employees %}
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>{{employee}} ({{age}})<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+{% endfor %}
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
+<h2 id="yaml">YAML</h2>
+<p><code class="filename">src/company.yaml</code></p>
+<pre><code>name: ACME Widgets
+employees:
+    -<span class="ruby"> <span class="hljs-symbol">name:</span> <span class="hljs-constant">Bob</span>
+</span>      age: 32
+    -<span class="ruby"> <span class="hljs-symbol">name:</span> <span class="hljs-constant">Alice</span>
+</span>      age: 28
+</code></pre><p><code class="filename">src/company.html</code></p>
+<pre><code class="lang-html">---
+title: Employee Directory
+layout: _layout:main
+data:
+    company: company.yaml
+---
+
+<span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{{company.name}} {{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+{% for employee in  company.employees %}
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>{{employee}} ({{age}})<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+{% endfor %}
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
+<h2 id="dynamic-data">Dynamic Data</h2>
+<p>You can also create Node modules that can query their data dynamically at build time. This is great for things that need to come from external sources like an API or a database but don&#39;t need to be always up to date.</p>
+<p>To load in dynamic data create a <code>.js</code> file in your source folder. This file should export a single function that will be passed a <code>callback</code> function and the metadata for the page that is requesting the data. When you are done retriving your data pass it to the callback like <code>callback(error, data)</code>.</p>
+<p><code class="filename">src/gist.js</code></p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
+
+module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback, page)</span>{</span>
+    request({
+      method: <span class="hljs-string">'GET'</span>,
+      url: <span class="hljs-string">'https://api.github.com/users/'</span> + page.username + <span class="hljs-string">'/gists'</span>,
+      json: <span class="hljs-literal">true</span>,
+      headers: {
+        <span class="hljs-string">'User-Agent'</span>: <span class="hljs-string">'request'</span>
+      }
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err, resp, body)</span>{</span>
+        callback(err, body);
+    });
+}
+</code></pre>
+<p><code class="filename">src/gists.html</code></p>
+<pre><code class="lang-html">---
+title: My Gists
+layout: _layout:main
+username: patrickarlt
+data:
+    gists: gists.js
+---
+
+<span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{{company.name}} {{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+{% for gist in  gists %}
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"{{gist.html_url"</span>&gt;</span>{{gist.description}}<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>)<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+{% endfor %}
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
+
+    </article>
+  </div>
+
+  
+</body>
+</html>
