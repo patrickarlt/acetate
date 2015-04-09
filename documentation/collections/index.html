@@ -2,7 +2,7 @@
 <html>
 <head>
   
-    <title>Page Collections | Acetate</title>
+    <title>Collections | Acetate</title>
   
 
   
@@ -23,61 +23,139 @@
   </nav>
 
   
-  <div class="grid-container">
+<div class="grid-container">
   <aside class="column-6">
     <nav class="topic-list">
-      <section>
+      <a href="../../documentation/" class="not-active">Getting Started</a>
 
-        <a href="../../documentation/" class="not-active">Getting Started</a>
-
-        <h4>Tools &amp; Plugins</h4>
-        <ul>
-          <li><a href="../../documentation/command-line/" class="not-active">Command Line</a></li>
-          <li><a href="../../documentation/grunt-plugin/" class="not-active">Grunt Plugin</a></li>
-          <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
-        </ul>
-      </section>
-
-      <section>
-        <h4>Pages</h4>
-        <ul>
-          <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
-          <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-          <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
-          <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-          <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-          <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-          <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
-          <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
-        </ul>
-      </section>
-
-      <section>
-        <h4>Configuration</h4>
-        <ul>
-          <li><a href="../../documentation/config-options/" class="not-active">Options</a></li>
-          <li><a href="../../documentation/global-variables/" class="not-active">Globals</a></li>
-          <li><a href="../../documentation/page-sources/" class="not-active">Sources</a></li>
-          <li><a href="../../documentation/config-helpers/" class="not-active">Helpers</a></li>
-          <li><a href="../../documentation/command-line-flags/" class="not-active">Command-line Flags</a></li>
-        </ul>
-      </section>
-
-      <section>
-        <h4>Organizing Pages</h4>
-        <ul>
-          <li><a href="../../documentation/collections/" class="is-active">Collections</a></li>
-          <li><a href="../../documentation/groups/" class="not-active">Groups</a></li>
-        </ul>
-      </section>
-    </nav>
-    </aside>
-
-    <article class="column-18">
-      <h1>Page Collections</h1>
       
-    </article>
-  </div>
+        <section>
+          <h4>Pages</h4>
+          <ul>
+            
+            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction to Pages</a></li>
+            
+            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Page Helpers</a></li>
+            
+            <li><a href="../../documentation/collections/" class="is-active">Collections</a></li>
+            
+            <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
+            
+            <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
+            
+            <li><a href="../../documentation/groups/" class="not-active">Groups</a></li>
+            
+            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
+            
+            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
+            
+            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
+            
+          </ul>
+        </section>
+      
+        <section>
+          <h4>Configuration</h4>
+          <ul>
+            
+            <li><a href="../../documentation/command-line-flags/" class="not-active">Command Line Flags</a></li>
+            
+            <li><a href="../../documentation/config-helpers/" class="not-active">Configuration Helpers</a></li>
+            
+            <li><a href="../../documentation/config-options/" class="not-active">Configuration Options</a></li>
+            
+            <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
+            
+            <li><a href="../../documentation/page-sources/" class="not-active">Page Sources</a></li>
+            
+          </ul>
+        </section>
+      
+        <section>
+          <h4>Tools & Plugins</h4>
+          <ul>
+            
+            <li><a href="../../documentation/command-line/" class="not-active">Command Line</a></li>
+            
+            <li><a href="../../documentation/grunt-plugin/" class="not-active">Grunt Plugin</a></li>
+            
+            <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
+            
+          </ul>
+        </section>
+      
+    </nav>
+  </aside>
+
+  <article class="column-18">
+    <h1>Collections</h1>
+    <p>Collections are a group of pages sorted on a particular key in their metadata. This is useful for any case where you might need a sequence of pages like a blog. To create a collection use the <code>acetate.collection</code> helper in your config file.</p>
+<p><code class="filename">acetate.conf.js</code></p>
+<pre><code class="lang-js">aceatae.collection(<span class="hljs-string">'posts'</span>, <span class="hljs-string">'blog/posts/*'</span>, {
+  sortBy: <span class="hljs-string">'date'</span>,
+  ascending: <span class="hljs-literal">false</span>
+});
+</code></pre>
+<p>The first parameter is a key that will be used as the variable name in your templates. The second is a glob used to match pages that should be in this collection. The final argument is an options object with can have <code>sortBy</code> which is the key in the apge metadata to sort the collection on and an <code>ascending</code> boolean that determines the sort order.</p>
+<h3 id="using-a-collection">Using a Collection</h3>
+<p>Once you collection is created you can use the collection in your templates. Each page in a collection will now have a local variable that matches the first parameter you passed to <code>aceatae.collection</code>.</p>
+<p><code class="filename">src/blog/posts/hello-world.html</code></p>
+<pre><code class="lang-html">---
+title: My First Blog Post!
+date: 08/24/14
+---
+
+<span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>My First Blog Post<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+
+Its my first blog post!
+
+<span class="hljs-tag">&lt;<span class="hljs-title">nav</span>&gt;</span>
+  {% if posts.previous %}
+    <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"{{relativeUrl}}{{ posts.previous.url }}"</span>&gt;</span>{{ posts.previous.title }}<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+  {% endif%}
+
+  {% if posts.next %}
+    <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"{{relativeUrl}}{{ posts.next.url }}"</span>&gt;</span>{{ posts.next.title }}<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+  {% endif %}
+<span class="hljs-tag">&lt;/<span class="hljs-title">nav</span>&gt;</span>
+</code></pre>
+<p>As you can see this page is part of the <code>posts</code> collection we defined and has a <code>posts</code> variable we can use in the template.</p>
+<p><code>posts</code> has 3 keys, <code>posts.next</code> will be a reference to the next page in the collection if any. <code>posts.previous</code> is the same thing but for the previous page in the collection. You can also use <code>posts.all</code> to access a sorted array of all pages in the collection.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>Recent Posts<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+{% for post in posts.all.slice(0,5) %}
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"{{post.relativeUrl}}{{post.url}}"</span>&gt;</span>{{post.title}}<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+{% endfor %}
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
+<h3 id="collections-on-other-pages">Collections on Other Pages</h3>
+<p>If you want to use a collection on a page that is not in the collection you can load the collection by specifying it in the <code>collection</code> metadata.</p>
+<p><code class="filename">src/blog/all.html</code></p>
+<pre><code class="lang-html">---
+title: Blog Archive
+collections:
+  posts: posts
+---
+
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+{% for post in posts.all %}
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"{{post.relativeUrl}}{{post.url}}"</span>&gt;</span>{{post.title}}<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+{% endfor %}
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
+<p>In this syntax <code>collections</code> is an object where the first key is the local variable for the template and its value is the collection you want to load.</p>
+<p>YOu can also use the <code>metadata</code> helper in your config to add the collection metadata to a large number of pages at once.</p>
+<p><code class="filename">acetate.conf.js</code></p>
+<pre><code>acetate.metadata(<span class="hljs-string">'blog/*'</span>, {
+  collections: {
+    posts: <span class="hljs-string">'posts'</span>
+  }
+});
+</code></pre>
+  </article>
+</div>
 
   
 </body>

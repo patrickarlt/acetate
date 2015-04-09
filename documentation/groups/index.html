@@ -2,7 +2,7 @@
 <html>
 <head>
   
-    <title>Page Groups | Acetate</title>
+    <title>Groups | Acetate</title>
   
 
   
@@ -23,61 +23,104 @@
   </nav>
 
   
-  <div class="grid-container">
+<div class="grid-container">
   <aside class="column-6">
     <nav class="topic-list">
-      <section>
+      <a href="../../documentation/" class="not-active">Getting Started</a>
 
-        <a href="../../documentation/" class="not-active">Getting Started</a>
-
-        <h4>Tools &amp; Plugins</h4>
-        <ul>
-          <li><a href="../../documentation/command-line/" class="not-active">Command Line</a></li>
-          <li><a href="../../documentation/grunt-plugin/" class="not-active">Grunt Plugin</a></li>
-          <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
-        </ul>
-      </section>
-
-      <section>
-        <h4>Pages</h4>
-        <ul>
-          <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
-          <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-          <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
-          <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-          <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-          <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-          <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
-          <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
-        </ul>
-      </section>
-
-      <section>
-        <h4>Configuration</h4>
-        <ul>
-          <li><a href="../../documentation/config-options/" class="not-active">Options</a></li>
-          <li><a href="../../documentation/global-variables/" class="not-active">Globals</a></li>
-          <li><a href="../../documentation/page-sources/" class="not-active">Sources</a></li>
-          <li><a href="../../documentation/config-helpers/" class="not-active">Helpers</a></li>
-          <li><a href="../../documentation/command-line-flags/" class="not-active">Command-line Flags</a></li>
-        </ul>
-      </section>
-
-      <section>
-        <h4>Organizing Pages</h4>
-        <ul>
-          <li><a href="../../documentation/collections/" class="not-active">Collections</a></li>
-          <li><a href="../../documentation/groups/" class="is-active">Groups</a></li>
-        </ul>
-      </section>
-    </nav>
-    </aside>
-
-    <article class="column-18">
-      <h1>Page Groups</h1>
       
-    </article>
-  </div>
+        <section>
+          <h4>Pages</h4>
+          <ul>
+            
+            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction to Pages</a></li>
+            
+            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Page Helpers</a></li>
+            
+            <li><a href="../../documentation/collections/" class="not-active">Collections</a></li>
+            
+            <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
+            
+            <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
+            
+            <li><a href="../../documentation/groups/" class="is-active">Groups</a></li>
+            
+            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
+            
+            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
+            
+            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
+            
+          </ul>
+        </section>
+      
+        <section>
+          <h4>Configuration</h4>
+          <ul>
+            
+            <li><a href="../../documentation/command-line-flags/" class="not-active">Command Line Flags</a></li>
+            
+            <li><a href="../../documentation/config-helpers/" class="not-active">Configuration Helpers</a></li>
+            
+            <li><a href="../../documentation/config-options/" class="not-active">Configuration Options</a></li>
+            
+            <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
+            
+            <li><a href="../../documentation/page-sources/" class="not-active">Page Sources</a></li>
+            
+          </ul>
+        </section>
+      
+        <section>
+          <h4>Tools & Plugins</h4>
+          <ul>
+            
+            <li><a href="../../documentation/command-line/" class="not-active">Command Line</a></li>
+            
+            <li><a href="../../documentation/grunt-plugin/" class="not-active">Grunt Plugin</a></li>
+            
+            <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
+            
+          </ul>
+        </section>
+      
+    </nav>
+  </aside>
+
+  <article class="column-18">
+    <h1>Groups</h1>
+    <p>Page groups create sets of pages that share a particular key. This is usefull for creating quick structured navigation. Groups and the pages within them can also be sorted.</p>
+<p>To create a group use the <code>acetate.group</code> helper in your config. The first parameter is the group name which will avilable in your templates, the second is a glob which will be used to match pages that are in the group. The third parameter is an object of options.</p>
+<p><code class="filename">acetate.conf.js</code></p>
+<pre><code class="lang-js">acetate.group(<span class="hljs-string">'documentation'</span>, <span class="hljs-string">'documentation/*'</span>, {
+  groupBy: <span class="hljs-string">'topic'</span>,
+  sortGroups: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(group)</span>{</span>
+    <span class="hljs-keyword">var</span> order = [<span class="hljs-string">'Pages'</span>, <span class="hljs-string">'Configuration'</span>, <span class="hljs-string">'Tools &amp; Plugins'</span>, <span class="hljs-string">'Misc.'</span>];
+    <span class="hljs-keyword">return</span> order.indexOf(group.name);
+  },
+  sortPages: <span class="hljs-string">'order'</span>
+});
+</code></pre>
+<p>This will create a group called <code>documentation</code> that contains all of the pages in <code>documentation</code> folder grouped by the <code>topic</code> key in their metadata. You can then use the <code>documentation</code> variable on any of those pages.</p>
+<h2 id="accessing-all-groups">Accessing All Groups</h2>
+<p>Once you have created a page you can access all of the generated groups by using {{ group_name.groups }} in your template. Each group has an array of all the pages in that group accessable with  and the value of the <code>groupBy</code> key accessable with . This can be used to create a quick structured navigation.</p>
+<pre><code class="lang-html">{% for group in documentation.groups %}
+  <span class="hljs-tag">&lt;<span class="hljs-title">section</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">h4</span>&gt;</span>{{ group.name }}<span class="hljs-tag">&lt;/<span class="hljs-title">h4</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+      {% for page in group.pages %}
+      <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"{{relativeUrl}}{{page.url}}"</span>&gt;</span>{{page.title}}<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+      {% endfor %}
+    <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+{% endfor %}
+</code></pre>
+<h2 id="other-pages-in-the-same-group">Other Pages in the Same Group</h2>
+<p>Coming Soon</p>
+  </article>
+</div>
 
   
 </body>
