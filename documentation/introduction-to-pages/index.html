@@ -13,7 +13,7 @@
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="/">Acetate</a>
+      <a href="/" class="">Acetate</a>
       <div class="right">
         <a href="/documentation/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
@@ -33,25 +33,21 @@
           <h4>Pages</h4>
           <ul>
             
-            <li><a href="../../documentation/introduction-to-pages/" class="is-active">Introduction to Pages</a></li>
+            <li><a href="../../documentation/introduction-to-pages/" class="is-active">Introduction</a></li>
             
-            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Page Helpers</a></li>
+            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
-            <li><a href="../../documentation/collections/" class="not-active">Collections</a></li>
+            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
+            
+            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
+            
+            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
             
             <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
             
             <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
-            <li><a href="../../documentation/groups/" class="not-active">Groups</a></li>
-            
-            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
-            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-            
-            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
           </ul>
         </section>
@@ -60,11 +56,21 @@
           <h4>Configuration</h4>
           <ul>
             
-            <li><a href="../../documentation/command-line-flags/" class="not-active">Command Line Flags</a></li>
+            <li><a href="../../documentation/configuration-options/" class="not-active">Options</a></li>
             
-            <li><a href="../../documentation/config-helpers/" class="not-active">Configuration Helpers</a></li>
+            <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
             
-            <li><a href="../../documentation/config-options/" class="not-active">Configuration Options</a></li>
+            <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
+            
+            <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
+            
+            <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
+            
+            <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
+            
+            <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
             
             <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
             
@@ -86,6 +92,17 @@
           </ul>
         </section>
       
+        <section>
+          <h4>Extensions</h4>
+          <ul>
+            
+            <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
+            
+            <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
+            
+          </ul>
+        </section>
+      
     </nav>
   </aside>
 
@@ -93,7 +110,18 @@
     <h1>Introduction to Pages</h1>
     <p>Any files ending in <code>.md</code>, <code>.markdown</code> and <code>.html</code> in your <code>src</code> folder are automatically loaded by Acetate and turned into pages. When you site is built Acetate processes these pages, runs your extensions and then builds the resulting output.</p>
 <p>Pages whose filenames begin with <code>_</code> are ignored from builds but can be used as layouts or partials.</p>
+<p>If you have other pages that don't end in <code>.md</code>, <code>.markdown</code> and <code>.html</code> that you want Acetate to process you can use the <code>acetate.source</code> helper in you configuration files.</p>
+<p><code class="filename">acetate.conf.js</code></p>
+<pre><code class="js">acetate.source(<span class="hljs-string">'CNAME'</span>);
+acetate.source(<span class="hljs-string">'sitemap.xml'</span>);
+acetate.source(<span class="hljs-string">'robots.txt'</span>);
+</code></pre>
+<p>This would make <code>src/CNAME</code>, <code>src/sitemap.xml</code>, and <code>src/robots.txt</code> pages that you can then template with Nunjucks and use all all of Acetate's feature inside.</p>
 
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/introduction-to-pages.md">Edit this Page on GitHub</a>
+    </p>
   </article>
 </div>
 

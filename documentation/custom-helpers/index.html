@@ -13,7 +13,7 @@
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="/">Acetate</a>
+      <a href="/" class="">Acetate</a>
       <div class="right">
         <a href="/documentation/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
@@ -33,25 +33,21 @@
           <h4>Pages</h4>
           <ul>
             
-            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction to Pages</a></li>
+            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
             
-            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Page Helpers</a></li>
+            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
-            <li><a href="../../documentation/collections/" class="not-active">Collections</a></li>
+            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
+            
+            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
+            
+            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
             
             <li><a href="../../documentation/custom-helpers/" class="is-active">Custom Helpers</a></li>
             
             <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
-            <li><a href="../../documentation/groups/" class="not-active">Groups</a></li>
-            
-            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
-            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-            
-            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
           </ul>
         </section>
@@ -60,11 +56,21 @@
           <h4>Configuration</h4>
           <ul>
             
-            <li><a href="../../documentation/command-line-flags/" class="not-active">Command Line Flags</a></li>
+            <li><a href="../../documentation/configuration-options/" class="not-active">Options</a></li>
             
-            <li><a href="../../documentation/config-helpers/" class="not-active">Configuration Helpers</a></li>
+            <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
             
-            <li><a href="../../documentation/config-options/" class="not-active">Configuration Options</a></li>
+            <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
+            
+            <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
+            
+            <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
+            
+            <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
+            
+            <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
             
             <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
             
@@ -86,38 +92,49 @@
           </ul>
         </section>
       
+        <section>
+          <h4>Extensions</h4>
+          <ul>
+            
+            <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
+            
+            <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
+            
+          </ul>
+        </section>
+      
     </nav>
   </aside>
 
   <article class="column-18">
     <h1>Custom Helpers</h1>
-    <h2 id="custom-filters">Custom Filters</h2>
-<p>Since Acetate exposes the Nunjucks object you can use it to add custom filters;</p>
-<pre><code class="lang-js">acetate.nunjucks.addFilter(<span class="hljs-string">'prettyJSON'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(str)</span>{</span>
+    <h2>Custom Filters</h2>
+<p>You can congisure custom filters for Nunjucks with the <code>acetate.filter</code> helper. The first parameter is the name of your filter. The second is the function that will process the variable and return it.</p>
+<pre><code class="js">acetate.filter(<span class="hljs-string">'prettyJSON'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(str)</span></span>{
   <span class="hljs-keyword">return</span> <span class="hljs-string">"&lt;pre&gt;"</span> + <span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-built_in">JSON</span>.parse(str),<span class="hljs-literal">null</span>, <span class="hljs-string">'  '</span>) + <span class="hljs-string">"&lt;/pre&gt;"</span>;
 });
 </code></pre>
 <p>Once your filters are defined you can use them in your templates.</p>
 <p><code class="filename">src/json-example.html</code></p>
-<pre><code class="lang-html">---
-json: &quot;{\&quot;foo\&quot;:\&quot;bar\&quot;, \&quot;baz\&quot;:\&quot;bar\&quot;}&quot;
+<pre><code class="html">---
+json: "{\"foo\":\"bar\", \"baz\":\"bar\"}"
 ---
 
 {{ json | prettyJSON }}
 </code></pre>
 <p><code class="filename">build/json-example/index.html</code></p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">pre</span>&gt;</span>{
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-title">pre</span>&gt;</span>{
   "foo": "bar",
   "baz": "bar"
 }<span class="hljs-tag">&lt;/<span class="hljs-title">pre</span>&gt;</span>
 </code></pre>
-<p>Refer to the <a href="https://mozilla.github.io/nunjucks/templating.html#filters">Nunjucks filter documentation</a> for more details.</p>
-<h2 id="helper-functions">Helper Functions</h2>
-<p>You can use the <code>registerHelper</code> function in your config file to define custom helpers you can use in your templates. <code>registerHelper</code> takes 2 parameters, a tag name which you will use in your templates and a handler function. The handler function will be passed the page context (all the variables on the page) and then any arguments you pass from the template.</p>
+<p>Refer to the <a href="https://mozilla.github.io/nunjucks/templating.html#filters">Nunjucks filter documentation</a> for more detailss.</p>
+<h2>Helper Functions</h2>
+<p>You can use the <code>helper</code> function in your config file to define custom helpers you can use in your templates. <code>helper</code> takes 2 parameters, a tag name which you will use in your templates and a handler function. The handler function will be passed the page context (all the variables on the page) and then any arguments you pass from the template.</p>
 <p><code class="filename">acetate.conf.js</code></p>
-<pre><code class="lang-js"><span class="hljs-comment">// create a link helper that will also add a .active </span>
+<pre><code class="js"><span class="hljs-comment">// create a link helper that will also add a .active </span>
 <span class="hljs-comment">// class to the linked page is also teh current page</span>
-acetate.registerHelper(<span class="hljs-string">'link'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(context, url, text)</span>{</span>
+acetate.helper(<span class="hljs-string">'link'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(context, url, text)</span></span>{
   <span class="hljs-comment">// context is the current local variables on the page</span>
   <span class="hljs-keyword">var</span> className = context.url === url ? <span class="hljs-string">'active'</span> : <span class="hljs-string">'inactive'</span>;
 
@@ -138,19 +155,18 @@ acetate.registerHelper(<span class="hljs-string">'link'</span>, <span class="hlj
 </code></pre>
 <p>This example also shows how you can use Nunjucks to handle templating inside your helper functions. Now that you have defined your helper you can use it in your templates.</p>
 <p><code class="filename">src/blog/index.html</code></p>
-<pre><code class="lang-html">{% link &#39;/&#39;, &#39;Home&#39; %}
+<pre><code class="html">{% link "/", "Home" %}
 </code></pre>
 <p><code class="filename">dist/blog/index.html</code></p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"../"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"inactive"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"../"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"inactive"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
 </code></pre>
-<h4 id="notes">Notes</h4>
-<ul>
-<li>You must pass at least 1 parameter to your helper tags in your templates. Otherwise Nunjucks will throw a template error.</li>
-</ul>
-<h2 id="block-helpers">Block Helpers</h2>
-<p>You can also create special helpers which can receive blocks of content by using the <code>registerBlock</code> function. <code>`registerBlock</code> takes 2 parameters, a tag name which you will use in your templates and a handler function. The handler function will be passed the page context (all the variables on the page) then the body of your block, and finally any arguments you pass from the template.</p>
+<p><div class="callout note"><p><h5>Note</h5>
+You must pass at least 1 parameter to your helper tags in your templates. Otherwise Nunjucks will throw a template error.
+</p></div></p>
+<h2>Block Helpers</h2>
+<p>You can also create special helpers which can receive blocks of content by using the <code>acetate.block</code> function. ``block` takes 2 parameters, a tag name which you will use in your templates and a handler function. The handler function will be passed the page context (all the variables on the page) then the body of your block, and finally any arguments you pass from the template.</p>
 <p><code class="filename">acetate.conf.js</code></p>
-<pre><code class="lang-js">acetate.registerBlock(<span class="hljs-string">'callout'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(context, body, type)</span>{</span>
+<pre><code class="js">acetate.block(<span class="hljs-string">'callout'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(context, body, type)</span></span>{
   <span class="hljs-keyword">var</span> template = <span class="hljs-string">'&lt;div class="callout {{type|lower}}"&gt;&lt;p&gt;&lt;h5&gt;{{type}}&lt;/h5&gt;{{body}}&lt;/p&gt;&lt;/div&gt;'</span>;
   <span class="hljs-keyword">return</span> acetate.nunjucks.renderString(template, {
     type: type,
@@ -160,17 +176,21 @@ acetate.registerHelper(<span class="hljs-string">'link'</span>, <span class="hlj
 </code></pre>
 <p>Now that your helper is registered you can use it in your templates.</p>
 <p><code class="filename">src/blog/index.html</code></p>
-<pre><code class="lang-html">{% callout &#39;Note&#39; %}
+<pre><code class="html">{% callout "Note" %}
 This is a custom callout!
 {% calloutend%}
 </code></pre>
 <p><code class="filename">dist/blog/index.html</code></p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"note"</span>&gt;</span>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"note"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">h5</span>&gt;</span>Note<span class="hljs-tag">&lt;/<span class="hljs-title">h5</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>This is a custom callout!<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
 
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/custom-helpers.md">Edit this Page on GitHub</a>
+    </p>
   </article>
 </div>
 

@@ -13,7 +13,7 @@
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="/">Acetate</a>
+      <a href="/" class="">Acetate</a>
       <div class="right">
         <a href="/documentation/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
@@ -33,25 +33,21 @@
           <h4>Pages</h4>
           <ul>
             
-            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction to Pages</a></li>
+            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
             
-            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Page Helpers</a></li>
+            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
-            <li><a href="../../documentation/collections/" class="not-active">Collections</a></li>
+            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
+            
+            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
+            
+            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
             
             <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
             
             <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
-            <li><a href="../../documentation/groups/" class="not-active">Groups</a></li>
-            
-            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
-            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-            
-            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
           </ul>
         </section>
@@ -60,11 +56,21 @@
           <h4>Configuration</h4>
           <ul>
             
-            <li><a href="../../documentation/command-line-flags/" class="not-active">Command Line Flags</a></li>
+            <li><a href="../../documentation/configuration-options/" class="not-active">Options</a></li>
             
-            <li><a href="../../documentation/config-helpers/" class="not-active">Configuration Helpers</a></li>
+            <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
             
-            <li><a href="../../documentation/config-options/" class="not-active">Configuration Options</a></li>
+            <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
+            
+            <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
+            
+            <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
+            
+            <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
+            
+            <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
             
             <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
             
@@ -86,34 +92,46 @@
           </ul>
         </section>
       
+        <section>
+          <h4>Extensions</h4>
+          <ul>
+            
+            <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
+            
+            <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
+            
+          </ul>
+        </section>
+      
     </nav>
   </aside>
 
   <article class="column-18">
     <h1>Grunt Plugin</h1>
     <p>For easy use with Grunt install the <code>grunt-acetate</code> plugin with this command:</p>
-<pre><code class="lang-bash">npm install grunt-acetate --save-dev
+<pre><code class="bash">npm install grunt-acetate --save-dev
 </code></pre>
 <p>Then load it into your Gruntfile:</p>
-<pre><code class="lang-js">grunt.loadNpmTasks(<span class="hljs-string">'grunt-acetate'</span>);
+<pre><code class="js">grunt.loadNpmTasks(<span class="hljs-string">'grunt-acetate'</span>);
 </code></pre>
-<p>In your project&#39;s Gruntfile, add a section named acetate to the data object passed into <code>grunt.initConfig()</code>:</p>
-<pre><code><span class="hljs-tag">grunt</span><span class="hljs-class">.initConfig</span>(<span class="hljs-rules">{
-  <span class="hljs-rule"><span class="hljs-attribute">acetate</span>:<span class="hljs-value"> {
+<p>In your project's Gruntfile, add a section named acetate to the data object passed into <code>grunt.initConfig()</code>:</p>
+<pre><code>grunt.initConfig({
+  acetate: {
     build: {
-      config: <span class="hljs-string">'acetate.conf.js'</span>,
-    </span></span></span>},
-    <span class="hljs-tag">watch</span>: <span class="hljs-rules">{
-      <span class="hljs-rule"><span class="hljs-attribute">config</span>:<span class="hljs-value"> <span class="hljs-string">'acetate.conf.js'</span>,
+      config: <span class="hljs-symbol">'acetate</span>.conf.js',
+    },
+    watch: {
+      config: <span class="hljs-symbol">'acetate</span>.conf.js',
       options: {
-        watcher: true,
-        server: true,
-        open: true
-      </span></span></span>}
+        watcher: <span class="hljs-literal">true</span>,
+        server: <span class="hljs-literal">true</span>,
+        <span class="hljs-keyword">open</span>: <span class="hljs-literal">true</span>
+      }
     }
   }
 });
-</code></pre><h3 id="options">Options</h3>
+</code></pre>
+<h3>Options</h3>
 <table>
 <thead>
 <tr>
@@ -145,7 +163,7 @@
 </tr>
 <tr>
 <td><code>host</code></td>
-<td><code>&#39;localhost&#39;</code></td>
+<td><code>'localhost'</code></td>
 <td>The hostname to server the website on.</td>
 </tr>
 <tr>
@@ -165,14 +183,18 @@
 </tr>
 <tr>
 <td><code>log</code></td>
-<td><code>&#39;info&#39;</code></td>
+<td><code>'info'</code></td>
 <td>Logging level to use. Should be one of <code>debug</code>,<code>verbose</code>,<code>info</code>,<code>success</code>,<code>warn</code>,<code>error</code>,<code>stack</code>,<code>silent</code>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="example">Example</h3>
-<p>The Acetate website is built with Grunt. Take a look at it&#39;s <a href="https://github.com/patrickarlt/acetate-site/blob/master/Gruntfile.js">Gruntfile</a>.</p>
+<h3>Example</h3>
+<p>The Acetate website is built with Grunt. Take a look at it's <a href="https://github.com/patrickarlt/acetate-site/blob/master/Gruntfile.js">Gruntfile</a>.</p>
 
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/grunt-plugin.md">Edit this Page on GitHub</a>
+    </p>
   </article>
 </div>
 

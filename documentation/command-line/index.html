@@ -13,7 +13,7 @@
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="/">Acetate</a>
+      <a href="/" class="">Acetate</a>
       <div class="right">
         <a href="/documentation/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
@@ -33,25 +33,21 @@
           <h4>Pages</h4>
           <ul>
             
-            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction to Pages</a></li>
+            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
             
-            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Page Helpers</a></li>
+            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
-            <li><a href="../../documentation/collections/" class="not-active">Collections</a></li>
+            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
+            
+            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
+            
+            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
             
             <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
             
             <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
-            <li><a href="../../documentation/groups/" class="not-active">Groups</a></li>
-            
-            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
-            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-            
-            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
           </ul>
         </section>
@@ -60,11 +56,21 @@
           <h4>Configuration</h4>
           <ul>
             
-            <li><a href="../../documentation/command-line-flags/" class="not-active">Command Line Flags</a></li>
+            <li><a href="../../documentation/configuration-options/" class="not-active">Options</a></li>
             
-            <li><a href="../../documentation/config-helpers/" class="not-active">Configuration Helpers</a></li>
+            <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
             
-            <li><a href="../../documentation/config-options/" class="not-active">Configuration Options</a></li>
+            <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
+            
+            <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
+            
+            <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
+            
+            <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
+            
+            <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
             
             <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
             
@@ -86,20 +92,31 @@
           </ul>
         </section>
       
+        <section>
+          <h4>Extensions</h4>
+          <ul>
+            
+            <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
+            
+            <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
+            
+          </ul>
+        </section>
+      
     </nav>
   </aside>
 
   <article class="column-18">
     <h1>Command Line</h1>
     <p>You can install a command line with npm:</p>
-<pre><code class="lang-bash">npm install -g acetate-cli
+<pre><code class="bash">npm install -g acetate-cli
 </code></pre>
 <p>Then access the built in help:</p>
-<pre><code class="lang-bash">acetate --help
-Usage: acetate [command] [options]
+<pre><code class="bash">acetate --help
+Usage: acetate [<span class="hljs-built_in">command</span>] [options]
 
 Commands:
-  build     run a single build of the project and <span class="hljs-keyword">exit</span>
+  build     run a single build of the project and <span class="hljs-built_in">exit</span>
   watch     build site, <span class="hljs-keyword">then</span> watch files <span class="hljs-keyword">for</span> changes and rebuild
   server    build site and watch <span class="hljs-keyword">for</span> changes, serve output folder with built-in server
 
@@ -109,7 +126,7 @@ Options:
   --findPort    find new port <span class="hljs-keyword">if</span> port is <span class="hljs-keyword">in</span> use                                 [default: <span class="hljs-literal">false</span>]
   --open        open browser when server starts up                              [default: <span class="hljs-literal">false</span>]
   --clean       clean out files from build folder                               [default: <span class="hljs-literal">false</span>]
-  --log         log levels: debug|verbose|info|success|warn|error|stack|silent  [default: <span class="hljs-string">"info"</span>]
+  --log         <span class="hljs-built_in">log</span> levels: debug|verbose|info|success|warn|error|stack|silent  [default: <span class="hljs-string">"info"</span>]
   -p, --port                                                                    [default: <span class="hljs-number">8000</span>]
   -c, --config                                                                  [default: <span class="hljs-string">"acetate.conf.js"</span>]
 
@@ -117,6 +134,10 @@ Examples:
   acetate build --clean    build site, cleaning the output folder before beginning
 </code></pre>
 
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/command-line.md">Edit this Page on GitHub</a>
+    </p>
   </article>
 </div>
 

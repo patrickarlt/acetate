@@ -13,7 +13,7 @@
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="/">Acetate</a>
+      <a href="/" class="">Acetate</a>
       <div class="right">
         <a href="/documentation/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
@@ -33,25 +33,21 @@
           <h4>Pages</h4>
           <ul>
             
-            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction to Pages</a></li>
+            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
             
-            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Page Helpers</a></li>
+            <li><a href="../../documentation/templating/" class="is-active">Templating</a></li>
             
-            <li><a href="../../documentation/collections/" class="not-active">Collections</a></li>
+            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
+            
+            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
+            
+            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
             
             <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
             
             <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
-            <li><a href="../../documentation/groups/" class="not-active">Groups</a></li>
-            
-            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
-            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-            
-            <li><a href="../../documentation/templating/" class="is-active">Templating</a></li>
             
           </ul>
         </section>
@@ -60,11 +56,21 @@
           <h4>Configuration</h4>
           <ul>
             
-            <li><a href="../../documentation/command-line-flags/" class="not-active">Command Line Flags</a></li>
+            <li><a href="../../documentation/configuration-options/" class="not-active">Options</a></li>
             
-            <li><a href="../../documentation/config-helpers/" class="not-active">Configuration Helpers</a></li>
+            <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
             
-            <li><a href="../../documentation/config-options/" class="not-active">Configuration Options</a></li>
+            <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
+            
+            <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
+            
+            <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
+            
+            <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
+            
+            <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
             
             <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
             
@@ -86,12 +92,86 @@
           </ul>
         </section>
       
+        <section>
+          <h4>Extensions</h4>
+          <ul>
+            
+            <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
+            
+            <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
+            
+          </ul>
+        </section>
+      
     </nav>
   </aside>
 
   <article class="column-18">
     <h1>Templating</h1>
-    
+    <p>Acetate uses the <a href="https://mozilla.github.io/nunjucks/">Nunjucks</a> templating language for all its templating. Nunjucks is powerful and has all the features you would want to build a complex website.</p>
+<h2>Basic Nunjucks</h2>
+<p>In general you should refer to the <a href="https://mozilla.github.io/nunjucks/templating.html">Nunjucks templating documentation</a> but a quick introduction to the basics will be helpful.</p>
+<h3>Printing Variables</h3>
+<p>You can print a variable in Nunjucks by wrapping it in double curly braces like <code>{{ variable}}</code>.</p>
+<p>Unlike other templating libraries Nunjucks does not autoescape content by default. But you can use the <code>escape</code> filter<code>{{ variable | escape }}</code>.</p>
+<p>If you need to render Nunjucks syntax You can use a <code>raw</code> tag. See the <a href="https://mozilla.github.io/nunjucks/templating.html#raw">Nunjucks documentation</a> for details.</p>
+<h3>Iterating Over Arrays</h3>
+<p>You can use Nunjucks <code>{% for %}</code> tag to iterate over Arrays.</p>
+<p><code class="filename">src/iterating-arrays.html</code></p>
+<pre><code class="html">---
+items: 
+  - title: Foo
+    id: 1
+  - title: Bar
+    id: 2
+---
+
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+{% for item in items %}
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>{{ item.title }}<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+{% endfor %}
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
+<h3>Iterating Over Objects</h3>
+<p>You can use Nunjucks <code>{% for %}</code> tag to iterate over Objects.</p>
+<p><code class="filename">src/Iterating-objects.html</code></p>
+<pre><code class="html">---
+dogs:
+  Spot: Lab
+  Rover: Corgi
+---
+
+{% for name, breed in dogs %}
+  {{ name }} is a {{ breed }}
+{% endfor %}
+</code></pre>
+<h3>Conditionals</h3>
+<p>You can use Nunjucks <code>{% if %}</code> tag to create conditional statements.</p>
+<p><code class="filename">src/conditionals.html</code></p>
+<pre><code class="html">{% if src == "index.html" %}
+  On the home page.
+{% elif src == "about.html" %}
+  On the about page.
+{% else %}
+  On some other page.
+{% endif %}
+</code></pre>
+<h3>Expressions</h3>
+<p>You can use most JavaScript literals like Strings, Numbers, Arrays, Objects, Regular Expression and functions via <a href="https://mozilla.github.io/nunjucks/templating.html#expressions">Nunjucks expressions</a></p>
+<h3>Layouts</h3>
+<p>You can use either the <a href="/documentation/layouts">Acetate layout system</a> or <a href="https://mozilla.github.io/nunjucks/templating.html#template-inheritance">Nunjucks template inheritence</a>  to create reuseable layouts to wrap your content.</p>
+<h3>Partials</h3>
+<p>Acetate leverages the <a href="https://mozilla.github.io/nunjucks/templating.html#include">Nunjucks include tag</a> to create partials that can be used across multupile pages. To learn how to use partials in Acetate refer to the <a href="/documentation/partials/">partials documentation</a>.</p>
+<h3>Helpers</h3>
+<p>In addition to having access to having everything in the <a href="https://mozilla.github.io/nunjucks/templating.html#include">Nunjucks templating language</a> you can also <a href="/documetation/built-in-helpers/">access built in variables provided by Acetate</a> and <a href="/documentation/cusotm-helpers/">create custom helpers</a> to use in your template.</p>
+<h3>Filters</h3>
+<p>To use a filter add it after a variable seperated by a <code>|</code> character {{variable | filter}}.</p>
+<p>You can use any of the <a href="https://mozilla.github.io/nunjucks/templating.html#builtin-filters">Nunjucks filters</a> like <code>sort</code>, <code>first</code>, and <code>trim</code> and you can <a href="/documentation/cusotm-helpers/">define your own filters</a>.</p>
+
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/templating.md">Edit this Page on GitHub</a>
+    </p>
   </article>
 </div>
 

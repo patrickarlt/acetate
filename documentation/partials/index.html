@@ -13,7 +13,7 @@
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="/">Acetate</a>
+      <a href="/" class="">Acetate</a>
       <div class="right">
         <a href="/documentation/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
@@ -33,25 +33,21 @@
           <h4>Pages</h4>
           <ul>
             
-            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction to Pages</a></li>
+            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
             
-            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Page Helpers</a></li>
+            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
-            <li><a href="../../documentation/collections/" class="not-active">Collections</a></li>
+            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
+            
+            <li><a href="../../documentation/partials/" class="is-active">Partials</a></li>
+            
+            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
             
             <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
             
             <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
-            <li><a href="../../documentation/groups/" class="not-active">Groups</a></li>
-            
-            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
-            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/partials/" class="is-active">Partials</a></li>
-            
-            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
           </ul>
         </section>
@@ -60,11 +56,21 @@
           <h4>Configuration</h4>
           <ul>
             
-            <li><a href="../../documentation/command-line-flags/" class="not-active">Command Line Flags</a></li>
+            <li><a href="../../documentation/configuration-options/" class="not-active">Options</a></li>
             
-            <li><a href="../../documentation/config-helpers/" class="not-active">Configuration Helpers</a></li>
+            <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
             
-            <li><a href="../../documentation/config-options/" class="not-active">Configuration Options</a></li>
+            <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
+            
+            <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
+            
+            <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
+            
+            <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
+            
+            <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
             
             <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
             
@@ -86,6 +92,17 @@
           </ul>
         </section>
       
+        <section>
+          <h4>Extensions</h4>
+          <ul>
+            
+            <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
+            
+            <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
+            
+          </ul>
+        </section>
+      
     </nav>
   </aside>
 
@@ -93,12 +110,12 @@
     <h1>Partials</h1>
     <p>You can use build and include reusable templates accross multupile pages with Nunjucks <code>include</code> tag. Remember filenames that begin with <code>_</code> are not built so they are ideal for partials.</p>
 <p><code class="filename">src/_partial.html</code></p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>{{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>{{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"description"</span> <span class="hljs-attribute">content</span>=<span class="hljs-value">"{{description}}"</span>&gt;</span>
 </code></pre>
-<p>Now that we have defined a tempalte file we can inclucde it accross multupile pages with <code>{% include &#39;_partial&#39; %}</code>. Like with layouts you dont have to include the file extension and the path is relative to your source folder.</p>
+<p>Now that we have defined a tempalte file we can inclucde it accross multupile pages with <code>{% include "_partial" %}</code>. Like with layouts you dont have to include the file extension and the path is relative to your source folder.</p>
 <p><code class="filename">src/contact.html</code></p>
-<pre><code class="lang-html">---
+<pre><code class="html">---
 title: Contact
 description: Contact us for more information.
 ---
@@ -114,7 +131,7 @@ description: Contact us for more information.
 <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
 </code></pre>
 <p><code class="filename">src/about.html</code></p>
-<pre><code class="lang-html">---
+<pre><code class="html">---
 title: About
 description: Learn a little more about us.
 ---
@@ -130,6 +147,10 @@ description: Learn a little more about us.
 <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
 </code></pre>
 
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/partials.md">Edit this Page on GitHub</a>
+    </p>
   </article>
 </div>
 

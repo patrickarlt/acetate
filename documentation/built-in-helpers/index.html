@@ -2,7 +2,7 @@
 <html>
 <head>
   
-    <title>Built-in Page Helpers | Acetate</title>
+    <title>Built-in Helpers | Acetate</title>
   
 
   
@@ -13,7 +13,7 @@
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="/">Acetate</a>
+      <a href="/" class="">Acetate</a>
       <div class="right">
         <a href="/documentation/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
@@ -33,25 +33,21 @@
           <h4>Pages</h4>
           <ul>
             
-            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction to Pages</a></li>
+            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
             
-            <li><a href="../../documentation/built-in-helpers/" class="is-active">Built-in Page Helpers</a></li>
+            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
-            <li><a href="../../documentation/collections/" class="not-active">Collections</a></li>
+            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
+            
+            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
+            
+            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/built-in-helpers/" class="is-active">Built-in Helpers</a></li>
             
             <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
             
             <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
-            <li><a href="../../documentation/groups/" class="not-active">Groups</a></li>
-            
-            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
-            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-            
-            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
           </ul>
         </section>
@@ -60,11 +56,21 @@
           <h4>Configuration</h4>
           <ul>
             
-            <li><a href="../../documentation/command-line-flags/" class="not-active">Command Line Flags</a></li>
+            <li><a href="../../documentation/configuration-options/" class="not-active">Options</a></li>
             
-            <li><a href="../../documentation/config-helpers/" class="not-active">Configuration Helpers</a></li>
+            <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
             
-            <li><a href="../../documentation/config-options/" class="not-active">Configuration Options</a></li>
+            <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
+            
+            <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
+            
+            <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
+            
+            <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
+            
+            <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
             
             <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
             
@@ -86,12 +92,23 @@
           </ul>
         </section>
       
+        <section>
+          <h4>Extensions</h4>
+          <ul>
+            
+            <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
+            
+            <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
+            
+          </ul>
+        </section>
+      
     </nav>
   </aside>
 
   <article class="column-18">
-    <h1>Built-in Page Helpers</h1>
-    <h2 id="page-variables">Page Variables</h2>
+    <h1>Built-in Helpers</h1>
+    <h2>Page Variables</h2>
 <p>You can use any of these variables in your templates.</p>
 <table>
 <thead>
@@ -110,22 +127,22 @@
 <tr>
 <td><code>src</code></td>
 <td>Path to this file from the <code>acetate.src</code> folder</td>
-<td><code>&#39;blog/posts/hello-world.md&#39;</code></td>
+<td><code>'blog/posts/hello-world.md'</code></td>
 </tr>
 <tr>
 <td><code>dest</code></td>
 <td>Output path for this file relative to the <code>acetate.dest</code> folder</td>
-<td><code>&#39;blog/posts/hello-world/index.html&#39;</code></td>
+<td><code>'blog/posts/hello-world/index.html'</code></td>
 </tr>
 <tr>
 <td><code>url</code></td>
 <td>URL for this page.</td>
-<td><code>&#39;blog/posts/hello-world/&#39;</code></td>
+<td><code>'blog/posts/hello-world/'</code></td>
 </tr>
 <tr>
 <td><code>fullpath</code></td>
 <td>Full path to this template from root. This will differ between platforms.</td>
-<td><code>&#39;/Users/joe/blog/posts/hello-world/index.html&#39;</code></td>
+<td><code>'/Users/joe/blog/posts/hello-world/index.html'</code></td>
 </tr>
 <tr>
 <td><code>relativePath</code></td>
@@ -134,35 +151,39 @@
 </tr>
 </tbody>
 </table>
-<h3 id="examples">Examples</h3>
-<pre><code class="lang-html"><span class="hljs-comment">&lt;!-- last modified: Thu Apr 09 2015 10:56:28 GMT-0700 (PDT) --&gt;</span>
+<h3>Examples</h3>
+<pre><code class="html"><span class="hljs-comment">&lt;!-- last modified: Fri Apr 10 2015 18:55:47 GMT-0700 (PDT) --&gt;</span>
 <span class="hljs-comment">&lt;!-- template: documentation/built-in-helpers.md --&gt;</span>
 </code></pre>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"../../"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"../../"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
 </code></pre>
-<h2 id="block-helpers">Block Helpers</h2>
+<h2>Block Helpers</h2>
 <p>Acetate also provides 2 helpers you can use in your files to render Markdown and highlight code. You can use them like so.</p>
-<h3 id="highlight">Highlight</h3>
-<pre><code class="lang-html">{% highlight &#39;js&#39;%}
-var message = &quot;Acetate is awesome!&quot;;
+<h3>Highlight</h3>
+<pre><code class="html">{% highlight "js"%}
+var message = "Acetate is awesome!";
 alert(message)
 {% endhighlight %}
 </code></pre>
 <p>You can also omit the language hint to auto detect the language.</p>
-<pre><code class="lang-html">{% highlight %}
-var message = &quot;Acetate is awesome!&quot;;
+<pre><code class="html">{% highlight %}
+var message = "Acetate is awesome!";
 alert(message)
 {% endhighlight %}
 </code></pre>
-<p>You can use one of <a href="https://github.com/isagalaev/highlight.js/tree/master/src/styles">highlight.js&#39;s stylesheets</a> to style the resulting code block.</p>
-<h3 id="markdown">Markdown</h3>
-<pre><code class="lang-html">{% markdown %}
+<p>You can use one of <a href="https://github.com/isagalaev/highlight.js/tree/master/src/styles">highlight.js's stylesheets</a> to style the resulting code block.</p>
+<h3>Markdown</h3>
+<pre><code class="html">{% markdown %}
 # Acetate is awesome
 
 Markdown is awesome too.
 {% endmarkdown %}
 </code></pre>
 
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/built-in-helpers.md">Edit this Page on GitHub</a>
+    </p>
   </article>
 </div>
 

@@ -13,7 +13,7 @@
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="/">Acetate</a>
+      <a href="/" class="">Acetate</a>
       <div class="right">
         <a href="/documentation/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
@@ -33,25 +33,21 @@
           <h4>Pages</h4>
           <ul>
             
-            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction to Pages</a></li>
+            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
             
-            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Page Helpers</a></li>
+            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
-            <li><a href="../../documentation/collections/" class="not-active">Collections</a></li>
+            <li><a href="../../documentation/layouts/" class="is-active">Layouts</a></li>
+            
+            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
+            
+            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
             
             <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
             
             <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
-            <li><a href="../../documentation/groups/" class="not-active">Groups</a></li>
-            
-            <li><a href="../../documentation/layouts/" class="is-active">Layouts</a></li>
-            
-            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-            
-            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
             
           </ul>
         </section>
@@ -60,11 +56,21 @@
           <h4>Configuration</h4>
           <ul>
             
-            <li><a href="../../documentation/command-line-flags/" class="not-active">Command Line Flags</a></li>
+            <li><a href="../../documentation/configuration-options/" class="not-active">Options</a></li>
             
-            <li><a href="../../documentation/config-helpers/" class="not-active">Configuration Helpers</a></li>
+            <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
             
-            <li><a href="../../documentation/config-options/" class="not-active">Configuration Options</a></li>
+            <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
+            
+            <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
+            
+            <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
+            
+            <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
+            
+            <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
             
             <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
             
@@ -86,6 +92,17 @@
           </ul>
         </section>
       
+        <section>
+          <h4>Extensions</h4>
+          <ul>
+            
+            <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
+            
+            <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
+            
+          </ul>
+        </section>
+      
     </nav>
   </aside>
 
@@ -94,7 +111,7 @@
     <p>Acetate wraps Nunjucks <a href="https://mozilla.github.io/nunjucks/templating.html#template-inheritance">template inheritance</a> in a simple layout system.</p>
 <p>An example layout file.</p>
 <p><code class="filename">src/_layout.html</code></p>
-<pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<pre><code class="html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>{{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
@@ -104,9 +121,9 @@
 <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
 </code></pre>
-<p>Now that you have a layout you declare it in a page&#39;s frontmatter with the <code>layout</code> key. Format the value like <code>path/to/layout:block_name_in_layout</code>.</p>
+<p>Now that you have a layout you declare it in a page's frontmatter with the <code>layout</code> key. Format the value like <code>path/to/layout:block_name_in_layout</code>.</p>
 <p><code class="filename">src/index.html</code></p>
-<pre><code class="lang-html">---
+<pre><code class="html">---
 title: Using Layouts
 layout: _layout:page
 ---
@@ -115,12 +132,12 @@ layout: _layout:page
 </code></pre>
 <p>You can also declare layouts for large amounts of pages in your config file with the <code>layout</code> helper.</p>
 <p><code class="filename">acetate.conf.js</code></p>
-<pre><code class="lang-js">acetate.layout(<span class="hljs-string">'**.*'</span>, <span class="hljs-string">'_layout:page'</span>);
+<pre><code class="js">acetate.layout(<span class="hljs-string">'**.*'</span>, <span class="hljs-string">'_layout:page'</span>);
 </code></pre>
 <p>The first argument is a glob that will be used to match pages. The second is the <code>layout</code> key you want to apply.</p>
-<h2 id="nesting-layouts">Nesting Layouts</h2>
+<h2>Nesting Layouts</h2>
 <p><code class="filename">src/_nested.html</code></p>
-<pre><code class="lang-html">{% extends "_layout" %}
+<pre><code class="html">{% extends "_layout" %}
 
 {% block page %}
   <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
@@ -131,7 +148,7 @@ layout: _layout:page
 </code></pre>
 <p>To nest layouts use <code>extends</code> to declare the layout you would like to extend and then declare content for one or more of its blocks. Then declare a new block (with a differnet name) that other templates can extend.</p>
 <p><code class="filename">src/nested.html</code></p>
-<pre><code class="lang-html">---
+<pre><code class="html">---
 title: Using Layouts
 layout: _nested:content
 ---
@@ -139,6 +156,10 @@ layout: _nested:content
 <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>Look I'm using a nested layout!<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
 </code></pre>
 
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/layouts.md">Edit this Page on GitHub</a>
+    </p>
   </article>
 </div>
 
