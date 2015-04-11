@@ -1,5 +1,6 @@
+#!/usr/bin/env node
 var path = require('path');
-var acetate = require('./index');
+var acetate = require('../');
 var chokidar = require('chokidar');
 var fs = require('fs');
 
@@ -72,6 +73,4 @@ if (action !== 'build') {
   });
 }
 
-module.exports = {
-  run: run
-};
+run();
