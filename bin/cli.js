@@ -1,7 +1,23 @@
+#!/usr/bin/env node
 var path = require('path');
-var acetate = require('./index');
 var chokidar = require('chokidar');
 var fs = require('fs');
+
+var localPath = path.resolve(process.cwd(), 'node_modules', 'acetate', 'lib', 'index.js');
+
+// If acetate is installed in your project, use the local acetate
+function hasLocal () {
+  try {
+    fs.lstatSync(localPath);
+  }
+  catch (e) {
+    return false;
+  }
+  console.log('ok');
+  return true;
+}
+var ACETATE_PATH = hasLocal() ? localPath : '../';
+var acetate = require(ACETATE_PATH);
 
 var argv = require('yargs')
     .version(function() {
@@ -72,6 +88,4 @@ if (action !== 'build') {
   });
 }
 
-module.exports = {
-  run: run
-};
+run();
