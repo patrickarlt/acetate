@@ -2,6 +2,7 @@
 
 [![](https://img.shields.io/npm/v/acetate.svg?style=flat-square)](https://www.npmjs.com/package/acetate)
 [![](https://david-dm.org/patrickarlt/acetate.svg)](https://david-dm.org/patrickarlt/acetate)
+[![](https://travis-ci.org/patrickarlt/acetate.svg?branch=master)](https://travis-ci.org/patrickarlt/acetate.svg?branch=master)
 
 Layout and templating framework for static websites (work in progress).
 
