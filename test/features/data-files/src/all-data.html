@@ -1,0 +1,9 @@
+---
+data:
+  dynamic: dynamic-data.js
+  json: json-data.json
+  yaml: yaml-data.yaml
+  yml: yml-data.yml
+---
+
+{{ data.dynamic.value }} {{ data.json.value }} {{ data.yaml.value }} {{ data.yml.value }} {{ data.global.value }}
