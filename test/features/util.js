@@ -2,8 +2,6 @@ var path = require('path');
 var async = require('async');
 var fs = require('fs');
 var _ = require('lodash');
-var acetate = require('../../lib/index.js');
-var rimraf = require('rimraf');
 
 module.exports = {
   equal: function (test, root, actual, expected){
