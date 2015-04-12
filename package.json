@@ -26,6 +26,7 @@
     "yargs": "^3.4.5"
   },
   "devDependencies": {
+    "codeclimate-test-reporter": "0.0.4",
     "istanbul": "^0.3.13",
     "jshint": "^2.6.3",
     "tap-dot": "^0.2.3",
