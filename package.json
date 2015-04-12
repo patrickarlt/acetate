@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "jshint": "^2.6.3",
+    "npm-run-all": "^1.1.3",
     "tap-dot": "^0.2.3",
     "tape": "^2.14.0"
   },
@@ -44,7 +45,11 @@
     "url": "git@github.com:patrickarlt/acetate.git"
   },
   "scripts": {
-    "prepublish": "jshint lib",
-    "test": "jshint lib && tape test/features/*/test.js | tap-dot"
+    "prepublish": "npm test",
+    "test": "npm-run-all lint lint:tests test:coverage test:features",
+    "test:coverage": "istanbul cover ./node_modules/tape/bin/tape -- test/*.js | tap-dot",
+    "test:features": "tape test/features/*/test.js | tap-dot",
+    "lint": "jshint lib",
+    "lint:tests": "jshint test"
   }
 }
