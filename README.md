@@ -3,6 +3,8 @@
 [![](https://img.shields.io/npm/v/acetate.svg?style=flat-square)](https://www.npmjs.com/package/acetate)
 [![](https://img.shields.io/david/patrickarlt/acetate.svg?style=flat-square)](https://david-dm.org/patrickarlt/acetate)
 [![](https://img.shields.io/travis/patrickarlt/acetate.svg?style=flat-square)](https://travis-ci.org/patrickarlt/acetate.svg?branch=master)
+[![](https://img.shields.io/codeclimate/github/patrickarlt/acetate.svg?style=flat-square)](https://codeclimate.com/github/patrickarlt/acetate)
+[![](https://img.shields.io/codeclimate/coverage/github/patrickarlt/acetate.svg?style=flat-square)](https://codeclimate.com/github/patrickarlt/acetate)
 
 Layout and templating framework for static websites (work in progress).
 
