@@ -45,6 +45,6 @@
   },
   "scripts": {
     "prepublish": "jshint lib",
-    "test": "jshint lib && tape test/*.js | tap-dot"
+    "test": "jshint lib && tape test/**/test.js | tap-dot"
   }
 }
