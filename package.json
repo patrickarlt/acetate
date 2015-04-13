@@ -28,6 +28,7 @@
   "devDependencies": {
     "codeclimate-test-reporter": "0.0.4",
     "istanbul": "^0.3.13",
+    "semistandard": "^4.0.3",
     "tap-spec": "^3.0.0",
     "tape": "^2.14.0"
   },
