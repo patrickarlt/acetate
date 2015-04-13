@@ -12,7 +12,7 @@
 [stability-image]: https://img.shields.io/badge/stability-1%20--%20experimental-yellow.svg?style=flat-square
 [stability-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
 [travis-image]: https://img.shields.io/travis/patrickarlt/acetate.svg?style=flat-square
-[travis-url]: https://travis-ci.org/patrickarlt/acetate.svg?branch=master
+[travis-url]: https://travis-ci.org/patrickarlt/acetate
 [david-image]: https://img.shields.io/david/patrickarlt/acetate.svg?style=flat-square
 [david-url]: https://david-dm.org/patrickarlt/acetate
 [coverage-image]: https://img.shields.io/codeclimate/coverage/github/patrickarlt/acetate.svg?style=flat-square
