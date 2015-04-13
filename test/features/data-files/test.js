@@ -8,7 +8,12 @@ acetate({
   log: 'silent',
   root: root,
   clean: true
-}, function(error, site){
+}, function (error, site) {
+  if (error) {
+    console.log('error building acetate site');
+    process.exit(1);
+  }
+
   test('should build a page with data from a module', function (t) {
     t.plan(1);
 
@@ -71,5 +76,4 @@ acetate({
 
     utils.equal(t, root, output, expected);
   });
-
 });
