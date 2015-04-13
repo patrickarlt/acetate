@@ -29,7 +29,7 @@
     "codeclimate-test-reporter": "0.0.4",
     "istanbul": "^0.3.13",
     "jshint": "^2.6.3",
-    "tap-dot": "^0.2.3",
+    "tap-spec": "^3.0.0",
     "tape": "^2.14.0"
   },
   "homepage": "http://acetate.io",
@@ -48,8 +48,9 @@
   "scripts": {
     "prepublish": "npm test",
     "test": "npm run lint && npm run lint:tests && npm run test:unit && npm run test:features && istanbul report",
-    "test:unit": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/unit -- test/*.js | tap-dot",
-    "test:features": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/features -- test/features/*/test.js | tap-dot",
+    "test:unit": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/unit -- test/*.js | tap-spec",
+    "test:features": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/features -- test/features/*/test.js | tap-spec",
+    "test:dev": "tape test/features/*/test.js | tap-spec",
     "lint": "jshint lib",
     "lint:tests": "jshint test"
   }
