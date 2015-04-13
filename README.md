@@ -1,10 +1,24 @@
 # Acetate
 
-[![](https://img.shields.io/npm/v/acetate.svg?style=flat-square)](https://www.npmjs.com/package/acetate)
-[![](https://img.shields.io/david/patrickarlt/acetate.svg?style=flat-square)](https://david-dm.org/patrickarlt/acetate)
-[![](https://img.shields.io/travis/patrickarlt/acetate.svg?style=flat-square)](https://travis-ci.org/patrickarlt/acetate.svg?branch=master)
-[![](https://img.shields.io/codeclimate/github/patrickarlt/acetate.svg?style=flat-square)](https://codeclimate.com/github/patrickarlt/acetate)
-[![](https://img.shields.io/codeclimate/coverage/github/patrickarlt/acetate.svg?style=flat-square)](https://codeclimate.com/github/patrickarlt/acetate)
+[![npm][npm-image]][npm-url]
+[![stability][stability-image]][stability-url]
+[![travis][travis-image]][travis-url]
+[![david][david-image]][david-url]
+[![coverage][coverage-image]][coverage-url]
+[![code-climate][code-climate-image]][code-climate-url]
+
+[npm-image]: https://img.shields.io/npm/v/acetate.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/acetate
+[stability-image]: https://img.shields.io/badge/stability-1%20--%20experimental-yellow.svg?style=flat-square
+[stability-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
+[travis-image]: https://img.shields.io/travis/patrickarlt/acetate.svg?style=flat-square
+[travis-url]: https://travis-ci.org/patrickarlt/acetate.svg?branch=master
+[david-image]: https://img.shields.io/david/patrickarlt/acetate.svg?style=flat-square
+[david-url]: https://david-dm.org/patrickarlt/acetate
+[coverage-image]: https://img.shields.io/codeclimate/coverage/github/patrickarlt/acetate.svg?style=flat-square
+[coverage-url]: https://codeclimate.com/github/patrickarlt/acetate
+[code-climate-image]: https://img.shields.io/codeclimate/github/patrickarlt/acetate.svg?style=flat-square
+[code-climate-url]: https://codeclimate.com/github/patrickarlt/acetate
 
 Layout and templating framework for static websites (work in progress).
 
