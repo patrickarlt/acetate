@@ -40,16 +40,16 @@
     "templating"
   ],
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:patrickarlt/acetate.git"
   },
   "scripts": {
     "prepublish": "npm test",
-    "test": "npm run lint && npm run lint:tests && npm run test:coverage && npm run test:features",
-    "test:coverage": "istanbul cover ./node_modules/tape/bin/tape -- test/*.js | tap-dot",
-    "test:features": "tape test/features/*/test.js | tap-dot",
+    "test": "npm run lint && npm run lint:tests && npm run test:unit && npm run test:features && istanbul report",
+    "test:unit": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/unit -- test/*.js | tap-dot",
+    "test:features": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/features -- test/features/*/test.js | tap-dot",
     "lint": "jshint lib",
     "lint:tests": "jshint test"
   }
