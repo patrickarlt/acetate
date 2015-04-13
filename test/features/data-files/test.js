@@ -2,11 +2,6 @@ var test = require('tape');
 var utils = require('../utils');
 var acetate = require('../../../index.js');
 
-var path = require('path');
-var async = require('async');
-var fs = require('fs');
-var _ = require('lodash');
-
 var root = __dirname;
 
 acetate({
@@ -20,14 +15,7 @@ acetate({
     var output = 'build/dynamic-data/index.html';
     var expected = 'expected/dynamic-data.html';
 
-    async.parallel({
-      actual: _.partial(fs.readFile, path.join(root, output)),
-      expected: _.partial(fs.readFile, path.join(root, expected))
-    }, function(error, results){
-      t.equal(results.actual.toString(), results.expected.toString());
-    });
-
-    // utils.equal(t, root, output, expected);
+    utils.equal(t, root, output, expected);
   });
 
   test('should build a page with data from a json file', function (t) {
