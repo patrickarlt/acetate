@@ -1,7 +1,7 @@
 var Acetate = require('./lib/acetate');
 var _ = require('lodash');
 
-module.exports = function (options, callback) {
+module.exports = function (options) {
   options = _.defaults(options, {
     config: 'acetate.conf.js',
     root: process.cwd(),
@@ -16,6 +16,16 @@ module.exports = function (options, callback) {
 
   var site = new Acetate(options);
 
+  function postBuild () {
+    if (options.server || options.watcher) {
+      site.watcher.start();
+    }
+
+    if (options.server) {
+      site.server.start(options);
+    }
+  }
+
   site.log.time('load');
 
   site.load(function () {
@@ -26,20 +36,12 @@ module.exports = function (options, callback) {
           site.log.error('cleaning', 'error cleaning old pages %s', error);
         }
         site.log.verbose('cleaning', 'cleaning build folder done in %s', site.log.timeEnd('clean'));
-        site.build(callback);
+        site.build(postBuild);
       });
     } else {
-      site.build(callback);
+      site.build(postBuild);
     }
   });
-
-  if (options.server || options.watcher) {
-    site.watcher.start();
-  }
-
-  if (options.server) {
-    site.server.start(options);
-  }
 
   return site;
 };
