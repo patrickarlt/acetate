@@ -1,5 +1,5 @@
 module.exports = function (callback) {
-  setTimeout(function () {
+  process.nextTick(function () {
     callback(undefined, {value: 'dynamic'});
-  }, 20);
+  });
 };
