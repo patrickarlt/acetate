@@ -4,16 +4,23 @@ var acetate = require('../../../index.js');
 
 var root = __dirname;
 
-acetate({
-  log: 'silent',
+var site = acetate({
+  log: 'debug',
   root: root,
   clean: true
-}, function (error, site) {
-  if (error) {
-    console.log('error building acetate site');
-    process.exit(1);
-  }
+});
 
+var logs = [];
+
+site.on('log', function (e) {
+  logs.push(e);
+});
+
+site.once('clean', function () {
+  logs = [];
+});
+
+site.once('build', function () {
   test('should build a page with data from a module', function (t) {
     t.plan(1);
 

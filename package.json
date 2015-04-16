@@ -50,7 +50,7 @@
     "test": "npm run lint && npm run test:unit && npm run test:features && istanbul report",
     "test:unit": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/unit -- test/*.js | tap-spec",
     "test:features": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/features -- test/features/*/test.js | tap-spec",
-    "test:dev": "tape test/features/*/test.js | tap-spec",
+    "test:dev": "tape test/features/*/test.js",
     "lint": "semistandard"
   }
 }
