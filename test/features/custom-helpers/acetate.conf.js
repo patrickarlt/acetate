@@ -22,12 +22,4 @@ module.exports = function (acetate) {
   acetate.filter('errorFilter', function (value) {
     throw new Error('error in custom filter');
   });
-
-  // acetate.ignore('block.html');
-  // acetate.ignore('filter.html');
-  // acetate.ignore('block-error.html');
-  // acetate.ignore('filter-error.html');
-  // acetate.ignore('helper.html');
-  // acetate.ignore('helper-error.html');
-  // acetate.ignore('helper-no-params.html');
 };

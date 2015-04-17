@@ -49,6 +49,48 @@ site.once('build', function () {
     utils.equal(t, root, output, expected);
   });
 
+  test('should log an error when Nunjucks throws an error in a template with metadata', function (t) {
+    t.plan(1);
+
+    var expected = {
+      level: 'error',
+      category: 'page',
+      text: 'error building template-error-with-metadata.html - unknown block tag: undefined - src/template-error-with-metadata.html:5:2'
+    };
+
+    var log = _.where(logs, expected)[0];
+
+    t.deepEqual(log, expected);
+  });
+
+  test('should log an error when Nunjucks throws an error in a template no metadata', function (t) {
+    t.plan(1);
+
+    var expected = {
+      level: 'error',
+      category: 'page',
+      text: 'error building template-error-no-metadata.html - unknown block tag: undefined - src/template-error-no-metadata.html:1:2'
+    };
+
+    var log = _.where(logs, expected)[0];
+
+    t.deepEqual(log, expected);
+  });
+
+  test('should log an error when Nunjucks throws an error in a template leading newlines', function (t) {
+    t.plan(1);
+
+    var expected = {
+      level: 'error',
+      category: 'page',
+      text: 'error building template-error-leading-newlines.html - unknown block tag: undefined - src/template-error-leading-newlines.html:5:2'
+    };
+
+    var log = _.where(logs, expected)[0];
+
+    t.deepEqual(log, expected);
+  });
+
   test('should log an error when a helper hander throws an error', function (t) {
     t.plan(1);
 
