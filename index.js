@@ -4,6 +4,8 @@ var _ = require('lodash');
 module.exports = function (options) {
   options = _.defaults(options, {
     config: 'acetate.conf.js',
+    src: 'src',
+    dest: 'build',
     root: process.cwd(),
     watcher: false,
     server: false,
