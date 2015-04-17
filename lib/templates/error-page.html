@@ -28,7 +28,7 @@
     <div class="error">
       <h4>build error:</h4>
       <h1>{{template}}</h1>
-      <code>{{error}}</code>
+      <code>{{error.message.replace('Template render error: ', '')}}</code>
     <div>
   </body>
 </html>
