@@ -27,8 +27,9 @@
   },
   "devDependencies": {
     "codeclimate-test-reporter": "0.0.4",
+    "gh-release": "^1.1.7",
     "istanbul": "^0.3.13",
-    "semistandard": "^4.0.3",
+    "semistandard": "*",
     "tap-spec": "^3.0.0",
     "tape": "^2.14.0"
   },
@@ -47,6 +48,7 @@
   },
   "scripts": {
     "prepublish": "npm test",
+    "release": "gh-release",
     "test": "npm run lint && npm run test:unit && npm run test:features && istanbul report",
     "test:unit": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/unit -- test/*.js | tap-spec",
     "test:features": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/features -- test/features/*/test.js | tap-spec",
