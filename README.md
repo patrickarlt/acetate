@@ -9,7 +9,7 @@
 
 [npm-image]: https://img.shields.io/npm/v/acetate.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/acetate
-[stability-image]: https://img.shields.io/badge/stability-1%20--%20experimental-yellow.svg?style=flat-square
+[stability-image]: https://img.shields.io/badge/stability-2%20--%20unstable-yellow.svg?style=flat-square
 [stability-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
 [travis-image]: https://img.shields.io/travis/patrickarlt/acetate.svg?style=flat-square
 [travis-url]: https://travis-ci.org/patrickarlt/acetate
