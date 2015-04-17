@@ -91,7 +91,7 @@ site.once('build', function () {
     var expected = {
       level: 'warn',
       category: 'data',
-      text: 'error in src/invalid/callbackError.js - error passed to data callback line 2, column 12'
+      text: 'error passed to data callback - src/invalid/callbackError.js:2:12'
     };
 
     var log = _.where(logs, expected)[0];
@@ -105,7 +105,7 @@ site.once('build', function () {
     var expected = {
       level: 'warn',
       category: 'data',
-      text: 'error loading src/invalid/syntaxError.js - error thrown in data file line 2, column 9'
+      text: 'error thrown in data file - src/invalid/syntaxError.js:2:9'
     };
 
     var log = _.where(logs, expected)[0];
