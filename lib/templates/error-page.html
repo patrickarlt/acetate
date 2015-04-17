@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Error | Acetate</title>
+    <title>Build Error</title>
     <style>
       body {
-        background: #f1f1f1;
-        font-family: monospace;
-        font-weight: 500;
+        background: #C22B18;
+        font-family: sans-serif;
+        font-size: 24px;
       }
 
       .error {
         display: table;
-        background: #C22B18;
-        font-size: 1.5em;
-        padding: 1.5em;
-        max-width: 75%;
+        background: #f1f1f1;
+        padding: 1.5rem;
+        max-width: 85%;
         margin: 20% auto;
-        color: #f1f1f1;
+        color: #444;
       }
 
-      h1 {
+      h1, h4 {
         font-weight: 500;
-        margin: 0 0 1em 0;
+        margin: 0 0 1rem 0;
       }
     </style>
   </head>
   <body>
     <div class="error">
-      <h1>Error building {{template}}</h1>
+      <h4>build error:</h4>
+      <h1>{{template}}</h1>
       <code>{{error}}</code>
     <div>
   </body>

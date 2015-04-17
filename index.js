@@ -14,7 +14,7 @@ module.exports = function (options) {
     log: false
   });
 
-  var site = new Acetate(options);
+  var site = new Acetate().init(options);
 
   function postBuild () {
     if (options.server || options.watcher) {
