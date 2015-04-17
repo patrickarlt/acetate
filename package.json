@@ -31,7 +31,7 @@
     "istanbul": "^0.3.13",
     "semistandard": "*",
     "tap-spec": "^3.0.0",
-    "tape": "^2.14.0"
+    "tape": "^4.0.0"
   },
   "homepage": "http://acetate.io",
   "keywords": [

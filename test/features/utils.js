@@ -11,7 +11,7 @@ module.exports = {
       expected: _.partial(fs.readFile, path.join(root, expected))
     }, function (error, results) {
       if (error) {
-        test.end();
+        test.fail();
         return;
       }
 

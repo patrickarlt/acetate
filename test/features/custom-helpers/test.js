@@ -6,7 +6,7 @@ var _ = require('lodash');
 var root = __dirname;
 
 var site = acetate({
-  log: 'info',
+  log: 'silent',
   root: root,
   clean: true
 });
