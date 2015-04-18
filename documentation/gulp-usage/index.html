@@ -5,17 +5,16 @@
     <title>Using with Gulp | Acetate</title>
   
 
-  
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
-  
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
 </head>
+
 <body>
   <nav class="navigation ">
     <div class="grid-container">
       <a href="/" class="">Acetate</a>
       <div class="right">
-        <a href="/documentation/" class="">Getting Started</a>
+        <a href="/getting-started/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
         <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
       </div>
@@ -26,7 +25,7 @@
 <div class="grid-container">
   <aside class="column-6">
     <nav class="topic-list">
-      <a href="../../documentation/" class="not-active">Getting Started</a>
+      <a href="../../getting-started/" class="not-active">Getting Started</a>
 
       
         <section>
@@ -145,6 +144,21 @@ gulp.task(<span class="hljs-string">'acetate:build'</span>, <span class="hljs-fu
 <td>The path to your configuration file.</td>
 </tr>
 <tr>
+<td><code>root</code></td>
+<td><code>process.cwd()</code></td>
+<td>The root directory where you are working. This shoudl contain your <code>src</code> and <code>dest</code> folders.</td>
+</tr>
+<tr>
+<td><code>src</code></td>
+<td><code>src</code></td>
+<td>The folder where pages are located in</td>
+</tr>
+<tr>
+<td><code>dest</code></td>
+<td><code>build</code></td>
+<td>The folder where pages will be built.</td>
+</tr>
+<tr>
 <td><code>server</code></td>
 <td><code>false</code></td>
 <td>Enable to built-in development server.</td>
@@ -191,6 +205,5 @@ gulp.task(<span class="hljs-string">'acetate:build'</span>, <span class="hljs-fu
   </article>
 </div>
 
-  
 </body>
 </html>

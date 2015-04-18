@@ -5,17 +5,16 @@
     <title>Command Line | Acetate</title>
   
 
-  
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
-  
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
 </head>
+
 <body>
   <nav class="navigation ">
     <div class="grid-container">
       <a href="/" class="">Acetate</a>
       <div class="right">
-        <a href="/documentation/" class="">Getting Started</a>
+        <a href="/getting-started/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
         <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
       </div>
@@ -26,7 +25,7 @@
 <div class="grid-container">
   <aside class="column-6">
     <nav class="topic-list">
-      <a href="../../documentation/" class="not-active">Getting Started</a>
+      <a href="../../getting-started/" class="not-active">Getting Started</a>
 
       
         <section>
@@ -112,7 +111,7 @@
 <pre><code class="bash">npm install -g acetate-cli
 </code></pre>
 <p>Then access the built in help:</p>
-<pre><code class="bash">acetate --help
+<pre><code class="bash">$ acetate --help
 Usage: acetate [<span class="hljs-built_in">command</span>] [options]
 
 Commands:
@@ -121,17 +120,19 @@ Commands:
   server    build site and watch <span class="hljs-keyword">for</span> changes, serve output folder with built-in server
 
 Options:
-  -h, --help    Show <span class="hljs-built_in">help</span>
-  --host        host server should use                                          [default: <span class="hljs-string">"localhost"</span>]
-  --findPort    find new port <span class="hljs-keyword">if</span> port is <span class="hljs-keyword">in</span> use                                 [default: <span class="hljs-literal">false</span>]
-  --open        open browser when server starts up                              [default: <span class="hljs-literal">false</span>]
-  --clean       clean out files from build folder                               [default: <span class="hljs-literal">false</span>]
-  --log         <span class="hljs-built_in">log</span> levels: debug|verbose|info|success|warn|error|stack|silent  [default: <span class="hljs-string">"info"</span>]
-  -p, --port                                                                    [default: <span class="hljs-number">8000</span>]
-  -c, --config                                                                  [default: <span class="hljs-string">"acetate.conf.js"</span>]
+  -h, --help     Show <span class="hljs-built_in">help</span>
+  --host         host server should use                                          [default: <span class="hljs-string">"localhost"</span>]
+  --findPort     find new port <span class="hljs-keyword">if</span> port is <span class="hljs-keyword">in</span> use                                 [boolean]  [default: <span class="hljs-literal">false</span>]
+  --open         open browser when server starts up                              [boolean]  [default: <span class="hljs-literal">false</span>]
+  --log          <span class="hljs-built_in">log</span> levels: debug|verbose|info|success|warn|error|stack|silent  [default: <span class="hljs-string">"info"</span>]
+  -v, --version  Show version number
+  -c, --config   path to config file                                             [default: <span class="hljs-string">"acetate.conf.js"</span>]
+  -p, --port     port number server should use                                   [default: <span class="hljs-number">8000</span>]
+  -i, --input    <span class="hljs-built_in">source</span> folder to <span class="hljs-built_in">read</span> files from                                [default: <span class="hljs-string">"src"</span>]
+  -o, --output   destination folder <span class="hljs-built_in">where</span> files will be built                    [default: <span class="hljs-string">"build"</span>]
 
 Examples:
-  acetate build --clean    build site, cleaning the output folder before beginning
+  acetate server --open    build site, start development server and open site
 </code></pre>
 
     <hr>
@@ -141,6 +142,5 @@ Examples:
   </article>
 </div>
 
-  
 </body>
 </html>

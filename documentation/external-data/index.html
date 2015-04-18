@@ -5,17 +5,16 @@
     <title>External Data | Acetate</title>
   
 
-  
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
-  
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
 </head>
+
 <body>
   <nav class="navigation ">
     <div class="grid-container">
       <a href="/" class="">Acetate</a>
       <div class="right">
-        <a href="/documentation/" class="">Getting Started</a>
+        <a href="/getting-started/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
         <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
       </div>
@@ -26,7 +25,7 @@
 <div class="grid-container">
   <aside class="column-6">
     <nav class="topic-list">
-      <a href="../../documentation/" class="not-active">Getting Started</a>
+      <a href="../../getting-started/" class="not-active">Getting Started</a>
 
       
         <section>
@@ -115,7 +114,8 @@ acetate.data(<span class="hljs-string">'people'</span>, <span class="hljs-string
 acetate.data(<span class="hljs-string">'status'</span>, <span class="hljs-string">'status.js'</span>);
 </code></pre>
 <p>Registering data files in your configuration will make them accessible on any page. However if you only want to use a data file on one page (or a few) you can also declare the data files in your pages metadata.</p>
-<pre><code class="html">title: Loading Data
+<pre><code class="html">---
+title: Loading Data
 layout: _layout:main
 data:
     projects: projects.json
@@ -154,9 +154,9 @@ data:
     company: company.json
 ---
 
-<span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{{company.name}} {{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{{data.company.name}} - {{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
-{% for employee in  company.employees %}
+{% for employee in data.company.employees %}
     <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>{{employee}} ({{age}})<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
 {% endfor %}
 <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
@@ -178,9 +178,9 @@ data:
     company: company.yaml
 ---
 
-<span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{{company.name}} {{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{{data.company.name}} {{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
-{% for employee in  company.employees %}
+{% for employee in data.company.employees %}
     <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>{{employee}} ({{age}})<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
 {% endfor %}
 <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
@@ -212,9 +212,8 @@ data:
     gists: gists.js
 ---
 
-<span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{{company.name}} {{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
-{% for gist in  gists %}
+{% for gist in data.gists %}
     <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"{{gist.html_url"</span>&gt;</span>{{gist.description}}<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>)<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
 {% endfor %}
 <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
@@ -227,6 +226,5 @@ data:
   </article>
 </div>
 
-  
 </body>
 </html>
