@@ -30,21 +30,10 @@ Layout and templating framework for static websites (work in progress).
 4. Start the local server: `acetate server`
 5. Visit the sample site: `http://localhost:3000`
 
-## Todos
+## Coding Style
 
-* Find a way to signal a file should be treated as a page if its extension doesn't match
-* Docs
-* Tests
-* Error Handling
-* Logging
-* Improve extension registration
+[![js-semistandard-style](https://cdn.rawgit.com/flet/semistandard/master/badge.svg)](https://github.com/Flet/semistandard)
 
-## Extensions Todo
-
-* i18n
-* Sitemap
-* Redirects
-* Search
 
 ## License
 
