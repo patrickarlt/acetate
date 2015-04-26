@@ -9,7 +9,7 @@
 
 [npm-image]: https://img.shields.io/npm/v/acetate.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/acetate
-[stability-image]: https://img.shields.io/badge/stability-1%20--%20experimental-yellow.svg?style=flat-square
+[stability-image]: https://img.shields.io/badge/stability-2%20--%20unstable-yellow.svg?style=flat-square
 [stability-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
 [travis-image]: https://img.shields.io/travis/patrickarlt/acetate.svg?style=flat-square
 [travis-url]: https://travis-ci.org/patrickarlt/acetate
@@ -30,21 +30,10 @@ Layout and templating framework for static websites (work in progress).
 4. Start the local server: `acetate server`
 5. Visit the sample site: `http://localhost:3000`
 
-## Todos
+## Coding Style
 
-* Find a way to signal a file should be treated as a page if its extension doesn't match
-* Docs
-* Tests
-* Error Handling
-* Logging
-* Improve extension registration
+[![js-semistandard-style](https://cdn.rawgit.com/flet/semistandard/master/badge.svg)](https://github.com/Flet/semistandard)
 
-## Extensions Todo
-
-* i18n
-* Sitemap
-* Redirects
-* Search
 
 ## License
 
