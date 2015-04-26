@@ -55,7 +55,7 @@
           <h4>Configuration</h4>
           <ul>
             
-            <li><a href="../../documentation/configuration-options/" class="not-active">Options</a></li>
+            <li><a href="../../documentation/introduction-to-configuration/" class="not-active">Introduction</a></li>
             
             <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
             
@@ -110,7 +110,7 @@
     <p>You can install a command line with npm:</p>
 <pre><code class="bash">npm install -g acetate-cli
 </code></pre>
-<p>Then access the built in help:</p>
+<p>Then access the built in help with <code>acetate --help</code> or just <code>acetate</code>.</p>
 <pre><code class="bash">$ acetate --help
 Usage: acetate [<span class="hljs-built_in">command</span>] [options]
 
@@ -121,18 +121,43 @@ Commands:
 
 Options:
   -h, --help     Show <span class="hljs-built_in">help</span>
-  --host         host server should use                                          [default: <span class="hljs-string">"localhost"</span>]
-  --findPort     find new port <span class="hljs-keyword">if</span> port is <span class="hljs-keyword">in</span> use                                 [boolean]  [default: <span class="hljs-literal">false</span>]
-  --open         open browser when server starts up                              [boolean]  [default: <span class="hljs-literal">false</span>]
-  --log          <span class="hljs-built_in">log</span> levels: debug|verbose|info|success|warn|error|stack|silent  [default: <span class="hljs-string">"info"</span>]
+  --host         host server should use                                    [default: <span class="hljs-string">"localhost"</span>]
+  --findPort     find new port <span class="hljs-keyword">if</span> port is <span class="hljs-keyword">in</span> use                           [boolean]  [default: <span class="hljs-literal">false</span>]
+  --open         open browser when server starts up                        [boolean]  [default: <span class="hljs-literal">false</span>]
+  --log          <span class="hljs-built_in">log</span> levels: debug|verbose|info|success|warn|error|silent  [default: <span class="hljs-string">"info"</span>]
   -v, --version  Show version number
-  -c, --config   path to config file                                             [default: <span class="hljs-string">"acetate.conf.js"</span>]
-  -p, --port     port number server should use                                   [default: <span class="hljs-number">8000</span>]
-  -i, --input    <span class="hljs-built_in">source</span> folder to <span class="hljs-built_in">read</span> files from                                [default: <span class="hljs-string">"src"</span>]
-  -o, --output   destination folder <span class="hljs-built_in">where</span> files will be built                    [default: <span class="hljs-string">"build"</span>]
+  -c, --config   path to config file                                       [default: <span class="hljs-string">"acetate.conf.js"</span>]
+  -p, --port     port number server should use                             [default: <span class="hljs-number">8000</span>]
+  -i, --input    <span class="hljs-built_in">source</span> folder to <span class="hljs-built_in">read</span> pages from                          [default: <span class="hljs-string">"src"</span>]
+  -o, --output   folder <span class="hljs-built_in">where</span> pages will be built                          [default: <span class="hljs-string">"build"</span>]
 
 Examples:
-  acetate server --open    build site, start development server and open site
+  acetate server --open          build site, start development server and open site
+  acetate watcher -o dist        build site to `dist` folder, start watching <span class="hljs-keyword">for</span> changes
+  acetate build --log=verbose    build site with extra logging
+</code></pre>
+<h2>Passing Custom Arguments</h2>
+<p>If you need to pass custom configuration options with using the Acetate CLI you can simply add your custom options when using <code>acetate</code> on the command line:</p>
+<pre><code class="bash">$ acetate server --open --env=dev
+</code></pre>
+<p>Acetate will seperate your custom options from the Acetate options and make then available in your config file under <code>acetate.args</code>.</p>
+<p><code class="filename">acetate.conf.js</code></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(acetate)</span></span>{
+  <span class="hljs-comment">// load configuration data onto every page</span>
+  acetate.data(<span class="hljs-string">'config'</span>, acetate.args.env + <span class="hljs-string">'-config.json'</span>);
+};
+</code></pre>
+<p>You can also pass additional parameters without names. They will be available in order under the <code>acetate.args._</code> array:</p>
+<pre><code class="bash">$ acetate server dev --open
+</code></pre>
+<pre><code class="js"><span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(acetate)</span></span>{
+  <span class="hljs-comment">// load configuration data onto every page</span>
+  acetate.data(<span class="hljs-string">'config'</span>, acetate.args._[<span class="hljs-number">0</span>] + <span class="hljs-string">'-config.json'</span>);
+};
 </code></pre>
 
     <hr>

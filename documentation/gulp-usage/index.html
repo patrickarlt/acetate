@@ -55,7 +55,7 @@
           <h4>Configuration</h4>
           <ul>
             
-            <li><a href="../../documentation/configuration-options/" class="not-active">Options</a></li>
+            <li><a href="../../documentation/introduction-to-configuration/" class="not-active">Introduction</a></li>
             
             <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
             
@@ -108,24 +108,19 @@
   <article class="column-18">
     <h1>Using with Gulp</h1>
     <p>There is no Gulp plugin for Acetate and none is needed. Just use Acetate's existing API.</p>
-<pre><code class="js"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
-<span class="hljs-keyword">var</span> acetate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'acetate'</span>);
-<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
-<span class="hljs-keyword">var</span> configFile = path.join(process.cwd(), <span class="hljs-string">'acetate.conf.js'</span>);
+<pre><code class="js"><span class="hljs-keyword">var</span> acetate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'acetate'</span>);
+<span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
 
-gulp.task(<span class="hljs-string">'acetate:watch'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-  acetate({
-    config: configFile,
-    watcher: <span class="hljs-literal">true</span>,
+gulp.task(<span class="hljs-string">'acetate:dev'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+  acetate(
     server: <span class="hljs-literal">true</span>,
+    watcher: <span class="hljs-literal">true</span>,
     open: <span class="hljs-literal">true</span>
-  });
+  );
 });
 
 gulp.task(<span class="hljs-string">'acetate:build'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-  acetate({
-    config: configFile,
-  });
+  acetate();
 });
 </code></pre>
 <h3>Options</h3>
@@ -140,8 +135,8 @@ gulp.task(<span class="hljs-string">'acetate:build'</span>, <span class="hljs-fu
 <tbody>
 <tr>
 <td><code>config</code></td>
-<td><code>undefined</code></td>
-<td>The path to your configuration file.</td>
+<td><code>acetate.conf.js</code></td>
+<td>The name of your configuration file.</td>
 </tr>
 <tr>
 <td><code>root</code></td>
@@ -184,14 +179,9 @@ gulp.task(<span class="hljs-string">'acetate:build'</span>, <span class="hljs-fu
 <td>If <code>port</code> is occupied by another process, find another port to use.</td>
 </tr>
 <tr>
-<td><code>clean</code></td>
-<td><code>false</code></td>
-<td>Removes pages created by Acetate in the build directory before building.</td>
-</tr>
-<tr>
 <td><code>log</code></td>
 <td><code>'info'</code></td>
-<td>Logging level to use. Should be one of <code>debug</code>,<code>verbose</code>,<code>info</code>,<code>success</code>,<code>warn</code>,<code>error</code>,<code>stack</code>,<code>silent</code>.</td>
+<td>Logging level to use. Should be one of <code>debug</code>, <code>verbose</code>, <code>info</code>, <code>success</code>, <code>warn</code>, <code>error</code>, <code>silent</code>.</td>
 </tr>
 </tbody>
 </table>

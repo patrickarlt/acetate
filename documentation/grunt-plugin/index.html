@@ -55,7 +55,7 @@
           <h4>Configuration</h4>
           <ul>
             
-            <li><a href="../../documentation/configuration-options/" class="not-active">Options</a></li>
+            <li><a href="../../documentation/introduction-to-configuration/" class="not-active">Introduction</a></li>
             
             <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
             
@@ -116,15 +116,22 @@
 <p>In your project's Gruntfile, add a section named acetate to the data object passed into <code>grunt.initConfig()</code>:</p>
 <pre><code>grunt.initConfig({
   acetate: {
-    build: {
-      config: <span class="hljs-symbol">'acetate</span>.conf.js',
+    <span class="hljs-comment">// global options</span>
+    <span class="hljs-keyword">options</span>: {
+      config: <span class="hljs-string">'acetate.conf.js'</span>,
     },
+
+    <span class="hljs-comment">// with all default options</span>
+    build: {
+    
+    },
+
+    <span class="hljs-comment">// with custom options</span>
     watch: {
-      config: <span class="hljs-symbol">'acetate</span>.conf.js',
-      options: {
-        watcher: <span class="hljs-literal">true</span>,
-        server: <span class="hljs-literal">true</span>,
-        <span class="hljs-keyword">open</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-keyword">options</span>: {
+        watcher: <span class="hljs-keyword">true</span>,
+        server: <span class="hljs-keyword">true</span>,
+        open: <span class="hljs-keyword">true</span>
       }
     }
   }
@@ -140,6 +147,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>config</code></td>
+<td><code>'acetate.conf.js'</code></td>
+<td>Name of your configuration file.</td>
+</tr>
 <tr>
 <td><code>keepalive</code></td>
 <td><code>false</code></td>
@@ -191,14 +203,9 @@
 <td>Open the served page in your default browser.</td>
 </tr>
 <tr>
-<td><code>clean</code></td>
-<td><code>false</code></td>
-<td>Removes pages created by Acetate in the build directory before building.</td>
-</tr>
-<tr>
 <td><code>log</code></td>
 <td><code>'info'</code></td>
-<td>Logging level to use. Should be one of <code>debug</code>,<code>verbose</code>,<code>info</code>,<code>success</code>,<code>warn</code>,<code>error</code>,<code>stack</code>,<code>silent</code>.</td>
+<td>Logging level to use. Should be one of <code>debug</code>, <code>verbose</code>, <code>info</code>, <code>success</code>, <code>warn</code>, <code>error</code>, <code>silent</code>.</td>
 </tr>
 </tbody>
 </table>
