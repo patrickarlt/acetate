@@ -1,5 +1,6 @@
 var acetate = require('../index');
 var test = require('tape');
+var _ = require('lodash');
 
 var site = acetate({
   config: 'fixtures/error.conf.js',
@@ -22,5 +23,5 @@ test('should log an error if error in config file', function (t) {
     text: 'error in config file - thrown error in config file - fixtures/error.conf.js:2:9'
   };
 
-  t.deepEqual(logs[0], expected);
+  t.deepEqual(_.where(logs, expected)[0], expected);
 });
