@@ -1,17 +1,16 @@
-var Acetate = require('../lib/Acetate');
+var acetate = require('../index');
 var test = require('tape');
 
-var site = new Acetate();
+var site = acetate({
+  config: 'fixtures/error.conf.js',
+  root: __dirname,
+  log: 'silent'
+});
+
 var logs = [];
 
 site.on('log', function (e) {
   logs.push(e);
-});
-
-site.init({
-  config: 'fixtures/error.conf.js',
-  root: __dirname,
-  log: 'silent'
 });
 
 test('should log an error if error in config file', function (t) {

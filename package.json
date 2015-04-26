@@ -1,7 +1,7 @@
 {
   "name": "acetate",
   "description": "Layout and templating framework for static websites.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Patrick Arlt",
   "bugs": {
     "url": "https://github.com/patrickarlt/acetate/issues"
@@ -13,8 +13,8 @@
     "glob": "~5.0.5",
     "highlight.js": "~8.5.0",
     "js-yaml": "~3.2.7",
-    "lodash": "~3.6.0",
-    "markdown-it": "~4.1.0",
+    "lodash": "~3.7.0",
+    "markdown-it": "~4.2.0",
     "minimatch": "~2.0.4",
     "minimist": "~1.1.0",
     "mkdirp": "~0.5.0",

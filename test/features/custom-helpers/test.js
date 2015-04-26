@@ -1,50 +1,53 @@
 var test = require('tape');
 var utils = require('../utils');
-var acetate = require('../../../index.js');
 
 var root = __dirname;
 
-var site = acetate({
+utils.start({
   log: 'silent',
-  root: root,
-  clean: true
-});
+  root: root
+}, function (error, site) {
+  if (error) {
+    console.log(error);
+    process.exit(1);
+  }
 
-var logs = [];
+  var logs = [];
 
-site.on('log', function (e) {
-  logs.push(e);
-});
-
-site.once('clean', function () {
-  logs = [];
-});
-
-site.once('build', function () {
-  test('should build a page with a custom helper', function (t) {
-    t.plan(1);
-
-    var output = 'build/helper/index.html';
-    var expected = 'expected/helper.html';
-
-    utils.equal(t, root, output, expected);
+  site.on('log', function (e) {
+    logs.push(e);
   });
 
-  test('should build a page with a custom block', function (t) {
-    t.plan(1);
-
-    var output = 'build/block/index.html';
-    var expected = 'expected/block.html';
-
-    utils.equal(t, root, output, expected);
+  site.once('clean', function () {
+    logs = [];
   });
 
-  test('should build a page with a custom filter', function (t) {
-    t.plan(1);
+  site.once('build', function () {
+    test('should build a page with a custom helper', function (t) {
+      t.plan(1);
 
-    var output = 'build/filter/index.html';
-    var expected = 'expected/filter.html';
+      var output = 'build/helper/index.html';
+      var expected = 'expected/helper.html';
 
-    utils.equal(t, root, output, expected);
+      utils.equal(t, root, output, expected);
+    });
+
+    test('should build a page with a custom block', function (t) {
+      t.plan(1);
+
+      var output = 'build/block/index.html';
+      var expected = 'expected/block.html';
+
+      utils.equal(t, root, output, expected);
+    });
+
+    test('should build a page with a custom filter', function (t) {
+      t.plan(1);
+
+      var output = 'build/filter/index.html';
+      var expected = 'expected/filter.html';
+
+      utils.equal(t, root, output, expected);
+    });
   });
 });
