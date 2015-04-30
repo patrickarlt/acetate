@@ -36,14 +36,12 @@ function acetate (options) {
 
   // assign read only shortcuts for a few
   // properties we need in lots of places
-  for (var key in _.pick(options, ['src', 'dest', 'config', 'root', 'args'])) {
-    var value = options[key];
-
+  _.each(_.pick(options, ['src', 'dest', 'config', 'root', 'args']), function(value, key)){
     Object.defineProperty(site, key, {
       value: (_.isPlainObject(value)) ? Object.freeze(value) : value,
       enumerable: true
     });
-  }
+  });
 
   // mixin all of the different components
   // do each seperatly so they are cumulative
