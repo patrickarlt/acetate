@@ -30,7 +30,8 @@
     "istanbul": "^0.3.13",
     "semistandard": "*",
     "tap-spec": "^3.0.0",
-    "tape": "^4.0.0"
+    "tape": "^4.0.0",
+    "tape-catch": "^1.0.4"
   },
   "homepage": "http://acetate.io",
   "keywords": [
@@ -49,8 +50,8 @@
     "prepublish": "npm test",
     "release": "npm publish && gh-release",
     "test": "npm run lint && npm run test:unit && npm run test:features && istanbul report",
-    "test:unit": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/unit -- test/*.js | tap-spec",
-    "test:features": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/features -- test/features/*/test.js | tap-spec",
+    "test:unit": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/unit -- test/*.js",
+    "test:features": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/features -- test/features/*/test.js",
     "test:dev": "tape test/features/*/test.js",
     "lint": "semistandard"
   }
