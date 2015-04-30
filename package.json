@@ -12,7 +12,7 @@
     "chokidar": "~1.0.0",
     "glob": "~5.0.5",
     "highlight.js": "~8.5.0",
-    "js-yaml": "~3.2.7",
+    "js-yaml": "~3.3.0",
     "lodash": "~3.7.0",
     "markdown-it": "~4.2.0",
     "minimatch": "~2.0.4",
