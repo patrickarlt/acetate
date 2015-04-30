@@ -14,6 +14,7 @@ module.exports = {
       expected: _.partial(fs.readFile, path.join(root, expected))
     }, function (error, results) {
       if (error) {
+        console.log(error);
         test.fail();
         return;
       }
@@ -25,9 +26,15 @@ module.exports = {
       test.equal(actualContent, expectedContent, message);
     });
   },
+
   start: function (options, callback) {
     rimraf(path.join(options.root, options.dest || 'build'), function (error) {
-      callback(error, acetate(options));
+      if (error) {
+        console.log(error);
+        process.exit(1);
+      }
+
+      callback(acetate(options));
     });
   }
 };

@@ -7,12 +7,7 @@ var root = __dirname;
 utils.start({
   log: 'silent',
   root: root
-}, function (error, site) {
-  if (error) {
-    console.log(error);
-    process.exit(1);
-  }
-
+}, function (site) {
   var logs = [];
 
   site.on('log', function (e) {
