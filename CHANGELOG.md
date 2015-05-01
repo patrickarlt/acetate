@@ -3,7 +3,30 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.2.0...master)
+[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.2.1...master)
+
+## [0.2.1] - 2015-05-01
+
+### Added
+* Lots of new tests. Test coverage should now be fairly high with only a few remaining edge cases
+* New `watcher:ready` event when the watcher starts watching files
+* New `watcher:start` event when the watcher starts
+* New `watcher:stop` event when the watcher stops
+* New `page:build` method for listneing to when and individual page finished building
+* New `page:clean` method for when a pages built output is deleted
+
+### Changed
+* Improvements to `travis.yml`, readme and contributing guide.
+* Updated depenedancies
+* Simplified framework for running tests and gathering coverage information
+* `page.clean()` will no longer clear the directory if it is empty
+* Previously `acetate.query(name, glob, builder)` and `acetate.transform(glob, transformer)` only accepted globs like `'**/*'` to filter there input. They can now accept functions like `function (page) { return page.transformMe; }` or simple objects `{ transformMe: true }` to filter pages before running the query or transform
+
+### Fixed
+* It is not possable to run Acetate without a configuration file. Previously this worked but reported an error.
+* Edge cases with building pretty URLs for non HTML files have been fixed
+* Sever will now properly use a `404.html` page if it is present in your `src` folder.
+* The `url` property on the root page is now properly `/`
 
 ## [0.2.0] - 2015-04-25
 
@@ -43,3 +66,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [0.1.0]: https://github.com/patrickarlt/acetate/compare/db93ca4703148fe1a962a8cc3ecca63ba19d08ed...v0.1.0
 [0.2.0]: https://github.com/patrickarlt/acetate/compare/v0.1.0...v0.2.0
+[0.2.1]: https://github.com/patrickarlt/acetate/compare/v0.2.0...v0.2.1
