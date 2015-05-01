@@ -1,7 +1,8 @@
 # Acetate
 
+Acetate is a page generating framework for static websites. Built to be easy to integrate in to existing build processes and tools, easy to extend and developer friendly.
+
 [![npm][npm-image]][npm-url]
-[![stability][stability-image]][stability-url]
 [![travis][travis-image]][travis-url]
 [![david][david-image]][david-url]
 [![coverage][coverage-image]][coverage-url]
@@ -9,8 +10,6 @@
 
 [npm-image]: https://img.shields.io/npm/v/acetate.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/acetate
-[stability-image]: https://img.shields.io/badge/stability-2%20--%20unstable-yellow.svg?style=flat-square
-[stability-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
 [travis-image]: https://img.shields.io/travis/patrickarlt/acetate.svg?style=flat-square
 [travis-url]: https://travis-ci.org/patrickarlt/acetate
 [david-image]: https://img.shields.io/david/patrickarlt/acetate.svg?style=flat-square
@@ -20,21 +19,36 @@
 [code-climate-image]: https://img.shields.io/codeclimate/github/patrickarlt/acetate.svg?style=flat-square
 [code-climate-url]: https://codeclimate.com/github/patrickarlt/acetate
 
-Layout and templating framework for static websites (work in progress).
+## Usage
+
+Acetate is generally intended to be used wit a build system like [Grunt](http://gruntjs.com/) or [Gulp](http://gulpjs.com/) or using [NPM scripts](http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/). There are several sample repositories showing how this:
+
+* Grunt - *Coming soon*
+* Gulp - *Coming soon*
+* [Command-line/NPM scripts](https://github.com/patrickarlt/acetate-cli-sample)
 
 ## Quickstart
 
+Its also easy to get started with Acetate or integrate Acetate into an existing project:
+
 1. Install the Acetate CLI: `npm install acetate-cli -g`
-2. Clone the sample project: `git clone https://github.com/patrickarlt/acetate-sample.git`
-3. Go into the sample directory: `cd acetate-sample`
-4. Start the local server: `acetate server`
-5. Visit the sample site: `http://localhost:3000`
+2. Create a new Node JS project: `npm init`
+3. Install Acetate in your project `npm install acetate --save-dev`
+4. Create a folder to hold the source of your site and create an `index.md` file. `mkdir src && echo 'Hello Acetate.' > src/index.md`
+5. Start the local server: `acetate server --open`
 
-## Coding Style
+## Contributing
 
-[![js-semistandard-style](https://cdn.rawgit.com/flet/semistandard/master/badge.svg)](https://github.com/Flet/semistandard)
+[![semistandard][semistandard-image]][semistandard-url]
 
+Please run `npm test` locally before you submit a PR. This will run the tests and check for [semistandard](https://github.com/Flet/semistandard) style.
 
+More details in the [contributing guide](CONTRIBUTING.md).
+
+[standard-image]: https://cdn.rawgit.com/feross/standard/master/badge.svg
+[standard-url]: https://github.com/feross/standard
+[semistandard-image]: https://cdn.rawgit.com/flet/semistandard/master/badge.svg
+[semistandard-url]: https://github.com/Flet/semistandard
 ## License
 
 [MIT](LICENSE)
