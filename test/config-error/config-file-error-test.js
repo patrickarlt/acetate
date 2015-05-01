@@ -1,9 +1,9 @@
-var acetate = require('../index');
+var acetate = require('../../index');
 var test = require('tape');
 var _ = require('lodash');
 
 var site = acetate({
-  config: 'fixtures/error.conf.js',
+  config: 'error.conf.js',
   root: __dirname,
   log: 'silent'
 });

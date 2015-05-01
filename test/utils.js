@@ -4,11 +4,11 @@ var fs = require('fs');
 var _ = require('lodash');
 var util = require('util');
 var path = require('path');
-var acetate = require('../../index.js');
+var acetate = require('../index.js');
 var rimraf = require('rimraf');
 
 module.exports = {
-  equal: function (test, root, actual, expected) {
+  equal: function (test, root, actual, expected, callback) {
     async.parallel({
       actual: _.partial(fs.readFile, path.join(root, actual)),
       expected: _.partial(fs.readFile, path.join(root, expected))
@@ -24,6 +24,10 @@ module.exports = {
       var message = util.format('expected "%s" (%s) to equal "%s" (%s)', actualContent, actual, expectedContent, expected);
 
       test.equal(actualContent, expectedContent, message);
+
+      if (callback) {
+        callback();
+      }
     });
   },
 
