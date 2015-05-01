@@ -1,7 +1,13 @@
 language: node_js
 node_js:
-  - "0.12"
-  - "0.10"
-  - "iojs"
+  - '0.10'
+  - '0.12'
+  - 'iojs'
+sudo: false
+cache:
+  directories:
+    - node_modules
+script:
+  - npm test
 after_script:
 - codeclimate < coverage/lcov.info
