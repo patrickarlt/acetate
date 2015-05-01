@@ -7,14 +7,13 @@ var root = __dirname;
 
 utils.start({
   log: 'debug',
+  watcher: true,
   root: root
 }, function (site) {
   var filepath = path.join(__dirname, site.src, 'index.html');
 
   test('should build a file when an added event is fired', function (t) {
     t.plan(1);
-
-    site.startWatcher();
 
     site.once('watcher:ready', function () {
       fs.writeFile(filepath, 'added', function () {
