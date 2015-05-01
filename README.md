@@ -1,7 +1,5 @@
 # Acetate
 
-Acetate is a page generating framework for static websites. Built to be easy to integrate in to existing build processes and tools, easy to extend and developer friendly.
-
 [![npm][npm-image]][npm-url]
 [![travis][travis-image]][travis-url]
 [![david][david-image]][david-url]
@@ -18,6 +16,8 @@ Acetate is a page generating framework for static websites. Built to be easy to 
 [coverage-url]: https://codeclimate.com/github/patrickarlt/acetate
 [code-climate-image]: https://img.shields.io/codeclimate/github/patrickarlt/acetate.svg?style=flat-square
 [code-climate-url]: https://codeclimate.com/github/patrickarlt/acetate
+
+Acetate is a page generating framework for static websites. Built to be easy to integrate in to existing build processes and tools, easy to extend and developer friendly.
 
 ## Usage
 
