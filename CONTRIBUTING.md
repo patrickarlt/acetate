@@ -1,20 +1,29 @@
-# Contributing
+# Contributing Guidelines
 
-Acetate is open source, and contributions are welcome!
+Contributions welcome! Please check past issues and pull requests before you open your own issue or pull request to avoid duplicating a frequently asked question.
 
-## Installation
+In addition to improving the project, refactoring code, and implementing features, this project welcomes the following types of contributions:
 
-1. Fork and clone the repo
-2. `cd acetate && npm install`
+- **Ideas**: participate in an issue thread or start your own to have your voice heard.
+- **Writing**: contribute your expertise in an area by helping expand the included content.
+- **Copy editing**: fix typos, clarify language, and generally improve the quality of the content.
+- **Formatting**: help keep content easy to read with consistent formatting.
 
-This will set up everything you need to develop and test Acetate.
+## Install
 
-## Code Style
-
-Code style and conventions are automatically checked when you run `npm test` with [semistandard](https://www.npmjs.com/package/semistandard).
+Fork and clone the repo, then `npm install` to install all dependencies.
 
 ## Testing
 
-Unit tests are written with [tape](https://www.npmjs.com/package/tape). Coverage is tested with [istanbul](https://gotwarlost.github.io/istanbul/).
+Tests are run with `npm test`. Please ensure all tests are passing before submitting a pull request (unless you're creating a failing test to increase test coverage or show a problem).
 
-Before opening a pull request, make sure you can run `npm test` with no errors. If you add a new feature, you should also write tests for it! Find a bug? Write a failing test!
+## Code Style
+
+[![semistandard][semistandard-image]][semistandard-url]
+
+This repository uses [`semistandard`][semistandard-url] to maintain code style and consistency and avoid style arguments. `npm test` runs `semistandard` so you don't have to!
+
+[standard-image]: https://cdn.rawgit.com/feross/standard/master/badge.svg
+[standard-url]: https://github.com/feross/standard
+[semistandard-image]: https://cdn.rawgit.com/flet/semistandard/master/badge.svg
+[semistandard-url]: https://github.com/Flet/semistandard
