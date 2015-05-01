@@ -5,6 +5,6 @@ node_js:
   - 'iojs'
 sudo: false
 script:
-  - npm test
+  - npm run test:cover
 after_script:
 - codeclimate < coverage/lcov.info

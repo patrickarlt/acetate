@@ -49,10 +49,8 @@
   "scripts": {
     "prepublish": "npm test",
     "release": "npm publish && gh-release",
-    "test": "npm run lint && npm run test:unit && npm run test:features && istanbul report",
-    "test:unit": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/unit -- test/*.js",
-    "test:features": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/features -- test/features/*/test.js",
-    "test:dev": "tape test/features/*/test.js",
+    "test": "npm run lint && tape test/*/test.js | tap-spec",
+    "test:cover": "npm run lint && istanbul cover ./node_modules/tape/bin/tape --dir ./coverage -- test/*/test.js | tap-spec",
     "lint": "semistandard"
   }
 }
