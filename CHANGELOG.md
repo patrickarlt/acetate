@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.2.1...master)
 
+## [0.2.2] - 2015-05-13
+
+### Fixed
+
+* Fixed a bug where `{{relativePath}}` would not produce the correct path in some cases.
+
 ## [0.2.1] - 2015-05-01
 
 ### Added
@@ -67,3 +73,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.0]: https://github.com/patrickarlt/acetate/compare/db93ca4703148fe1a962a8cc3ecca63ba19d08ed...v0.1.0
 [0.2.0]: https://github.com/patrickarlt/acetate/compare/v0.1.0...v0.2.0
 [0.2.1]: https://github.com/patrickarlt/acetate/compare/v0.2.0...v0.2.1
+[0.2.2]: https://github.com/patrickarlt/acetate/compare/v0.2.1...v0.2.2
