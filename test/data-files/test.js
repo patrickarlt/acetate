@@ -1,5 +1,6 @@
 var test = require('tape');
 var utils = require('../utils');
+var path = require('path');
 var _ = require('lodash');
 
 var root = __dirname;
@@ -18,8 +19,8 @@ utils.start({
     test('should build a page with data from a module', function (t) {
       t.plan(1);
 
-      var output = 'build/dynamic-data/index.html';
-      var expected = 'expected/dynamic-data.html';
+      var output = path.join('build', 'dynamic-data', 'index.html');
+      var expected = path.join('expected', 'dynamic-data.html');
 
       utils.equal(t, root, output, expected);
     });
@@ -27,8 +28,8 @@ utils.start({
     test('should build a page with data from a json file', function (t) {
       t.plan(1);
 
-      var output = 'build/json-data/index.html';
-      var expected = 'expected/json-data.html';
+      var output = path.join('build', 'json-data', 'index.html');
+      var expected = path.join('expected', 'json-data.html');
 
       utils.equal(t, root, output, expected);
     });
@@ -36,8 +37,8 @@ utils.start({
     test('should build a page with data from a yaml file', function (t) {
       t.plan(1);
 
-      var output = 'build/yaml-data/index.html';
-      var expected = 'expected/yaml-data.html';
+      var output = path.join('build', 'yaml-data', 'index.html');
+      var expected = path.join('expected', 'yaml-data.html');
 
       utils.equal(t, root, output, expected);
     });
@@ -45,8 +46,8 @@ utils.start({
     test('should build a page with data from a yml file', function (t) {
       t.plan(1);
 
-      var output = 'build/yml-data/index.html';
-      var expected = 'expected/yml-data.html';
+      var output = path.join('build', 'yml-data', 'index.html');
+      var expected = path.join('expected', 'yml-data.html');
 
       utils.equal(t, root, output, expected);
     });
@@ -54,8 +55,8 @@ utils.start({
     test('should build a page with global data from config file', function (t) {
       t.plan(1);
 
-      var output = 'build/global-data/index.html';
-      var expected = 'expected/global-data.html';
+      var output = path.join('build', 'global-data', 'index.html');
+      var expected = path.join('expected', 'global-data.html');
 
       utils.equal(t, root, output, expected);
     });
@@ -63,8 +64,8 @@ utils.start({
     test('should override global with a local declaration', function (t) {
       t.plan(1);
 
-      var output = 'build/override-data/index.html';
-      var expected = 'expected/override-data.html';
+      var output = path.join('build', 'override-data', 'index.html');
+      var expected = path.join('expected', 'override-data.html');
 
       utils.equal(t, root, output, expected);
     });
@@ -72,8 +73,8 @@ utils.start({
     test('should be able to require many data files', function (t) {
       t.plan(1);
 
-      var output = 'build/all-data/index.html';
-      var expected = 'expected/all-data.html';
+      var output = path.join('build', 'all-data', 'index.html');
+      var expected = path.join('expected', 'all-data.html');
 
       utils.equal(t, root, output, expected);
     });

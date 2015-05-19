@@ -1,4 +1,5 @@
 var test = require('tape');
+var path = require('path');
 var utils = require('../utils');
 
 var root = __dirname;
@@ -11,8 +12,8 @@ utils.start({
     test('should build a page with a global', function (t) {
       t.plan(1);
 
-      var output = 'build/global/index.html';
-      var expected = 'expected/global.html';
+      var output = path.join('build', 'global', 'index.html');
+      var expected = path.join('expected', 'global.html');
 
       utils.equal(t, root, output, expected);
     });
