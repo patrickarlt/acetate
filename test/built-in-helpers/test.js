@@ -10,6 +10,7 @@ utils.start({
   site.once('build', function () {
     test('should build a page with the markdown helper', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'markdown', 'index.html');
       var expected = path.join('expected', 'markdown.html');
@@ -19,6 +20,7 @@ utils.start({
 
     test('should build a page with the highlight helper', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'highlight', 'index.html');
       var expected = path.join('expected', 'highlight.html');

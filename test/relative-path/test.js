@@ -11,6 +11,7 @@ utils.start({
   site.once('build', function () {
     test('should calculate relative url to root for a page one level deep', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'one-deep', 'index.html');
       var expected = path.join('expected', 'one-deep', 'index.html');
@@ -20,6 +21,7 @@ utils.start({
 
     test('should calculate relative url to root for a page two levels deep', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'one-deep', 'two-deep', 'index.html');
       var expected = path.join('expected', 'one-deep', 'two-deep', 'index.html');
@@ -29,6 +31,7 @@ utils.start({
 
     test('should calculate relative url to root for a page three levels deep', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'one-deep', 'two-deep', 'three-deep', 'index.html');
       var expected = path.join('expected', 'one-deep', 'two-deep', 'three-deep', 'index.html');

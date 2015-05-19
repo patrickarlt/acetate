@@ -11,6 +11,7 @@ utils.start({
   site.once('build', function () {
     test('should query pages and return the query result in templates', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'query', 'index.html');
       var expected = path.join('expected', 'query.html');

@@ -22,7 +22,8 @@
     "opener": "^1.4.0",
     "portscanner": "^1.0.0",
     "rimraf": "~2.3.2",
-    "yargs": "^3.4.5"
+    "yargs": "^3.4.5",
+    "normalize-newline": "^1.0.2"
   },
   "devDependencies": {
     "codeclimate-test-reporter": "0.0.4",
@@ -50,8 +51,8 @@
   "scripts": {
     "prepublish": "npm test",
     "release": "npm publish && gh-release",
-    "test": "npm run lint && tape test/*/test.js | tap-spec",
-    "test:cover": "npm run lint && istanbul cover ./node_modules/tape/bin/tape --dir ./coverage -- test/*/test.js | tap-spec",
+    "test": "npm run lint && tape test/**/test.js",
+    "test:cover": "npm run lint && istanbul cover ./node_modules/tape/bin/tape --dir ./coverage -- test/**/test.js",
     "lint": "semistandard"
   }
 }

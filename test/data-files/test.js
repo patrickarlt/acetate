@@ -18,6 +18,7 @@ utils.start({
   site.once('build', function () {
     test('should build a page with data from a module', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'dynamic-data', 'index.html');
       var expected = path.join('expected', 'dynamic-data.html');
@@ -27,6 +28,7 @@ utils.start({
 
     test('should build a page with data from a json file', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'json-data', 'index.html');
       var expected = path.join('expected', 'json-data.html');
@@ -36,6 +38,7 @@ utils.start({
 
     test('should build a page with data from a yaml file', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'yaml-data', 'index.html');
       var expected = path.join('expected', 'yaml-data.html');
@@ -45,6 +48,7 @@ utils.start({
 
     test('should build a page with data from a yml file', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'yml-data', 'index.html');
       var expected = path.join('expected', 'yml-data.html');
@@ -54,6 +58,7 @@ utils.start({
 
     test('should build a page with global data from config file', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'global-data', 'index.html');
       var expected = path.join('expected', 'global-data.html');
@@ -63,6 +68,7 @@ utils.start({
 
     test('should override global with a local declaration', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'override-data', 'index.html');
       var expected = path.join('expected', 'override-data.html');
@@ -72,6 +78,7 @@ utils.start({
 
     test('should be able to require many data files', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'all-data', 'index.html');
       var expected = path.join('expected', 'all-data.html');
@@ -81,11 +88,12 @@ utils.start({
 
     test('should log a warning when error passed to dynamic data callback', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var expected = {
         level: 'warn',
         category: 'data',
-        text: 'error passed to data callback - src/invalid/callbackError.js:2:12'
+        text: 'error passed to data callback - src' + path.sep + 'invalid' + path.sep + 'callbackError.js:2:12'
       };
 
       var log = _.where(logs, expected)[0];
@@ -95,11 +103,12 @@ utils.start({
 
     test('should log a warning when error thrown in dynamic data callback', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var expected = {
         level: 'warn',
         category: 'data',
-        text: 'error thrown in data file - src/invalid/syntaxError.js:2:9'
+        text: 'error thrown in data file - src' + path.sep + 'invalid' + path.sep + 'syntaxError.js:2:9'
       };
 
       var log = _.where(logs, expected)[0];
@@ -109,6 +118,7 @@ utils.start({
 
     test('should log a warning when loading invalid YAML', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var expected = {
         level: 'warn',
@@ -123,6 +133,7 @@ utils.start({
 
     test('should log a warning when loading invalid JSON', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var expected = {
         level: 'warn',
