@@ -18,8 +18,8 @@ utils.start({
     site.once('watcher:ready', function () {
       fs.writeFile(filepath, 'added', function () {
         site.once('build', function () {
-          var output = 'build/index.html';
-          var expected = 'expected/index-added.html';
+          var output = path.join('build', 'index.html');
+          var expected = path.join('expected', 'index-added.html');
 
           utils.equal(t, root, output, expected);
         });
@@ -32,8 +32,8 @@ utils.start({
 
     fs.appendFile(filepath, '\nchanged', function () {
       site.once('build', function () {
-        var output = 'build/index.html';
-        var expected = 'expected/index-changed.html';
+        var output = path.join('build', 'index.html');
+        var expected = path.join('expected', 'index-changed.html');
 
         utils.equal(t, root, output, expected);
       });

@@ -1,5 +1,6 @@
 var test = require('tape');
 var utils = require('../utils');
+var path = require('path');
 var root = __dirname;
 
 utils.start({
@@ -20,8 +21,8 @@ utils.start({
     test('should build a page with a custom helper', function (t) {
       t.plan(1);
 
-      var output = 'build/helper/index.html';
-      var expected = 'expected/helper.html';
+      var output = path.join('build', 'helper', 'index.html');
+      var expected = path.join('expected', 'helper.html');
 
       utils.equal(t, root, output, expected);
     });
@@ -29,8 +30,8 @@ utils.start({
     test('should build a page with a custom block', function (t) {
       t.plan(1);
 
-      var output = 'build/block/index.html';
-      var expected = 'expected/block.html';
+      var output = path.join('build', 'block', 'index.html');
+      var expected = path.join('expected', 'block.html');
 
       utils.equal(t, root, output, expected);
     });
@@ -38,8 +39,8 @@ utils.start({
     test('should build a page with a custom filter', function (t) {
       t.plan(1);
 
-      var output = 'build/filter/index.html';
-      var expected = 'expected/filter.html';
+      var output = path.join('build', 'filter', 'index.html');
+      var expected = path.join('expected', 'filter.html');
 
       utils.equal(t, root, output, expected);
     });

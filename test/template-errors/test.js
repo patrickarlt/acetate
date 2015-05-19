@@ -1,6 +1,7 @@
 var test = require('tape');
 var utils = require('../utils');
 var _ = require('lodash');
+var path = require('path');
 
 var root = __dirname;
 
@@ -22,8 +23,8 @@ utils.start({
     test('should render a page with multiple metadata blocks properly', function (t) {
       t.plan(1);
 
-      var output = 'build/metadata-metadata/index.html';
-      var expected = 'expected/metadata-metadata.html';
+      var output = path.join('build', 'metadata-metadata', 'index.html');
+      var expected = path.join('expected', 'metadata-metadata.html');
 
       utils.equal(t, root, output, expected);
     });

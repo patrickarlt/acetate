@@ -13,8 +13,8 @@ utils.start({
     test('should build a page with a partial', function (t) {
       t.plan(1);
 
-      var output = 'build/index.html';
-      var expected = 'expected/index.html';
+      var output = path.join('build', 'index.html');
+      var expected = path.join('expected', 'index.html');
 
       utils.equal(t, root, output, expected);
     });
