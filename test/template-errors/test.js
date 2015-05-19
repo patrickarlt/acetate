@@ -22,6 +22,7 @@ utils.start({
   site.once('build', function () {
     test('should render a page with multiple metadata blocks properly', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'metadata-metadata', 'index.html');
       var expected = path.join('expected', 'metadata-metadata.html');
@@ -31,11 +32,12 @@ utils.start({
 
     test('should log an error when Nunjucks throws an error in a template with metadata', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var expected = {
         level: 'error',
         category: 'page',
-        text: 'error building template-error-with-metadata.html - unknown block tag: undefined - src/template-error-with-metadata.html:5:2'
+        text: 'error building template-error-with-metadata.html - unknown block tag: undefined - src' + path.sep + 'template-error-with-metadata.html:5:2'
       };
 
       var log = _.where(logs, expected)[0];
@@ -45,11 +47,12 @@ utils.start({
 
     test('should log an error when Nunjucks throws an error in a template no metadata', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var expected = {
         level: 'error',
         category: 'page',
-        text: 'error building template-error-no-metadata.html - unknown block tag: undefined - src/template-error-no-metadata.html:1:2'
+        text: 'error building template-error-no-metadata.html - unknown block tag: undefined - src' + path.sep + 'template-error-no-metadata.html:1:2'
       };
 
       var log = _.where(logs, expected)[0];
@@ -59,11 +62,12 @@ utils.start({
 
     test('should log an error when Nunjucks throws an error in a template leading newlines', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var expected = {
         level: 'error',
         category: 'page',
-        text: 'error building template-error-leading-newlines.html - unknown block tag: undefined - src/template-error-leading-newlines.html:5:2'
+        text: 'error building template-error-leading-newlines.html - unknown block tag: undefined - src' + path.sep + 'template-error-leading-newlines.html:5:2'
       };
 
       var log = _.where(logs, expected)[0];
@@ -73,6 +77,7 @@ utils.start({
 
     test('should log an error when a helper hander throws an error', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var expected = {
         level: 'error',
@@ -87,6 +92,7 @@ utils.start({
 
     test('should log an error when a helper is called with no params', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var expected = {
         level: 'error',
@@ -101,6 +107,7 @@ utils.start({
 
     test('should log an error when a filter hander throws an error', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var expected = {
         level: 'error',
@@ -115,6 +122,7 @@ utils.start({
 
     test('should log an error when a block hander throws an error', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var expected = {
         level: 'error',

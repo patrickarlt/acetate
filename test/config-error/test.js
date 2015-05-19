@@ -16,11 +16,12 @@ site.on('log', function (e) {
 
 test('should log an error if error in config file', function (t) {
   t.plan(1);
+  t.timeoutAfter(500);
 
   var expected = {
     level: 'error',
     category: 'config',
-    text: 'error in config file - thrown error in config file - fixtures/error.conf.js:2:9'
+    text: 'error in config file - thrown error in config file - error.conf.js:2:9'
   };
 
   t.deepEqual(_.where(logs, expected)[0], expected);

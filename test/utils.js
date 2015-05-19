@@ -6,6 +6,7 @@ var util = require('util');
 var path = require('path');
 var acetate = require('../index.js');
 var rimraf = require('rimraf');
+var normalizeNewline = require('normalize-newline');
 
 module.exports = {
   equal: function (test, root, actual, expected, callback) {
@@ -19,8 +20,8 @@ module.exports = {
         return;
       }
 
-      var actualContent = results.actual.toString();
-      var expectedContent = results.expected.toString();
+      var actualContent = normalizeNewline(results.actual.toString());
+      var expectedContent = normalizeNewline(results.expected.toString());
       var message = util.format('expected "%s" (%s) to equal "%s" (%s)', actualContent, actual, expectedContent, expected);
 
       test.equal(actualContent, expectedContent, message);

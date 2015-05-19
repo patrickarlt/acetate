@@ -10,6 +10,7 @@ utils.start({
   site.once('build', function () {
     test('transform pages in place', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'transformed', 'index.html');
       var expected = path.join('expected', 'transformed.html');

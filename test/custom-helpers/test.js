@@ -20,6 +20,7 @@ utils.start({
   site.once('build', function () {
     test('should build a page with a custom helper', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'helper', 'index.html');
       var expected = path.join('expected', 'helper.html');
@@ -29,6 +30,7 @@ utils.start({
 
     test('should build a page with a custom block', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'block', 'index.html');
       var expected = path.join('expected', 'block.html');
@@ -38,6 +40,7 @@ utils.start({
 
     test('should build a page with a custom filter', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'filter', 'index.html');
       var expected = path.join('expected', 'filter.html');

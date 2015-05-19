@@ -11,6 +11,7 @@ utils.start({
   site.once('build', function () {
     test('should build a page with a global', function (t) {
       t.plan(1);
+      t.timeoutAfter(500);
 
       var output = path.join('build', 'global', 'index.html');
       var expected = path.join('expected', 'global.html');
