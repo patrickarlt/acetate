@@ -14,7 +14,7 @@ utils.start({
 
   test('should build a file when an added event is fired', function (t) {
     t.plan(1);
-    t.timeoutAfter(1500);
+    t.timeoutAfter(3000);
 
     site.once('watcher:ready', function () {
       fs.writeFile(filepath, 'added', function () {
@@ -30,7 +30,7 @@ utils.start({
 
   test('should re-build a file when a changed event is fired', function (t) {
     t.plan(1);
-    t.timeoutAfter(1500);
+    t.timeoutAfter(3000);
 
     fs.appendFile(filepath, '\nchanged', function () {
       site.once('build', function () {
@@ -44,7 +44,7 @@ utils.start({
 
   test('should remove a file when an unlink event is fired', function (t) {
     t.plan(2);
-    t.timeoutAfter(1500);
+    t.timeoutAfter(3000);
 
     fs.unlink(filepath, function () {
       site.once('page:clean', function () {
