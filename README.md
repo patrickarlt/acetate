@@ -2,14 +2,17 @@
 
 [![npm][npm-image]][npm-url]
 [![travis][travis-image]][travis-url]
+[![appveyor][appveyor-image]][appveyor-url]
 [![david][david-image]][david-url]
 [![coverage][coverage-image]][coverage-url]
 [![code-climate][code-climate-image]][code-climate-url]
 
 [npm-image]: https://img.shields.io/npm/v/acetate.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/acetate
-[travis-image]: https://img.shields.io/travis/patrickarlt/acetate.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/patrickarlt/acetate.svg?style=flat-square&label=travis
 [travis-url]: https://travis-ci.org/patrickarlt/acetate
+[appveyor-image]: https://img.shields.io/appveyor/ci/patrickarlt/acetate.svg?style=flat-square&label=appveyor
+[appveyor-url]: https://ci.appveyor.com/project/patrickarlt/acetate
 [david-image]: https://img.shields.io/david/patrickarlt/acetate.svg?style=flat-square
 [david-url]: https://david-dm.org/patrickarlt/acetate
 [coverage-image]: https://img.shields.io/codeclimate/coverage/github/patrickarlt/acetate.svg?style=flat-square
