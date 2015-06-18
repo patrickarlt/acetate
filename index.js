@@ -63,6 +63,6 @@ function acetate (options) {
   });
 
   return site;
-};
+}
 
 module.exports = acetate;
