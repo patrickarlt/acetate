@@ -31,6 +31,7 @@
     "istanbul": "^0.3.13",
     "request": "^2.55.0",
     "semistandard": "*",
+    "shelljs": "^0.5.1",
     "tap-spec": "^3.0.0",
     "tape": "^4.0.0",
     "tape-catch": "^1.0.4"
@@ -51,8 +52,8 @@
   "scripts": {
     "prepublish": "npm test",
     "release": "npm publish && gh-release",
-    "test": "npm run lint && tape test/**/test.js",
-    "test:cover": "npm run lint && istanbul cover ./node_modules/tape/bin/tape --dir ./coverage -- test/**/test.js",
+    "test": "npm run lint && node ./test/run.js",
+    "test:cover": "npm run lint && node ./test/run.js --cover && istanbul report html lcov",
     "lint": "semistandard"
   }
 }
