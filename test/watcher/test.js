@@ -17,7 +17,7 @@ utils.start({
     t.timeoutAfter(3000);
 
     site.once('watcher:ready', function () {
-      fs.writeFile(filepath, 'added', function (error) {
+      fs.writeFile(filepath, 'added', function () {
         site.once('build', function () {
           var output = path.join('build', 'index.html');
           var expected = path.join('expected', 'index-added.html');
