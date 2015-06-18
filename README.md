@@ -20,11 +20,11 @@
 [code-climate-image]: https://img.shields.io/codeclimate/github/patrickarlt/acetate.svg?style=flat-square
 [code-climate-url]: https://codeclimate.com/github/patrickarlt/acetate
 
-Acetate is a page generating framework for static websites. Built to be easy to integrate in to existing build processes and tools, easy to extend and developer friendly.
+Acetate is a page generating framework for static websites. It is built to be easy to integrate into existing build processes and tools, easy to extend, and developer friendly.
 
 ## Usage
 
-Acetate is generally intended to be used wit a build system like [Grunt](http://gruntjs.com/) or [Gulp](http://gulpjs.com/) or using [NPM scripts](http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/). There are several sample repositories showing how this:
+Acetate is generally intended to be used with a build system like [Grunt](http://gruntjs.com/), [Gulp](http://gulpjs.com/), or [NPM scripts](http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/). There are several sample repositories showing how to do this:
 
 * Grunt - *Coming soon*
 * Gulp - *Coming soon*
@@ -32,7 +32,7 @@ Acetate is generally intended to be used wit a build system like [Grunt](http://
 
 ## Quickstart
 
-Its also easy to get started with Acetate or integrate Acetate into an existing project:
+It's also easy to get started with Acetate or integrate Acetate into an existing project:
 
 1. Install the Acetate CLI: `npm install acetate-cli -g`
 2. Create a new Node JS project: `npm init`
@@ -52,6 +52,7 @@ More details in the [contributing guide](CONTRIBUTING.md).
 [standard-url]: https://github.com/feross/standard
 [semistandard-image]: https://cdn.rawgit.com/flet/semistandard/master/badge.svg
 [semistandard-url]: https://github.com/Flet/semistandard
+
 ## License
 
 [MIT](LICENSE)
