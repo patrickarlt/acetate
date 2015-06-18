@@ -4,7 +4,7 @@ var root = __dirname;
 var request = require('request');
 
 utils.start({
-  log: 'info',
+  log: 'silent',
   server: true,
   root: root
 }, function (site) {
