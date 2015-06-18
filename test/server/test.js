@@ -13,9 +13,11 @@ utils.start({
 
     test('it should serve a page that exists', function (t) {
       t.plan(1);
-      t.timeoutAfter(500);
+      t.timeoutAfter(3000);
 
-      request(base, function (error, response, body) {
+      request(base, {
+        timeout: 1000
+      }, function (error, response, body) {
         if (error) {
           t.fail();
           return;
@@ -26,9 +28,11 @@ utils.start({
 
     test('it should serve a 404 page if a page does not exist', function (t) {
       t.plan(1);
-      t.timeoutAfter(500);
+      t.timeoutAfter(3000);
 
-      request(base + '/not-found/', function (error, response, body) {
+      request(base + '/not-found/', {
+        timeout: 1000
+      }, function (error, response, body) {
         site.stopServer();
         site.stopWatcher();
 
