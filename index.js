@@ -45,7 +45,7 @@ module.exports = function (options) {
         callback();
       }
     });
-  };
+  }
 
   function pageBuilder (request, response, next) {
     if (index[request.url] && index[request.url].dirty) {
@@ -124,7 +124,7 @@ module.exports = function (options) {
       site.info('server', 'refreshing pages');
       server.reload(_(site.pages).collect('dirty').collect('url').value());
     });
-  };
+  }
 
   function changed (filepath) {
     site.info('watcher', '%s changed', filepath.replace(process.cwd() + path.sep, ''));
@@ -193,9 +193,13 @@ module.exports = function (options) {
     if (server) {
       server.exit();
     }
+
+    site.emit('cleanup');
   }
 
-  process.on('SIGINT', cleanup);
+  if (options.mode === 'server' || options.mode === 'watch') {
+    process.on('SIGINT', cleanup);
+  }
 
   site.once('load', function () {
     if (options.mode === 'build') {
@@ -203,9 +207,9 @@ module.exports = function (options) {
     }
 
     if (options.mode === 'server') {
-      startServer();
       startFileWatcher();
       startConfigWatcher();
+      startServer();
     }
 
     if (options.mode === 'watch') {

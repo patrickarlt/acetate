@@ -27,9 +27,7 @@ utils.start({
         }
 
         t.equal(body, 'Hello!');
-
         t.end();
-
         site.cleanup();
       });
     });
