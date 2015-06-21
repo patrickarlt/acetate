@@ -91,6 +91,7 @@ utils.start({
       t.timeoutAfter(500);
 
       var expected = {
+        show: false,
         level: 'warn',
         category: 'data',
         text: 'error passed to data callback - src' + path.sep + 'invalid' + path.sep + 'callbackError.js:2:12'
@@ -106,6 +107,7 @@ utils.start({
       t.timeoutAfter(500);
 
       var expected = {
+        show: false,
         level: 'warn',
         category: 'data',
         text: 'error thrown in data file - src' + path.sep + 'invalid' + path.sep + 'syntaxError.js:2:9'
@@ -121,6 +123,7 @@ utils.start({
       t.timeoutAfter(500);
 
       var expected = {
+        show: false,
         level: 'warn',
         category: 'data',
         text: 'invalid YAML in invalid/invalid.yaml - bad indentation of a mapping entry at line 2, column 2'
@@ -136,6 +139,7 @@ utils.start({
       t.timeoutAfter(500);
 
       var expected = {
+        show: false,
         level: 'warn',
         category: 'data',
         text: 'invalid JSON in invalid/invalid.json - SyntaxError: Unexpected token e'
