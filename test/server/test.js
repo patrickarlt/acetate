@@ -5,11 +5,14 @@ var request = require('request');
 
 utils.start({
   log: 'silent',
-  server: true,
-  root: root
+  mode: 'server',
+  root: root,
+  host: 'localhost',
+  port: 8000,
+  open: false
 }, function (site) {
-  site.once('server:start', function (e) {
-    var base = 'http://' + e.host + ':' + e.port;
+  site.once('server:ready', function (e) {
+    var base = 'http://localhost:8000/';
 
     test('it should serve a page that exists', function (t) {
       t.plan(1);
@@ -22,26 +25,12 @@ utils.start({
           t.fail();
           return;
         }
+
         t.equal(body, 'Hello!');
-      });
-    });
 
-    test('it should serve a 404 page if a page does not exist', function (t) {
-      t.plan(1);
-      t.timeoutAfter(3000);
+        t.end();
 
-      request(base + '/not-found/', {
-        timeout: 1000
-      }, function (error, response, body) {
-        site.stopServer();
-        site.stopWatcher();
-
-        if (error) {
-          t.fail();
-          return;
-        }
-
-        t.equal(body, '404');
+        site.cleanup();
       });
     });
   });

@@ -6,8 +6,8 @@ var path = require('path');
 var root = __dirname;
 
 utils.start({
-  log: 'debug',
-  watcher: true,
+  log: 'silent',
+  mode: 'watch',
   root: root
 }, function (site) {
   var filepath = path.join(__dirname, site.src, 'index.html');
@@ -43,7 +43,7 @@ utils.start({
                     site.once('page:clean', function () {
                       t.notOk(site.util.exists(path.join(__dirname, site.dest, 'index.html')));
                       t.equal(site.pages.length, 0, 'page should be removed from pages array');
-                      site.stopWatcher();
+                      site.cleanup();
                     });
                   });
                 });

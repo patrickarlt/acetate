@@ -5,6 +5,24 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.2.1...master)
 
+## [0.3.0] - 2015-06-21
+
+### Changed
+
+* Built-in server is now based on [BrowserSync](http://browsersync.io) and has built in live reload support.
+* Buitl in server no longer needs to wait for the entire site to be built. It now builds and serves pages as requested.
+* `server` and `watcher` options are deprecated. Now pass the `mode` option with a value of `'server'` `'watch' or `'build'`.
+* `findPort` option is deprecated. A port is always found by default now.
+
+### Fixed
+
+* Watching for changes to the configuration file should now work as expected.
+* Tests now pass on Windows and are run with the AppVeyor CI.
+
+### Removed
+
+* Support for 404 pages. This was a feature that was lost with the move to BrowserSync. It may be added back in the future.
+
 ## [0.2.2] - 2015-05-13
 
 ### Fixed

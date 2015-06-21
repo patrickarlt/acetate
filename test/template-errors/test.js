@@ -35,6 +35,7 @@ utils.start({
       t.timeoutAfter(500);
 
       var expected = {
+        show: false,
         level: 'error',
         category: 'page',
         text: 'error building template-error-with-metadata.html - unknown block tag: undefined - src' + path.sep + 'template-error-with-metadata.html:5:2'
@@ -50,6 +51,7 @@ utils.start({
       t.timeoutAfter(500);
 
       var expected = {
+        show: false,
         level: 'error',
         category: 'page',
         text: 'error building template-error-no-metadata.html - unknown block tag: undefined - src' + path.sep + 'template-error-no-metadata.html:1:2'
@@ -65,6 +67,7 @@ utils.start({
       t.timeoutAfter(500);
 
       var expected = {
+        show: false,
         level: 'error',
         category: 'page',
         text: 'error building template-error-leading-newlines.html - unknown block tag: undefined - src' + path.sep + 'template-error-leading-newlines.html:5:2'
@@ -80,6 +83,7 @@ utils.start({
       t.timeoutAfter(500);
 
       var expected = {
+        show: false,
         level: 'error',
         category: 'page',
         text: 'error building helper-error.html - error in custom helper "errorHelper" - acetate.conf.js:3:11'
@@ -95,6 +99,7 @@ utils.start({
       t.timeoutAfter(500);
 
       var expected = {
+        show: false,
         level: 'error',
         category: 'page',
         text: 'error building helper-no-params.html - You must pass at least one parameter to custom helper "helper"'
@@ -110,6 +115,7 @@ utils.start({
       t.timeoutAfter(500);
 
       var expected = {
+        show: false,
         level: 'error',
         category: 'page',
         text: 'error building filter-error.html - error in custom filter "errorFilter" - acetate.conf.js:11:11'
@@ -125,6 +131,7 @@ utils.start({
       t.timeoutAfter(500);
 
       var expected = {
+        show: false,
         level: 'error',
         category: 'page',
         text: 'error building block-error.html - error in custom block "errorBlock" - acetate.conf.js:7:11'

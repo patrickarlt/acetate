@@ -19,6 +19,7 @@ test('should log an error if error in config file', function (t) {
   t.timeoutAfter(500);
 
   var expected = {
+    show: false,
     level: 'error',
     category: 'config',
     text: 'error in config file - thrown error in config file - error.conf.js:2:9'

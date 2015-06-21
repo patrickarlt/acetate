@@ -1,68 +1,225 @@
+var acetate = require('./lib/site');
+var browserSync = require('browser-sync');
 var _ = require('lodash');
-var EventEmitter = require('events').EventEmitter;
-var utils = require('./lib/utils');
+var chokidar = require('chokidar');
+var path = require('path');
 
-var logger = require('./lib/mixins/logger');
-var nunjucks = require('./lib/mixins/nunjucks');
-var markdown = require('./lib/mixins/markdown');
-var loader = require('./lib/mixins/loader');
-var builder = require('./lib/mixins/builder');
-var helpers = require('./lib/mixins/helpers');
-var server = require('./lib/mixins/server');
-var watcher = require('./lib/mixins/watcher');
-var initializer = require('./lib/mixins/initializer');
-
-function acetate (options) {
-  // merge options with defaults
+module.exports = function (options) {
   options = _.defaults(options, {
+    mode: 'build',
     config: 'acetate.conf.js',
     src: 'src',
     dest: 'build',
     root: process.cwd(),
     log: 'info',
-    watcher: false,
-    server: false,
     host: 'localhost',
     port: 8000,
-    findPort: false,
+    server: {},
     args: {}
   });
 
-  // create the `site` object which is events + logger + options + utils
-  var site = _.extend({}, EventEmitter.prototype, logger(), {
-    util: utils(options),
-    options: Object.freeze(options)
-  });
+  var site = acetate(options);
+  var index;
+  var server;
+  var fileWatcher;
+  var configWatcher;
 
-  // assign read only shortcuts for a few
-  // properties we need in lots of places
-  _.each(_.pick(options, ['src', 'dest', 'config', 'root', 'args']), function (value, key) {
-    Object.defineProperty(site, key, {
-      value: (_.isPlainObject(value)) ? Object.freeze(value) : value,
-      enumerable: true
+  function action () {
+    if (options.mode === 'server') {
+      reload();
+    }
+
+    if (options.mode === 'watch') {
+      site.build();
+    }
+  }
+
+  function buildIndex (callback) {
+    site.debug('server', 'rebuilding page index');
+    site.runExtensions(function () {
+      index = _.indexBy(site.pages, function (page) {
+        return (page.url[0] !== '/') ? '/' + page.url : page.url;
+      });
+
+      if (callback) {
+        callback();
+      }
     });
+  };
+
+  function pageBuilder (request, response, next) {
+    if (index[request.url] && index[request.url].dirty) {
+      site.verbose('server', 'request recived for %s', request.url);
+      index[request.url].build(function () {
+        next();
+      });
+    } else {
+      next();
+    }
+  }
+
+  function startServer () {
+    site.info('server', 'starting server');
+
+    buildIndex(function () {
+      server = browserSync.create();
+
+      server.emitter.on('init', function () {
+        site.emit('server:ready');
+      });
+
+      var serverOptions = _.clone(site.options.server);
+
+      delete serverOptions.proxy;
+      serverOptions.logLevel = (options.log === 'debug' || options.log === 'silent') ? options.log : 'info';
+      serverOptions.server = path.join(site.root, site.dest);
+      serverOptions.files = path.join(site.root, site.dest, '**/*');
+      serverOptions.port = serverOptions.port || options.port;
+      serverOptions.host = serverOptions.host || options.host;
+      serverOptions.open = serverOptions.open || options.open;
+      serverOptions.middleware = serverOptions.middleware || [];
+      serverOptions.middleware.push(pageBuilder);
+
+      server.init(serverOptions);
+
+      site.emit('server:start');
+    });
+  }
+
+  function startConfigWatcher () {
+    configWatcher = chokidar.watch(path.join(process.cwd(), options.config), {
+      ignoreInitial: true
+    }).on('change', function () {
+      site.success('watcher', 'config file changed, restarting Acetate');
+      var newSite = acetate(options);
+      _.extend(site, {
+        reload: reload,
+        cleanup: cleanup
+      });
+      site.emit('restart', newSite);
+      site = newSite;
+      site.once('load', function () {
+        action();
+      });
+    });
+  }
+
+  function startFileWatcher () {
+    fileWatcher = chokidar.watch(site.sources, {
+      ignoreInitial: true
+    });
+
+    fileWatcher.on('change', changed);
+    fileWatcher.on('add', added);
+    fileWatcher.on('unlink', deleted);
+    fileWatcher.on('ready', function () {
+      site.emit('watcher:ready');
+    });
+
+    site.emit('watcher:start');
+  }
+
+  function reload () {
+    buildIndex(function () {
+      site.info('server', 'refreshing pages');
+      server.reload(_(site.pages).collect('dirty').collect('url').value());
+    });
+  };
+
+  function changed (filepath) {
+    site.info('watcher', '%s changed', filepath.replace(process.cwd() + path.sep, ''));
+    invalidateNunjucksCache(filepath);
+    removeOldPage(filepath);
+    loadNewPage(filepath);
+  }
+
+  function deleted (filepath) {
+    site.info('watcher', '%s deleted', filepath.replace(process.cwd() + path.sep, ''));
+    invalidateNunjucksCache(filepath);
+    removeOldPage(filepath);
+  }
+
+  function added (filepath) {
+    site.info('watcher', '%s added', filepath.replace(process.cwd() + path.sep, ''));
+    loadNewPage(filepath);
+  }
+
+  function removeOldPage (filepath) {
+    var page = _.remove(site.pages, {fullpath: filepath})[0];
+
+    if (page) {
+      site.verbose('watcher', 'removing %s', page.dest);
+      page.clean();
+    }
+  }
+
+  function loadNewPage (filepath) {
+    var relativepath = filepath.replace(process.cwd() + path.sep, '');
+    if (path.basename(filepath)[0] === '_') {
+      invalidateNunjucksCache(filepath);
+      _.each(site.pages, function (page) {
+        page.dirty = true;
+      });
+      action();
+    } else {
+      site.loadPage(filepath, function (error, page) {
+        if (error) {
+          site('watcher', 'error loading %s - %s', error);
+          return;
+        }
+
+        site.info('watcher', 'rebuilding %s', relativepath);
+        site.pages.push(page);
+        action();
+      });
+    }
+  }
+
+  function invalidateNunjucksCache (filepath) {
+    var name = filepath.replace(path.join(site.root, site.src) + path.sep, '').replace(path.extname(filepath), '');
+    site.debug('nunjucks', 'clearing %s from the template cache', name);
+    site.nunjucks.loaders[0].emit('update', name);
+  }
+
+  function cleanup () {
+    if (fileWatcher) {
+      fileWatcher.close();
+    }
+
+    if (configWatcher) {
+      configWatcher.close();
+    }
+
+    if (server) {
+      server.exit();
+    }
+  }
+
+  process.on('SIGINT', cleanup);
+
+  site.once('load', function () {
+    if (options.mode === 'build') {
+      site.build();
+    }
+
+    if (options.mode === 'server') {
+      startServer();
+      startFileWatcher();
+      startConfigWatcher();
+    }
+
+    if (options.mode === 'watch') {
+      site.build(function () {
+        startFileWatcher();
+        startConfigWatcher();
+      });
+    }
   });
 
-  // mixin all of the different components
-  // do each seperatly so they are cumulative
-  // some have some dependencies on each other
-  _.extend(site, markdown(site));
-  _.extend(site, nunjucks(site));
-  _.extend(site, loader(site));
-  _.extend(site, builder(site));
-  _.extend(site, helpers(site));
-  _.extend(site, server(site));
-  _.extend(site, watcher(site));
-  _.extend(site, initializer(site));
-
-  // on the next run of the event loop start everything
-  // this delays initalziation so event listeners can be added
-  // https://nodejs.org/api/process.html#process_process_nexttick_callback
-  process.nextTick(function () {
-    site.init();
+  _.extend(site, {
+    reload: reload,
+    cleanup: cleanup
   });
 
   return site;
-}
-
-module.exports = acetate;
+};
