@@ -4,7 +4,7 @@ layout: _layout:main
 ---
 
 ```
-bar;
+var foo = bar;
 ```
 
 ```js
