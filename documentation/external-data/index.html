@@ -12,7 +12,7 @@
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="/" class="">Acetate</a>
+      <a href="./" class="">Acetate</a>
       <div class="right">
         <a href="/getting-started/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
@@ -191,7 +191,7 @@ data:
 <p><code class="filename">src/gist.js</code></p>
 <pre><code class="js"><span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
 
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback)</span></span>{
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>)</span>{
     request({
       method: <span class="hljs-string">'GET'</span>,
       url: <span class="hljs-string">'https://api.github.com/users/patrickarlt/gists'</span>,
@@ -199,7 +199,7 @@ data:
       headers: {
         <span class="hljs-string">'User-Agent'</span>: <span class="hljs-string">'request'</span>
       }
-    }, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err, resp, body)</span></span>{
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, resp, body</span>)</span>{
         callback(err, body);
     });
 }

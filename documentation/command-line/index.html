@@ -12,7 +12,7 @@
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="/" class="">Acetate</a>
+      <a href="./" class="">Acetate</a>
       <div class="right">
         <a href="/getting-started/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
@@ -144,7 +144,7 @@ Examples:
 <p><code class="filename">acetate.conf.js</code></p>
 <pre><code class="js"><span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
 
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(acetate)</span></span>{
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">acetate</span>)</span>{
   <span class="hljs-comment">// load configuration data onto every page</span>
   acetate.data(<span class="hljs-string">'config'</span>, acetate.args.env + <span class="hljs-string">'-config.json'</span>);
 };
@@ -154,7 +154,7 @@ Examples:
 </code></pre>
 <pre><code class="js"><span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
 
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(acetate)</span></span>{
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">acetate</span>)</span>{
   <span class="hljs-comment">// load configuration data onto every page</span>
   acetate.data(<span class="hljs-string">'config'</span>, acetate.args._[<span class="hljs-number">0</span>] + <span class="hljs-string">'-config.json'</span>);
 };

@@ -12,7 +12,7 @@
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="/" class="">Acetate</a>
+      <a href="./" class="">Acetate</a>
       <div class="right">
         <a href="/getting-started/" class="">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
@@ -111,15 +111,13 @@
 <pre><code class="js"><span class="hljs-keyword">var</span> acetate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'acetate'</span>);
 <span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
 
-gulp.task(<span class="hljs-string">'acetate:dev'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-  acetate(
-    server: <span class="hljs-literal">true</span>,
-    watcher: <span class="hljs-literal">true</span>,
-    open: <span class="hljs-literal">true</span>
-  );
+gulp.task(<span class="hljs-string">'acetate:dev'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  acetate({
+    mode: <span class="hljs-string">'server'</span>
+  });
 });
 
-gulp.task(<span class="hljs-string">'acetate:build'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+gulp.task(<span class="hljs-string">'acetate:build'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   acetate();
 });
 </code></pre>
@@ -135,7 +133,7 @@ gulp.task(<span class="hljs-string">'acetate:build'</span>, <span class="hljs-fu
 <tbody>
 <tr>
 <td><code>config</code></td>
-<td><code>acetate.conf.js</code></td>
+<td><code>'acetate.conf.js'</code></td>
 <td>The name of your configuration file.</td>
 </tr>
 <tr>
@@ -145,27 +143,22 @@ gulp.task(<span class="hljs-string">'acetate:build'</span>, <span class="hljs-fu
 </tr>
 <tr>
 <td><code>src</code></td>
-<td><code>src</code></td>
+<td><code>'src'</code></td>
 <td>The folder where pages are located in</td>
 </tr>
 <tr>
 <td><code>dest</code></td>
-<td><code>build</code></td>
+<td><code>'build'</code></td>
 <td>The folder where pages will be built.</td>
 </tr>
 <tr>
-<td><code>server</code></td>
-<td><code>false</code></td>
-<td>Enable to built-in development server.</td>
-</tr>
-<tr>
-<td><code>watcher</code></td>
-<td><code>false</code></td>
-<td>Enable wathcing and rebuilding files as they change.</td>
+<td><code>mode</code></td>
+<td><code>build</code></td>
+<td>The task that Acetate will run. Should be one of <code>server</code>, <code>watch</code> or <code>build</code>.</td>
 </tr>
 <tr>
 <td><code>port</code></td>
-<td><code>3000</code></td>
+<td><code>8000</code></td>
 <td>Integer. The port on which the webserver will respond.</td>
 </tr>
 <tr>
@@ -174,14 +167,14 @@ gulp.task(<span class="hljs-string">'acetate:build'</span>, <span class="hljs-fu
 <td>The hostname to server the website on.</td>
 </tr>
 <tr>
-<td><code>findPort</code></td>
-<td><code>true</code></td>
-<td>If <code>port</code> is occupied by another process, find another port to use.</td>
-</tr>
-<tr>
 <td><code>log</code></td>
 <td><code>'info'</code></td>
 <td>Logging level to use. Should be one of <code>debug</code>, <code>verbose</code>, <code>info</code>, <code>success</code>, <code>warn</code>, <code>error</code>, <code>silent</code>.</td>
+</tr>
+<tr>
+<td><code>args</code></td>
+<td><code>{}</code></td>
+<td>Any additonal arguments you want to be available under <code>acetate.args</code> in your config file.</td>
 </tr>
 </tbody>
 </table>
