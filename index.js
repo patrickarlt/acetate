@@ -3,6 +3,7 @@ var browserSync = require('browser-sync');
 var _ = require('lodash');
 var chokidar = require('chokidar');
 var path = require('path');
+var url = require('url');
 
 module.exports = function (options) {
   options = _.defaults(options, {
@@ -48,9 +49,22 @@ module.exports = function (options) {
   }
 
   function pageBuilder (request, response, next) {
-    if (index[request.url] && index[request.url].dirty) {
-      site.verbose('server', 'request recived for %s', request.url);
-      index[request.url].build(function () {
+    site.verbose('server', 'request recived for %s', request.url);
+
+    if(request.method !==  'GET' ) {
+      next();
+      return;
+    }
+
+    var pathname = url.parse(request.url).pathname;
+    var ext = path.extname(pathname);
+
+    if (!ext && pathname[pathname.length - 1] !== '/') {
+      pathname = pathname + '/';
+    }
+
+    if (index[pathname] && index[pathname].dirty) {
+      index[pathname].build(function () {
         next();
       });
     } else {
