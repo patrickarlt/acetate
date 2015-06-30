@@ -3,15 +3,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.2.1...master)
+[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.3.1...master)
+
+## [0.3.1] - 2015-06-30
+
+### Fixed
+
+* Built-in server not properly supports URLs without trailing slashes.
 
 ## [0.3.0] - 2015-06-21
 
 ### Changed
 
 * Built-in server is now based on [BrowserSync](http://browsersync.io) and has built in live reload support.
-* Buitl in server no longer needs to wait for the entire site to be built. It now builds and serves pages as requested.
-* `server` and `watcher` options are deprecated. Now pass the `mode` option with a value of `'server'` `'watch' or `'build'`.
+* Built in server no longer needs to wait for the entire site to be built. It now builds and serves pages as requested.
+* `server` and `watcher` options are deprecated. Now pass the `mode` option with a value of `'server'` `'watch'` or `'build'`.
 * `findPort` option is deprecated. A port is always found by default now.
 
 ### Fixed
@@ -66,7 +72,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 - Remove the `clean` option since it was buggy and did not operate how most people expect.
-- 
+-
 ## [0.1.0] - 2015-04-17
 
 ### Added
@@ -93,3 +99,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.2.1]: https://github.com/patrickarlt/acetate/compare/v0.2.0...v0.2.1
 [0.2.2]: https://github.com/patrickarlt/acetate/compare/v0.2.1...v0.2.2
 [0.3.0]: https://github.com/patrickarlt/acetate/compare/v0.2.2...v0.3.0
+[0.3.1]: https://github.com/patrickarlt/acetate/compare/v0.3.0...v0.3.1

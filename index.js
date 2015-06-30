@@ -51,7 +51,7 @@ module.exports = function (options) {
   function pageBuilder (request, response, next) {
     site.verbose('server', 'request recived for %s', request.url);
 
-    if(request.method !==  'GET' ) {
+    if (request.method !== 'GET') {
       next();
       return;
     }
