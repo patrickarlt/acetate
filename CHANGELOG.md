@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-* Built-in server not properly supports URLs without trailing slashes.
+* Built-in server now properly supports URLs without trailing slashes.
 
 ## [0.3.0] - 2015-06-21
 
