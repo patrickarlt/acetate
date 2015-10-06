@@ -12,13 +12,11 @@ utils.start({
   open: false
 }, function (site) {
   site.once('server:ready', function (e) {
-    var base = 'http://localhost:8000/';
-
     test('it should serve a page that exists', function (t) {
       t.plan(1);
       t.timeoutAfter(3000);
 
-      request(base, {
+      request('http://localhost:8000/', {
         timeout: 1000
       }, function (error, response, body) {
         if (error) {
@@ -27,7 +25,6 @@ utils.start({
         }
 
         t.equal(body, 'Hello!');
-        t.end();
         site.cleanup();
       });
     });

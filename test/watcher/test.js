@@ -10,8 +10,8 @@ utils.start({
   mode: 'watch',
   root: root
 }, function (site) {
-  var filepath = path.join(__dirname, site.src, 'index.html');
-
+  var filepath = path.join(__dirname, site.options.src, 'index.html');
+  console.log(filepath);
   test('should build a file when an added event is fired', function (t) {
     t.plan(1);
     t.timeoutAfter(3000);
@@ -41,7 +41,7 @@ utils.start({
 
                   fs.unlink(filepath, function () {
                     site.once('page:clean', function () {
-                      t.notOk(site.util.exists(path.join(__dirname, site.dest, 'index.html')));
+                      t.notOk(site.util.exists(path.join(__dirname, site.options.dest, 'index.html')));
                       t.equal(site.pages.length, 0, 'page should be removed from pages array');
                       site.cleanup();
                     });

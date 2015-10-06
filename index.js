@@ -86,8 +86,8 @@ module.exports = function (options) {
 
       delete serverOptions.proxy;
       serverOptions.logLevel = (options.log === 'debug' || options.log === 'silent') ? options.log : 'info';
-      serverOptions.server = path.join(site.root, site.dest);
-      serverOptions.files = path.join(site.root, site.dest, '**/*');
+      serverOptions.server = path.join(site.dest);
+      serverOptions.files = path.join(site.dest, '**/*');
       serverOptions.port = serverOptions.port || options.port;
       serverOptions.host = serverOptions.host || options.host;
       serverOptions.open = serverOptions.open || options.open;
@@ -95,13 +95,12 @@ module.exports = function (options) {
       serverOptions.middleware.push(pageBuilder);
 
       server.init(serverOptions);
-
       site.emit('server:start');
     });
   }
 
   function startConfigWatcher () {
-    configWatcher = chokidar.watch(path.join(process.cwd(), options.config), {
+    configWatcher = chokidar.watch(site.config, {
       ignoreInitial: true
     }).on('change', function () {
       site.success('watcher', 'config file changed, restarting Acetate');
@@ -190,12 +189,12 @@ module.exports = function (options) {
   }
 
   function invalidateNunjucksCache (filepath) {
-    var name = filepath.replace(path.join(site.root, site.src) + path.sep, '').replace(path.extname(filepath), '');
+    var name = filepath.replace(site.src + path.sep, '').replace(path.extname(filepath), '');
     site.debug('nunjucks', 'clearing %s from the template cache', name);
     site.nunjucks.loaders[0].emit('update', name);
   }
 
-  function cleanup () {
+  function cleanup (callback) {
     if (fileWatcher) {
       fileWatcher.close();
     }
@@ -205,14 +204,12 @@ module.exports = function (options) {
     }
 
     if (server) {
-      server.exit();
+      server.cleanup();
     }
-
-    site.emit('cleanup');
   }
 
   if (options.mode === 'server' || options.mode === 'watch') {
-    process.on('SIGINT', cleanup);
+    process.once('SIGINT', cleanup);
   }
 
   site.once('load', function () {

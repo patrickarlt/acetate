@@ -3,7 +3,6 @@ var async = require('async');
 var fs = require('fs');
 var _ = require('lodash');
 var util = require('util');
-var path = require('path');
 var acetate = require('../index.js');
 var rimraf = require('rimraf');
 var normalizeNewline = require('normalize-newline');
