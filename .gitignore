@@ -25,5 +25,5 @@ build/Release
 node_modules
 
 # Test builds
-test/features/*/build
-test/features/*/output
+test/**/build/**/*
+test/**/output/**/*
