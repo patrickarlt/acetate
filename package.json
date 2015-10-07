@@ -31,6 +31,7 @@
     "request": "^2.55.0",
     "semistandard": "*",
     "shelljs": "^0.5.1",
+    "snazzy": "^2.0.1",
     "tap-dot": "^1.0.0",
     "tape": "^4.0.0"
   },
@@ -52,6 +53,6 @@
     "release": "npm publish && gh-release",
     "test": "npm run lint && tape test/**/test.js | tap-dot",
     "test:cover": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/folder -- test/**/test.js",
-    "lint": "semistandard"
+    "lint": "semistandard | snazzy"
   }
 }
