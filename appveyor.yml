@@ -1,15 +1,15 @@
 build: false
-environment: 
+environment:
   matrix:
-    - 
+    -
       nodejs_version: "0.12"
-    - 
+    -
       nodejs_version: "2.0"
-install: 
-  - 
+install:
+  -
     ps: "Install-Product node $env:nodejs_version"
   - "npm install"
-test_script: 
+test_script:
   - "node --version"
   - "npm --version"
-  - "npm test"
+  - "npm run test:cover"

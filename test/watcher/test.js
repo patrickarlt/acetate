@@ -11,7 +11,7 @@ utils.start({
   root: root
 }, function (site) {
   var filepath = path.join(__dirname, site.options.src, 'index.html');
-  console.log(filepath);
+
   test('should build a file when an added event is fired', function (t) {
     t.plan(1);
     t.timeoutAfter(3000);
