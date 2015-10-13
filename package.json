@@ -52,7 +52,7 @@
     "prepublish": "npm test",
     "release": "npm publish && gh-release",
     "test": "npm run lint && tape test/**/test.js | tap-spec",
-    "test:cover": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/folder -- test/**/test.js",
+    "test:cover": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/folder -- test/**/test.js | tap-spec",
     "lint": "semistandard | snazzy"
   }
 }
