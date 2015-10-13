@@ -236,5 +236,9 @@ module.exports = function (options) {
     cleanup: cleanup
   });
 
+  site.once('ready', function () {
+    site.load();
+  });
+
   return site;
 };
