@@ -32,7 +32,7 @@
     "semistandard": "*",
     "shelljs": "~0.5.1",
     "snazzy": "~2.0.1",
-    "tap-dot": "~1.0.0",
+    "tap-spec": "^4.1.0",
     "tape": "~4.0.0"
   },
   "homepage": "http://acetate.io",
@@ -51,7 +51,7 @@
   "scripts": {
     "prepublish": "npm test",
     "release": "npm publish && gh-release",
-    "test": "npm run lint && tape test/**/test.js | tap-dot",
+    "test": "npm run lint && tape test/**/test.js | tap-spec",
     "test:cover": "istanbul cover ./node_modules/tape/bin/tape --dir ./coverage/folder -- test/**/test.js",
     "lint": "semistandard | snazzy"
   }

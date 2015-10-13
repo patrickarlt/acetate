@@ -5,7 +5,7 @@ var utils = require('../utils');
 var root = __dirname;
 
 utils.start({
-  log: 'debug',
+  log: 'silent',
   root: root
 }, function (site) {
   site.once('build', function () {
