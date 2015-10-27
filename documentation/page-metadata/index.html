@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  
+
     <title>Page Metadata | Acetate</title>
-  
+
 
   <link rel="stylesheet" href="/assets/css/main.css">
   <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
@@ -21,93 +21,93 @@
     </div>
   </nav>
 
-  
+
 <div class="grid-container">
   <aside class="column-6">
     <nav class="topic-list">
       <a href="../../getting-started/" class="not-active">Getting Started</a>
 
-      
+
         <section>
           <h4>Pages</h4>
           <ul>
-            
+
             <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
-            
+
             <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
-            
+
             <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
+
             <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-            
+
             <li><a href="../../documentation/page-metadata/" class="is-active">Page Metadata</a></li>
-            
+
             <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
-            
+
             <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
-            
+
             <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
+
           </ul>
         </section>
-      
+
         <section>
           <h4>Configuration</h4>
           <ul>
-            
+
             <li><a href="../../documentation/introduction-to-configuration/" class="not-active">Introduction</a></li>
-            
+
             <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
-            
+
             <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
-            
+
             <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
-            
+
             <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
-            
+
             <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
-            
+
             <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
-            
+
             <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
-            
+
             <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
-            
+
             <li><a href="../../documentation/page-sources/" class="not-active">Page Sources</a></li>
-            
+
           </ul>
         </section>
-      
+
         <section>
           <h4>Tools & Plugins</h4>
           <ul>
-            
+
             <li><a href="../../documentation/command-line/" class="not-active">Command Line</a></li>
-            
+
             <li><a href="../../documentation/grunt-plugin/" class="not-active">Grunt Plugin</a></li>
-            
+
             <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
-            
+
           </ul>
         </section>
-      
+
         <section>
           <h4>Extensions</h4>
           <ul>
-            
+
             <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
-            
+
             <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
-            
+
           </ul>
         </section>
-      
+
     </nav>
   </aside>
 
   <article class="column-18">
     <h1>Page Metadata</h1>
-    <p>All pages can declare local metadata (as YAML) to use in their tempaltes and configure their behavior. Anything you declare in the frontmatter is accessable as a variable in your templates.</p>
+    <p>All pages can declare local metadata (as YAML) to use in their templates and configure their behavior. Anything you declare in the frontmatter is accessable as a variable in your templates.</p>
 <pre><code>---
 <span class="hljs-string">title:</span> Page with YAML metadata
 <span class="hljs-string">layout:</span> <span class="hljs-string">_layout:</span>master
@@ -136,7 +136,7 @@ theme: blue
 </span><span class="hljs-template_tag"></span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"</span></span></span><span class="hljs-variable">{{theme}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-value">"</span>&gt;</span></span><span class="hljs-variable">{{title}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span></span><span class="hljs-template_tag"></span><span class="xml">
 </span></code></pre>
 <h2>Reserved Metadata Keys</h2>
-<p>Acetate reserves the following keys for its own internal use or for you to use in your templates. You should use any of these key names for any other purpose.</p>
+<p>Acetate reserves the following keys for its own internal use or for you to use in your templates. You should not use any of these key names for any other purpose.</p>
 <h3>Editable</h3>
 <p>You can set or change these metadata keys to change basic Acetate behavior.</p>
 <table>
@@ -183,7 +183,7 @@ theme: blue
 <tbody>
 <tr>
 <td><code>stats</code></td>
-<td>File statistics for this pages template.</td>
+<td>File statistics for this page's template.</td>
 <td><a href="/documentation/built-in-helpers">Built-in Helpers</a></td>
 </tr>
 <tr>

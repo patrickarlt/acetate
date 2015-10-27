@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  
+
     <title>Templating | Acetate</title>
-  
+
 
   <link rel="stylesheet" href="/assets/css/main.css">
   <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
@@ -21,87 +21,87 @@
     </div>
   </nav>
 
-  
+
 <div class="grid-container">
   <aside class="column-6">
     <nav class="topic-list">
       <a href="../../getting-started/" class="not-active">Getting Started</a>
 
-      
+
         <section>
           <h4>Pages</h4>
           <ul>
-            
+
             <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
-            
+
             <li><a href="../../documentation/templating/" class="is-active">Templating</a></li>
-            
+
             <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
+
             <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-            
+
             <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
+
             <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
-            
+
             <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
-            
+
             <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
+
           </ul>
         </section>
-      
+
         <section>
           <h4>Configuration</h4>
           <ul>
-            
+
             <li><a href="../../documentation/introduction-to-configuration/" class="not-active">Introduction</a></li>
-            
+
             <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
-            
+
             <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
-            
+
             <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
-            
+
             <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
-            
+
             <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
-            
+
             <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
-            
+
             <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
-            
+
             <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
-            
+
             <li><a href="../../documentation/page-sources/" class="not-active">Page Sources</a></li>
-            
+
           </ul>
         </section>
-      
+
         <section>
           <h4>Tools & Plugins</h4>
           <ul>
-            
+
             <li><a href="../../documentation/command-line/" class="not-active">Command Line</a></li>
-            
+
             <li><a href="../../documentation/grunt-plugin/" class="not-active">Grunt Plugin</a></li>
-            
+
             <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
-            
+
           </ul>
         </section>
-      
+
         <section>
           <h4>Extensions</h4>
           <ul>
-            
+
             <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
-            
+
             <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
-            
+
           </ul>
         </section>
-      
+
     </nav>
   </aside>
 
@@ -111,14 +111,14 @@
 <h2>Basic Nunjucks</h2>
 <p>In general you should refer to the <a href="https://mozilla.github.io/nunjucks/templating.html">Nunjucks templating documentation</a> but a quick introduction to the basics will be helpful.</p>
 <h3>Printing Variables</h3>
-<p>You can print a variable in Nunjucks by wrapping it in double curly braces like <code>{{ variable}}</code>.</p>
+<p>You can print a variable in Nunjucks by wrapping it in double curly braces like <code>{{ variable }}</code>.</p>
 <p>Unlike other templating libraries Nunjucks does not autoescape content by default. But you can use the <code>escape</code> filter<code>{{ variable | escape }}</code>.</p>
 <p>If you need to render Nunjucks syntax You can use a <code>raw</code> tag. See the <a href="https://mozilla.github.io/nunjucks/templating.html#raw">Nunjucks documentation</a> for details.</p>
 <h3>Iterating Over Arrays</h3>
 <p>You can use Nunjucks <code>{% for %}</code> tag to iterate over Arrays.</p>
 <p><code class="filename">src/iterating-arrays.html</code></p>
 <pre><code class="html">---
-items: 
+items:
   - title: Foo
     id: 1
   - title: Bar
@@ -160,11 +160,11 @@ dogs:
 <h3>Layouts</h3>
 <p>You can use either the <a href="/documentation/layouts">Acetate layout system</a> or <a href="https://mozilla.github.io/nunjucks/templating.html#template-inheritance">Nunjucks template inheritence</a>  to create reuseable layouts to wrap your content.</p>
 <h3>Partials</h3>
-<p>Acetate leverages the <a href="https://mozilla.github.io/nunjucks/templating.html#include">Nunjucks include tag</a> to create partials that can be used across multupile pages. To learn how to use partials in Acetate refer to the <a href="/documentation/partials/">partials documentation</a>.</p>
+<p>Acetate leverages the <a href="https://mozilla.github.io/nunjucks/templating.html#include">Nunjucks include tag</a> to create partials that can be used across multiple pages. To learn how to use partials in Acetate refer to the <a href="/documentation/partials/">partials documentation</a>.</p>
 <h3>Helpers</h3>
-<p>In addition to having access to having everything in the <a href="https://mozilla.github.io/nunjucks/templating.html#include">Nunjucks templating language</a> you can also <a href="/documetation/built-in-helpers/">access built in variables provided by Acetate</a> and <a href="/documentation/cusotm-helpers/">create custom helpers</a> to use in your template.</p>
+<p>In addition to having access to everything in the <a href="https://mozilla.github.io/nunjucks/templating.html#include">Nunjucks templating language</a> you can also <a href="/documetation/built-in-helpers/">access built in variables provided by Acetate</a> and <a href="/documentation/cusotm-helpers/">create custom helpers</a> to use in your template.</p>
 <h3>Filters</h3>
-<p>To use a filter add it after a variable seperated by a <code>|</code> character {{variable | filter}}.</p>
+<p>To use a filter add it after a variable seperated by a <code>|</code> character <code>{{ variable | filter }}</code>.</p>
 <p>You can use any of the <a href="https://mozilla.github.io/nunjucks/templating.html#builtin-filters">Nunjucks filters</a> like <code>sort</code>, <code>first</code>, and <code>trim</code> and you can <a href="/documentation/cusotm-helpers/">define your own filters</a>.</p>
 
     <hr>

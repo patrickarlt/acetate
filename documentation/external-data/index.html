@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  
+
     <title>External Data | Acetate</title>
-  
+
 
   <link rel="stylesheet" href="/assets/css/main.css">
   <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
@@ -21,99 +21,99 @@
     </div>
   </nav>
 
-  
+
 <div class="grid-container">
   <aside class="column-6">
     <nav class="topic-list">
       <a href="../../getting-started/" class="not-active">Getting Started</a>
 
-      
+
         <section>
           <h4>Pages</h4>
           <ul>
-            
+
             <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
-            
+
             <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
-            
+
             <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
+
             <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-            
+
             <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
+
             <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
-            
+
             <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
-            
+
             <li><a href="../../documentation/external-data/" class="is-active">External Data</a></li>
-            
+
           </ul>
         </section>
-      
+
         <section>
           <h4>Configuration</h4>
           <ul>
-            
+
             <li><a href="../../documentation/introduction-to-configuration/" class="not-active">Introduction</a></li>
-            
+
             <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
-            
+
             <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
-            
+
             <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
-            
+
             <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
-            
+
             <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
-            
+
             <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
-            
+
             <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
-            
+
             <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
-            
+
             <li><a href="../../documentation/page-sources/" class="not-active">Page Sources</a></li>
-            
+
           </ul>
         </section>
-      
+
         <section>
           <h4>Tools & Plugins</h4>
           <ul>
-            
+
             <li><a href="../../documentation/command-line/" class="not-active">Command Line</a></li>
-            
+
             <li><a href="../../documentation/grunt-plugin/" class="not-active">Grunt Plugin</a></li>
-            
+
             <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
-            
+
           </ul>
         </section>
-      
+
         <section>
           <h4>Extensions</h4>
           <ul>
-            
+
             <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
-            
+
             <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
-            
+
           </ul>
         </section>
-      
+
     </nav>
   </aside>
 
   <article class="column-18">
     <h1>External Data</h1>
-    <p>Acetate can include data from external JSON and YAML files or use load Node modules to query data dynamically at built time. To load data files place the <code>.json</code> <code>.yaml</code> <code>.yml</code> or <code>.js</code> files in your source folder. Then in your config file you can declare those files as data sources.</p>
+    <p>Acetate can include data from external JSON and YAML files or load Node modules to query data dynamically at build time. To load data files place the <code>.json</code> <code>.yaml</code> <code>.yml</code> or <code>.js</code> files in your source folder. Then in your config file you can declare those files as data sources.</p>
 <p><code class="filename">acetate.conf.js</code></p>
 <pre><code class="js">acetate.data(<span class="hljs-string">'projects'</span>, <span class="hljs-string">'projects.json'</span>);
 acetate.data(<span class="hljs-string">'people'</span>, <span class="hljs-string">'people.yaml'</span>);
 acetate.data(<span class="hljs-string">'status'</span>, <span class="hljs-string">'status.js'</span>);
 </code></pre>
-<p>Registering data files in your configuration will make them accessible on any page. However if you only want to use a data file on one page (or a few) you can also declare the data files in your pages metadata.</p>
+<p>Registering data files in your configuration will make them accessible on any page. However if you only want to use a data file on one page (or a few) you can also declare the data files in your page's metadata.</p>
 <pre><code class="html">---
 title: Loading Data
 layout: _layout:main
@@ -132,7 +132,7 @@ data:
 {{ data.status }}
 </code></pre>
 <h2>Data Types</h2>
-<p>Acetate supports JSON, YAML and JavaScript modules. The rest of these examples will use define data sources locally on the page for clarity.</p>
+<p>Acetate supports JSON, YAML and JavaScript modules. The rest of these examples will define data sources locally on the page for clarity.</p>
 <h3>JSON</h3>
 <p><code class="filename">src/company.json</code></p>
 <pre><code class="json">{
@@ -187,7 +187,7 @@ data:
 </code></pre>
 <h3>Dynamic Data</h3>
 <p>You can also create Node modules that can query their data dynamically at build time. This is great for things that need to come from external sources like an API or a database but don't need to be always up to date.</p>
-<p>To load in dynamic data create a <code>.js</code> file in your source folder. This file should export a single function that will be passed a <code>callback</code> function and the metadata for the page that is requesting the data. When you are done retriving your data pass it to the callback like <code>callback(error, data)</code>.</p>
+<p>To load in dynamic data create a <code>.js</code> file in your source folder. This file should export a single function that will be passed a <code>callback</code> function and the metadata for the page that is requesting the data. When you are done retrieving your data pass it to the callback like <code>callback(error, data)</code>.</p>
 <p><code class="filename">src/gist.js</code></p>
 <pre><code class="js"><span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
 
