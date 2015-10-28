@@ -1,34 +1,171 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Build Error</title>
-    <style>
-      body {
-        background: #C22B18;
-        font-family: sans-serif;
-        font-size: 24px;
-      }
+<head>
+  
+    <title>Command Line | Acetate</title>
+  
 
-      .error {
-        display: table;
-        background: #f1f1f1;
-        padding: 1.5rem;
-        max-width: 85%;
-        margin: 20% auto;
-        color: #444;
-      }
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+</head>
 
-      h1, h4 {
-        font-weight: 500;
-        margin: 0 0 1rem 0;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="error">
-      <h4>build error:</h4>
-      <h1>documentation/command-line.md</h1>
-      <code>Template render (unknown path)</code>
-    <div>
-  </body>
+<body>
+  <nav class="navigation ">
+    <div class="grid-container">
+      <a href="./" class="">Acetate</a>
+      <div class="right">
+        <a href="/getting-started/" class="">Getting Started</a>
+        <a href="/documentation/" class="is-active">Documentation</a>
+        <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  
+<div class="grid-container">
+  <aside class="column-6">
+    <nav class="topic-list">
+      <a href="../../getting-started/" class="not-active">Getting Started</a>
+
+      
+        <section>
+          <h4>Pages</h4>
+          <ul>
+            
+            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
+            
+            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
+            
+            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
+            
+            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
+            
+            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
+            
+            <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
+            
+            <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
+            
+          </ul>
+        </section>
+      
+        <section>
+          <h4>Configuration</h4>
+          <ul>
+            
+            <li><a href="../../documentation/introduction-to-configuration/" class="not-active">Introduction</a></li>
+            
+            <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
+            
+            <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
+            
+            <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
+            
+            <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
+            
+            <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
+            
+            <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
+            
+            <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
+            
+            <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
+            
+            <li><a href="../../documentation/page-sources/" class="not-active">Page Sources</a></li>
+            
+          </ul>
+        </section>
+      
+        <section>
+          <h4>Tools & Plugins</h4>
+          <ul>
+            
+            <li><a href="../../documentation/command-line/" class="is-active">Command Line</a></li>
+            
+            <li><a href="../../documentation/grunt-plugin/" class="not-active">Grunt Plugin</a></li>
+            
+            <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
+            
+          </ul>
+        </section>
+      
+        <section>
+          <h4>Extensions</h4>
+          <ul>
+            
+            <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
+            
+            <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
+            
+          </ul>
+        </section>
+      
+    </nav>
+  </aside>
+
+  <article class="column-18">
+    <h1>Command Line</h1>
+    <p>You can install a command line with npm:</p>
+<pre><code class="bash">npm install -g acetate-cli
+</code></pre>
+<p>Then access the built in help with <code>acetate --help</code> or just <code>acetate</code>.</p>
+<pre><code class="bash">$ acetate --help
+Usage: acetate [<span class="hljs-built_in">command</span>] [options]
+
+Commands:
+  build     run a single build of the project and <span class="hljs-built_in">exit</span>
+  watch     build site, <span class="hljs-keyword">then</span> watch files <span class="hljs-keyword">for</span> changes and rebuild
+  server    build site and watch <span class="hljs-keyword">for</span> changes, serve output folder with built-in server
+
+Options:
+  -h, --help     Show <span class="hljs-built_in">help</span>
+  --host         host server should use                                    [default: <span class="hljs-string">"localhost"</span>]
+  --findPort     find new port <span class="hljs-keyword">if</span> port is <span class="hljs-keyword">in</span> use                           [boolean]  [default: <span class="hljs-literal">false</span>]
+  --open         open browser when server starts up                        [boolean]  [default: <span class="hljs-literal">false</span>]
+  --log          <span class="hljs-built_in">log</span> levels: debug|verbose|info|success|warn|error|silent  [default: <span class="hljs-string">"info"</span>]
+  -v, --version  Show version number
+  -c, --config   path to config file                                       [default: <span class="hljs-string">"acetate.conf.js"</span>]
+  -p, --port     port number server should use                             [default: <span class="hljs-number">8000</span>]
+  -i, --input    <span class="hljs-built_in">source</span> folder to <span class="hljs-built_in">read</span> pages from                          [default: <span class="hljs-string">"src"</span>]
+  -o, --output   folder <span class="hljs-built_in">where</span> pages will be built                          [default: <span class="hljs-string">"build"</span>]
+
+Examples:
+  acetate server --open          build site, start development server and open site
+  acetate watcher -o dist        build site to `dist` folder, start watching <span class="hljs-keyword">for</span> changes
+  acetate build --log=verbose    build site with extra logging
+</code></pre>
+<h2>Passing Custom Arguments</h2>
+<p>If you need to pass custom configuration options with using the Acetate CLI you can simply add your custom options when using <code>acetate</code> on the command line:</p>
+<pre><code class="bash">$ acetate server --open --env=dev
+</code></pre>
+<p>Acetate will seperate your custom options from the Acetate options and make then available in your config file under <code>acetate.args</code>.</p>
+<p><code class="filename">acetate.conf.js</code></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">acetate</span>)</span>{
+  <span class="hljs-comment">// load configuration data onto every page</span>
+  acetate.data(<span class="hljs-string">'config'</span>, acetate.args.env + <span class="hljs-string">'-config.json'</span>);
+};
+</code></pre>
+<p>You can also pass additional parameters without names. They will be available in order under the <code>acetate.args._</code> array:</p>
+<pre><code class="bash">$ acetate server dev --open
+</code></pre>
+<pre><code class="js"><span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">acetate</span>)</span>{
+  <span class="hljs-comment">// load configuration data onto every page</span>
+  acetate.data(<span class="hljs-string">'config'</span>, acetate.args._[<span class="hljs-number">0</span>] + <span class="hljs-string">'-config.json'</span>);
+};
+</code></pre>
+
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/command-line.md">Edit this Page on GitHub</a>
+    </p>
+  </article>
+</div>
+
+</body>
 </html>
