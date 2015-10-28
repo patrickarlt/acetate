@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  
+
     <title>Partials | Acetate</title>
-  
+
 
   <link rel="stylesheet" href="/assets/css/main.css">
   <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
@@ -21,98 +21,98 @@
     </div>
   </nav>
 
-  
+
 <div class="grid-container">
   <aside class="column-6">
     <nav class="topic-list">
       <a href="../../getting-started/" class="not-active">Getting Started</a>
 
-      
+
         <section>
           <h4>Pages</h4>
           <ul>
-            
+
             <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
-            
+
             <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
-            
+
             <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
+
             <li><a href="../../documentation/partials/" class="is-active">Partials</a></li>
-            
+
             <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
+
             <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
-            
+
             <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
-            
+
             <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
+
           </ul>
         </section>
-      
+
         <section>
           <h4>Configuration</h4>
           <ul>
-            
+
             <li><a href="../../documentation/introduction-to-configuration/" class="not-active">Introduction</a></li>
-            
+
             <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
-            
+
             <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
-            
+
             <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
-            
+
             <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
-            
+
             <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
-            
+
             <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
-            
+
             <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
-            
+
             <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
-            
+
             <li><a href="../../documentation/page-sources/" class="not-active">Page Sources</a></li>
-            
+
           </ul>
         </section>
-      
+
         <section>
           <h4>Tools & Plugins</h4>
           <ul>
-            
+
             <li><a href="../../documentation/command-line/" class="not-active">Command Line</a></li>
-            
+
             <li><a href="../../documentation/grunt-plugin/" class="not-active">Grunt Plugin</a></li>
-            
+
             <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
-            
+
           </ul>
         </section>
-      
+
         <section>
           <h4>Extensions</h4>
           <ul>
-            
+
             <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
-            
+
             <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
-            
+
           </ul>
         </section>
-      
+
     </nav>
   </aside>
 
   <article class="column-18">
     <h1>Partials</h1>
-    <p>You can use build and include reusable templates accross multupile pages with Nunjucks <code>include</code> tag. Remember filenames that begin with <code>_</code> are not built so they are ideal for partials.</p>
+    <p>You can build and include reusable templates across multiple pages with Nunjucks <code>include</code> tag. Remember filenames that begin with <code>_</code> are not built so they are ideal for partials.</p>
 <p><code class="filename">src/_partial.html</code></p>
 <pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>{{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"description"</span> <span class="hljs-attribute">content</span>=<span class="hljs-value">"{{description}}"</span>&gt;</span>
 </code></pre>
-<p>Now that we have defined a tempalte file we can inclucde it accross multupile pages with <code>{% include "_partial" %}</code>. Like with layouts you dont have to include the file extension and the path is relative to your source folder.</p>
+<p>Now that we have defined a template file we can inclucde it accross multiple pages with <code>{% include "_partial" %}</code>. Like with layouts you don't have to include the file extension and the path is relative to your source folder.</p>
 <p><code class="filename">src/contact.html</code></p>
 <pre><code class="html">---
 title: Contact
