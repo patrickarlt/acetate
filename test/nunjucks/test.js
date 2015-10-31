@@ -14,8 +14,18 @@ utils.start({
       t.plan(1);
       t.timeoutAfter(500);
 
-      var output = path.join('build', 'index.html');
-      var expected = path.join('expected', 'index.html');
+      var output = path.join('build', 'page-1', 'index.html');
+      var expected = path.join('expected', 'page-1.html');
+
+      utils.equal(t, root, output, expected);
+    });
+
+    test('should build a page with a partial', function (t) {
+      t.plan(1);
+      t.timeoutAfter(500);
+
+      var output = path.join('build', 'page-2', 'index.html');
+      var expected = path.join('expected', 'page-2.html');
 
       utils.equal(t, root, output, expected);
     });
