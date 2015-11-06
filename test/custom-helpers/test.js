@@ -4,7 +4,7 @@ var path = require('path');
 var root = __dirname;
 
 utils.start({
-  log: 'debug',
+  log: 'silent',
   root: root
 }, function (site) {
   var logs = [];
