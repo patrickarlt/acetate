@@ -94,22 +94,6 @@ utils.start({
       t.deepEqual(log, expected);
     });
 
-    test('should log an error when a helper is called with no params', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
-      var expected = {
-        show: false,
-        level: 'error',
-        category: 'page',
-        text: 'error building helper-no-params.html - You must pass at least one parameter to custom helper "helper"'
-      };
-
-      var log = _.where(logs, expected)[0];
-
-      t.deepEqual(log, expected);
-    });
-
     test('should log an error when a filter hander throws an error', function (t) {
       t.plan(1);
       t.timeoutAfter(500);

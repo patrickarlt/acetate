@@ -10,8 +10,4 @@ module.exports = function (acetate) {
   acetate.filter('errorFilter', function (value) {
     throw new Error('error in custom filter');
   });
-
-  acetate.helper('helper', function () {
-    return 'helper';
-  });
 };
