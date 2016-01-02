@@ -93,6 +93,7 @@ module.exports = function (options) {
       serverOptions.host = serverOptions.host || options.host;
       serverOptions.open = serverOptions.open || options.open;
       serverOptions.https = serverOptions.https || options.https;
+      serverOptions.logPrefix = 'Acetate';
       serverOptions.middleware = serverOptions.middleware || [];
       serverOptions.middleware.push(pageBuilder);
 
