@@ -15,6 +15,7 @@ module.exports = function (options) {
     log: 'info',
     host: 'localhost',
     port: 8000,
+    https: false,
     server: {},
     args: {}
   });
@@ -91,6 +92,7 @@ module.exports = function (options) {
       serverOptions.port = serverOptions.port || options.port;
       serverOptions.host = serverOptions.host || options.host;
       serverOptions.open = serverOptions.open || options.open;
+      serverOptions.https = serverOptions.https || options.https;
       serverOptions.middleware = serverOptions.middleware || [];
       serverOptions.middleware.push(pageBuilder);
 
