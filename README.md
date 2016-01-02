@@ -15,8 +15,8 @@
 [appveyor-url]: https://ci.appveyor.com/project/patrickarlt/acetate
 [david-image]: https://img.shields.io/david/patrickarlt/acetate.svg?style=flat-square
 [david-url]: https://david-dm.org/patrickarlt/acetate
-[coverage-image]: https://img.shields.io/codeclimate/coverage/github/patrickarlt/acetate.svg?style=flat-square
-[coverage-url]: https://codeclimate.com/github/patrickarlt/acetate
+[coverage-image]: https://img.shields.io/coveralls/jekyll/jekyll.svg?style=flat-square
+[coverage-url]: https://coveralls.io/github/patrickarlt/acetate
 [code-climate-image]: https://img.shields.io/codeclimate/github/patrickarlt/acetate.svg?style=flat-square
 [code-climate-url]: https://codeclimate.com/github/patrickarlt/acetate
 
