@@ -19,7 +19,6 @@ utils.start({
 
   site.once('build', function () {
     tap.test('should build a page with a custom helper with params', function (t) {
-
       var output = path.join('build', 'helper-with-params', 'index.html');
       var expected = path.join('expected', 'helper-with-params.html');
 

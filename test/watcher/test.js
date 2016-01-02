@@ -19,13 +19,13 @@ utils.start({
           var output = path.join('build', 'index.html');
           var expected = path.join('expected', 'index-added.html');
 
-          utils.equal(t, root, output, expected, function (){
+          utils.equal(t, root, output, expected, function () {
             fs.appendFile(filepath, '\nchanged', function () {
               site.once('build', function () {
                 var output = path.join('build', 'index.html');
                 var expected = path.join('expected', 'index-changed.html');
 
-                utils.equal(t, root, output, expected, function (){
+                utils.equal(t, root, output, expected, function () {
                   fs.unlink(filepath, function () {
                     site.once('page:clean', function () {
                       t.notOk(site.util.exists(path.join(__dirname, site.options.dest, 'index.html')));
