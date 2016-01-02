@@ -1,4 +1,4 @@
-var test = require('tape');
+var tap = require('tap');
 var path = require('path');
 var utils = require('../utils');
 
@@ -9,34 +9,31 @@ utils.start({
   root: root
 }, function (site) {
   site.once('build', function () {
-    test('should calculate relative url to root for a page one level deep', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should calculate relative url to root for a page one level deep', function (t) {
       var output = path.join('build', 'one-deep', 'index.html');
       var expected = path.join('expected', 'one-deep', 'index.html');
 
-      utils.equal(t, root, output, expected);
+      utils.equal(t, root, output, expected, function () {
+        t.end();
+      });
     });
 
-    test('should calculate relative url to root for a page two levels deep', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should calculate relative url to root for a page two levels deep', function (t) {
       var output = path.join('build', 'one-deep', 'two-deep', 'index.html');
       var expected = path.join('expected', 'one-deep', 'two-deep', 'index.html');
 
-      utils.equal(t, root, output, expected);
+      utils.equal(t, root, output, expected, function () {
+        t.end();
+      });
     });
 
-    test('should calculate relative url to root for a page three levels deep', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should calculate relative url to root for a page three levels deep', function (t) {
       var output = path.join('build', 'one-deep', 'two-deep', 'three-deep', 'index.html');
       var expected = path.join('expected', 'one-deep', 'two-deep', 'three-deep', 'index.html');
 
-      utils.equal(t, root, output, expected);
+      utils.equal(t, root, output, expected, function () {
+        t.end();
+      });
     });
   });
 });

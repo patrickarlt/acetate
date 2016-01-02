@@ -1,4 +1,4 @@
-var test = require('tape');
+var tap = require('tap');
 var path = require('path');
 var utils = require('../utils');
 
@@ -9,14 +9,13 @@ utils.start({
   root: root
 }, function (site) {
   site.once('build', function () {
-    test('should build a markdown page', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should build a markdown page', function (t) {
       var output = path.join('build', 'markdown', 'index.html');
       var expected = path.join('expected', 'markdown.html');
 
-      utils.equal(t, root, output, expected);
+      utils.equal(t, root, output, expected, function () {
+        t.end();
+      });
     });
   });
 });

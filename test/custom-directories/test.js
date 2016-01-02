@@ -1,4 +1,4 @@
-var test = require('tape');
+var tap = require('tap');
 var utils = require('../utils');
 var path = require('path');
 
@@ -9,14 +9,13 @@ utils.start({
   root: root
 }, function (site) {
   site.once('build', function () {
-    test('should build the site with custom directories', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should build the site with custom directories', function (t) {
       var output = path.join('output', 'index.html');
       var expected = path.join('expected', 'index.html');
 
-      utils.equal(t, root, output, expected);
+      utils.equal(t, root, output, expected, function () {
+        t.end();
+      });
     });
   });
 });

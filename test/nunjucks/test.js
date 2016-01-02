@@ -1,4 +1,4 @@
-var test = require('tape');
+var tap = require('tap');
 var utils = require('../utils');
 var fs = require('fs');
 var path = require('path');
@@ -10,32 +10,28 @@ utils.start({
   root: root
 }, function (site) {
   site.once('build', function () {
-    test('should build a page with a partial', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should build a page with a partial', function (t) {
       var output = path.join('build', 'page-1', 'index.html');
       var expected = path.join('expected', 'page-1.html');
 
-      utils.equal(t, root, output, expected);
+      utils.equal(t, root, output, expected, function () {
+        t.end();
+      });
     });
 
-    test('should build a page with a partial', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should build a page with a partial', function (t) {
       var output = path.join('build', 'page-2', 'index.html');
       var expected = path.join('expected', 'page-2.html');
 
-      utils.equal(t, root, output, expected);
+      utils.equal(t, root, output, expected, function () {
+        t.end();
+      });
     });
 
-    test('should not build ignored pages', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should not build ignored pages', function (t) {
       fs.exists(path.join(root, 'build', 'ignore', 'index.html'), function (exists) {
         t.equals(exists, false, 'should not build ignored pages');
+        t.end();
       });
     });
   });

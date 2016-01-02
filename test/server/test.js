@@ -1,4 +1,4 @@
-var test = require('tape');
+var tap = require('tap');
 var utils = require('../utils');
 var root = __dirname;
 var request = require('request');
@@ -12,10 +12,7 @@ utils.start({
   open: false
 }, function (site) {
   site.once('server:ready', function (e) {
-    test('it should serve a page that exists', function (t) {
-      t.plan(1);
-      t.timeoutAfter(3000);
-
+    tap.test('it should serve a page that exists', function (t) {
       request('http://localhost:8000/', {
         timeout: 1000
       }, function (error, response, body) {
@@ -26,6 +23,7 @@ utils.start({
 
         t.equal(body, 'Hello!');
         site.cleanup();
+        t.end();
       });
     });
   });

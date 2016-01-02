@@ -1,4 +1,4 @@
-var test = require('tape');
+var tap = require('tap');
 var utils = require('../utils');
 var path = require('path');
 var root = __dirname;
@@ -8,14 +8,13 @@ utils.start({
   root: root
 }, function (site) {
   site.once('build', function () {
-    test('transform pages in place', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('transform pages in place', function (t) {
       var output = path.join('build', 'transformed', 'index.html');
       var expected = path.join('expected', 'transformed.html');
 
-      utils.equal(t, root, output, expected);
+      utils.equal(t, root, output, expected, function () {
+        t.end();
+      });
     });
   });
 });

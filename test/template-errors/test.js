@@ -1,4 +1,4 @@
-var test = require('tape');
+var tap = require('tap');
 var utils = require('../utils');
 var _ = require('lodash');
 var path = require('path');
@@ -20,20 +20,16 @@ utils.start({
   });
 
   site.once('build', function () {
-    test('should render a page with multiple metadata blocks properly', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should render a page with multiple metadata blocks properly', function (t) {
       var output = path.join('build', 'metadata-metadata', 'index.html');
       var expected = path.join('expected', 'metadata-metadata.html');
 
-      utils.equal(t, root, output, expected);
+      utils.equal(t, root, output, expected, function () {
+        t.end();
+      });
     });
 
-    test('should log an error when Nunjucks throws an error in a template with metadata', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should log an error when Nunjucks throws an error in a template with metadata', function (t) {
       var expected = {
         show: false,
         level: 'error',
@@ -44,12 +40,10 @@ utils.start({
       var log = _.where(logs, expected)[0];
 
       t.deepEqual(log, expected);
+      t.end();
     });
 
-    test('should log an error when Nunjucks throws an error in a template no metadata', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should log an error when Nunjucks throws an error in a template no metadata', function (t) {
       var expected = {
         show: false,
         level: 'error',
@@ -60,12 +54,10 @@ utils.start({
       var log = _.where(logs, expected)[0];
 
       t.deepEqual(log, expected);
+      t.end();
     });
 
-    test('should log an error when Nunjucks throws an error in a template leading newlines', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should log an error when Nunjucks throws an error in a template leading newlines', function (t) {
       var expected = {
         show: false,
         level: 'error',
@@ -76,12 +68,10 @@ utils.start({
       var log = _.where(logs, expected)[0];
 
       t.deepEqual(log, expected);
+      t.end();
     });
 
-    test('should log an error when a helper hander throws an error', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should log an error when a helper hander throws an error', function (t) {
       var expected = {
         show: false,
         level: 'error',
@@ -92,12 +82,10 @@ utils.start({
       var log = _.where(logs, expected)[0];
 
       t.deepEqual(log, expected);
+      t.end();
     });
 
-    test('should log an error when a filter hander throws an error', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should log an error when a filter hander throws an error', function (t) {
       var expected = {
         show: false,
         level: 'error',
@@ -108,12 +96,10 @@ utils.start({
       var log = _.where(logs, expected)[0];
 
       t.deepEqual(log, expected);
+      t.end();
     });
 
-    test('should log an error when a block hander throws an error', function (t) {
-      t.plan(1);
-      t.timeoutAfter(500);
-
+    tap.test('should log an error when a block hander throws an error', function (t) {
       var expected = {
         show: false,
         level: 'error',
@@ -124,6 +110,7 @@ utils.start({
       var log = _.where(logs, expected)[0];
 
       t.deepEqual(log, expected);
+      t.end();
     });
   });
 });

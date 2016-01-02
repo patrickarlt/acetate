@@ -1,22 +1,19 @@
+var tap = require('tap');
 var acetate = require('../../index');
-var test = require('tape');
 var _ = require('lodash');
 
-var site = acetate({
-  config: 'error.conf.js',
-  root: __dirname,
-  log: 'silent'
-});
+tap.test('should log an error if error in config file', function (t) {
+  var site = acetate({
+    config: 'error.conf.js',
+    root: __dirname,
+    log: 'silent'
+  });
 
-var logs = [];
+  var logs = [];
 
-site.on('log', function (e) {
-  logs.push(e);
-});
-
-test('should log an error if error in config file', function (t) {
-  t.plan(1);
-  t.timeoutAfter(500);
+  site.on('log', function (e) {
+    logs.push(e);
+  });
 
   var expected = {
     show: false,
@@ -25,5 +22,8 @@ test('should log an error if error in config file', function (t) {
     text: 'error in config file - thrown error in config file - error.conf.js:2:9'
   };
 
-  t.deepEqual(_.where(logs, expected)[0], expected);
+  site.on('build', function () {
+    t.deepEqual(_.where(logs, expected)[0], expected);
+    t.end();
+  });
 });
