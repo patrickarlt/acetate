@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * `https` option that corresponds to the [https option in BrowserSync](https://www.browsersync.io/docs/options/#option-https).
 * `--https` flag for enabling https support in the CLI.
 * `acetate.output` helper for creating dynamically generated pages.
+* If `mode` is build (the default) the `acetate` method now accepts a callback that is passed `errors`, `warnings` and `status` that will run after the site is built for better integration with Gulp [#57](https://github.com/patrickarlt/acetate/issues/57).
 
 ### Changed
 

@@ -5,7 +5,7 @@ var chokidar = require('chokidar');
 var path = require('path');
 var url = require('url');
 
-module.exports = function (options) {
+module.exports = function (options, callback) {
   options = _.defaults(options, {
     mode: 'build',
     config: 'acetate.conf.js',
@@ -217,7 +217,7 @@ module.exports = function (options) {
 
   site.once('load', function () {
     if (options.mode === 'build') {
-      site.build();
+      site.build(callback);
     }
 
     if (options.mode === 'server') {
@@ -227,7 +227,7 @@ module.exports = function (options) {
     }
 
     if (options.mode === 'watch') {
-      site.build(function () {
+      site.build(function (error, warnings, status) {
         startFileWatcher();
         startConfigWatcher();
       });
