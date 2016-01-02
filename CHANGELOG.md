@@ -5,6 +5,24 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.3.1...master)
 
+## [0.4.0] - 2016-01-02
+
+### Added
+
+* `https` option that corresponds to the [https option in BrowserSync](https://www.browsersync.io/docs/options/#option-https).
+* `--https` flag for enabling https support in the CLI.
+* `acetate.output` helper for creating dynamically generated pages.
+
+### Changed
+
+* Console output from BrowserSync now has the `[Acetate]` prefix.
+* Tests now use [node-tap] (https://github.com/isaacs/node-tap)
+* Switch to [Coveralls.io](https://coveralls.io/github/patrickarlt/acetate) for code coverage reporting
+
+### Fixed
+
+* Travis CI and AppVeyor now both pass against Node 0.12, 4, and 5.
+
 ## [0.3.1] - 2015-06-30
 
 ### Fixed
