@@ -13,12 +13,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * `--https` flag for enabling https support in the CLI.
 * `acetate.output` helper for creating dynamically generated pages.
 * If `mode` is build (the default) the `acetate` method now accepts a callback that is passed `errors`, `warnings` and `status` that will run after the site is built for better integration with Gulp [#57](https://github.com/patrickarlt/acetate/issues/57).
+* `{% debug %}` helper that can print a specific variable like `{% debug someVar %}` or complete page metadata `{% debug %}`
 
 ### Changed
 
 * Console output from BrowserSync now has the `[Acetate]` prefix.
 * Tests now use [node-tap] (https://github.com/isaacs/node-tap)
-* Switch to [Coveralls.io](https://coveralls.io/github/patrickarlt/acetate) for code coverage reporting
+* Switch to [Coveralls.io](https://coveralls.io/github/patrickarlt/acetate) for code coverage reporting.
+* `acetate.helper` can now create helpers without arguments.
 
 ### Fixed
 
