@@ -227,7 +227,7 @@ module.exports = function (options, callback) {
     }
 
     if (options.mode === 'watch') {
-      site.build(function (error, warnings, status) {
+      site.build(function () {
         startFileWatcher();
         startConfigWatcher();
       });

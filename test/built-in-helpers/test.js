@@ -43,6 +43,9 @@ utils.start({
       t.ok(log[0]);
 
       fs.readFile(path.join(root, 'build', 'debug-var', 'index.html'), function (error, buffer) {
+        if (error) {
+          t.fail();
+        }
         var output = buffer.toString();
         t.ok(/Debug Title/.test(output));
         t.ok(/<script>/.test(output));
@@ -59,6 +62,10 @@ utils.start({
       t.ok(log[0]);
 
       fs.readFile(path.join(root, 'build', 'debug-all', 'index.html'), function (error, buffer) {
+        if (error) {
+          t.fail();
+        }
+
         var output = buffer.toString();
         t.ok(/Debug All/.test(output));
         t.ok(/<script>/.test(output));

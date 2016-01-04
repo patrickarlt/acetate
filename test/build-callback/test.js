@@ -1,9 +1,8 @@
 var tap = require('tap');
 var acetate = require('../../index');
-var _ = require('lodash');
 
 tap.test('should run a callback after a build', function (t) {
-  var site = acetate({
+  acetate({
     root: __dirname,
     log: 'silent'
   }, function (errors, warnings, status) {
