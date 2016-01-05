@@ -8,5 +8,5 @@ module.exports = function (acetate) {
       }
     });
     next(null, acetate);
-  })
-}
+  });
+};
