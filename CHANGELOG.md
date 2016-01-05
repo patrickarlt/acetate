@@ -5,6 +5,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.0...master)
 
+## [0.4.1] - 2016-01-05
+
+### Added
+
+* Extension names are now logged next to their run time.
+
+### Fixed
+
+* Extensions that are run inside extensions now run and execute after the extension that invoked them has finished.
+
+
 ## [0.4.0] - 2016-01-04
 
 ### Added
@@ -122,3 +133,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.3.0]: https://github.com/patrickarlt/acetate/compare/v0.2.2...v0.3.0
 [0.3.1]: https://github.com/patrickarlt/acetate/compare/v0.3.0...v0.3.1
 [0.4.0]: https://github.com/patrickarlt/acetate/compare/v0.3.1...v0.4.0
+[0.4.1]: https://github.com/patrickarlt/acetate/compare/v0.4.0...v0.4.1
