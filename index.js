@@ -74,7 +74,6 @@ module.exports = function (options, callback) {
       page.dirty = true;
       site.runExtensions(function () {
         page.build(function () {
-          builtPages[pathname] = true;
           next();
           return;
         });
@@ -186,7 +185,7 @@ module.exports = function (options, callback) {
     if (path.basename(filepath)[0] === '_') {
       invalidateNunjucksCache(filepath);
 
-      if(site.options.mode !== 'server') {
+      if (site.options.mode !== 'server') {
         _.each(site.pages, function (page) {
           page.dirty();
         });

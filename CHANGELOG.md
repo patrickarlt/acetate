@@ -5,14 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.0...master)
 
-## [0.4.1] - 2016-01-07
+## [0.4.2] - 2016-01-07
 
 ### Changed
 
 * Pages are now always rebuilt every time they are requested when in server mode.
 * Server startup is now much faster, as all pages are considered "clean" when the server starts and are rebuilt when requested.
 * Small tweaks to logging and log output.
-
 
 ### Fixed
 
@@ -148,3 +147,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.3.1]: https://github.com/patrickarlt/acetate/compare/v0.3.0...v0.3.1
 [0.4.0]: https://github.com/patrickarlt/acetate/compare/v0.3.1...v0.4.0
 [0.4.1]: https://github.com/patrickarlt/acetate/compare/v0.4.0...v0.4.1
+[0.4.2]: https://github.com/patrickarlt/acetate/compare/v0.4.1...v0.4.2
