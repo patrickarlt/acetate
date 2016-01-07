@@ -5,6 +5,20 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.0...master)
 
+## [0.4.1] - 2016-01-07
+
+### Changed
+
+* Pages are now always rebuilt every time they are requested when in server mode.
+* Server startup is now much faster, as all pages are considered "clean" when the server starts and are rebuilt when requested.
+* Small tweaks to logging and log output.
+
+
+### Fixed
+
+* Fixed memory link when watching data files.
+* Pages created with `acetate.output` are no longer added multiple times.
+
 ## [0.4.1] - 2016-01-05
 
 ### Added

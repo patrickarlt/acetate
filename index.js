@@ -37,11 +37,12 @@ module.exports = function (options, callback) {
   }
 
   function buildIndex (callback) {
-    site.debug('server', 'rebuilding page index');
     site.runExtensions(function () {
       index = _.indexBy(site.pages, function (page) {
         return (page.url[0] !== '/') ? '/' + page.url : page.url;
       });
+
+      site.info('server', 'URL index of %s pages', Object.keys(index).length);
 
       if (callback) {
         callback();
@@ -50,7 +51,7 @@ module.exports = function (options, callback) {
   }
 
   function pageBuilder (request, response, next) {
-    site.verbose('server', 'request recived for %s', request.url);
+    site.info('server', 'request recived for %s', request.url);
 
     if (request.method !== 'GET') {
       next();
@@ -64,12 +65,23 @@ module.exports = function (options, callback) {
       pathname = pathname + '/';
     }
 
-    if (index[pathname] && index[pathname].dirty) {
-      index[pathname].build(function () {
-        next();
+    // handle directory indexes
+    pathname = pathname.replace(/index.html?$/, '');
+
+    var page = index[pathname];
+
+    if (page) {
+      page.dirty = true;
+      site.runExtensions(function () {
+        page.build(function () {
+          builtPages[pathname] = true;
+          next();
+          return;
+        });
       });
     } else {
       next();
+      return;
     }
   }
 
@@ -173,9 +185,13 @@ module.exports = function (options, callback) {
     var relativepath = filepath.replace(process.cwd() + path.sep, '');
     if (path.basename(filepath)[0] === '_') {
       invalidateNunjucksCache(filepath);
-      _.each(site.pages, function (page) {
-        page.dirty = true;
-      });
+
+      if(site.options.mode !== 'server') {
+        _.each(site.pages, function (page) {
+          page.dirty();
+        });
+      }
+
       action();
     } else {
       site.loadPage(filepath, function (error, page) {
