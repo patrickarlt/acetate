@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.3...master)
 
+## [0.4.4] - 2016-01-013
+
+### Fixed
+
+* Infinite loop where server rebuild files and then reloads.
+
 ## [0.4.3] - 2016-01-013
 
 ### Fixed
@@ -93,18 +99,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * New `watcher:ready` event when the watcher starts watching files
 * New `watcher:start` event when the watcher starts
 * New `watcher:stop` event when the watcher stops
-* New `page:build` method for listneing to when and individual page finished building
+* New `page:build` method for listening to when and individual page finished building
 * New `page:clean` method for when a pages built output is deleted
 
 ### Changed
 * Improvements to `travis.yml`, readme and contributing guide.
-* Updated depenedancies
+* Updated dependencies
 * Simplified framework for running tests and gathering coverage information
 * `page.clean()` will no longer clear the directory if it is empty
 * Previously `acetate.query(name, glob, builder)` and `acetate.transform(glob, transformer)` only accepted globs like `'**/*'` to filter there input. They can now accept functions like `function (page) { return page.transformMe; }` or simple objects `{ transformMe: true }` to filter pages before running the query or transform
 
 ### Fixed
-* It is not possable to run Acetate without a configuration file. Previously this worked but reported an error.
+* It is not possible to run Acetate without a configuration file. Previously this worked but reported an error.
 * Edge cases with building pretty URLs for non HTML files have been fixed
 * Sever will now properly use a `404.html` page if it is present in your `src` folder.
 * The `url` property on the root page is now properly `/`
@@ -128,7 +134,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - tests for error handling
-- tests for edge cases in templating
+- tests for edge cases in templates
 - tests for data loading
 - added release automation
 - added changelog
@@ -154,3 +160,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.4.0]: https://github.com/patrickarlt/acetate/compare/v0.3.1...v0.4.0
 [0.4.1]: https://github.com/patrickarlt/acetate/compare/v0.4.0...v0.4.1
 [0.4.2]: https://github.com/patrickarlt/acetate/compare/v0.4.1...v0.4.2
+[0.4.3]: https://github.com/patrickarlt/acetate/compare/v0.4.2...v0.4.3
+[0.4.4]: https://github.com/patrickarlt/acetate/compare/v0.4.3...v0.4.4

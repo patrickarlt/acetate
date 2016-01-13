@@ -21,6 +21,7 @@ module.exports = function (options, callback) {
   });
 
   var site = acetate(options);
+  var builtPages = {};
   var index;
   var server;
   var fileWatcher;
@@ -70,10 +71,11 @@ module.exports = function (options, callback) {
 
     var page = index[pathname];
 
-    if (page) {
+    if (page && (page.dirty || (!page.dirty && !builtPages[pathname]))) {
       page.dirty = true;
       site.runExtensions(function () {
         page.build(function () {
+          builtPages[pathname] = true;
           next();
           return;
         });
