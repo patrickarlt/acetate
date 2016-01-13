@@ -3,7 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.0...master)
+[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.3...master)
+
+## [0.4.3] - 2016-01-013
+
+### Fixed
+
+* Fixed memory leak when watching data files.
 
 ## [0.4.2] - 2016-01-07
 
@@ -15,7 +21,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-* Fixed memory link when watching data files.
+* Fixed memory leak when watching data files.
 * Pages created with `acetate.output` are no longer added multiple times.
 
 ## [0.4.1] - 2016-01-05
