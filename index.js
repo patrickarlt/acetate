@@ -202,7 +202,11 @@ module.exports = function (options, callback) {
         }
 
         site.info('watcher', 'rebuilding %s', relativepath);
+
+        page.dirty = true;
+
         site.pages.push(page);
+
         action();
       });
     }
