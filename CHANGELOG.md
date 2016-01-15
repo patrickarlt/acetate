@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.3...master)
 
+## [0.4.6] - 2016-01-014
+
+### Fixed
+
+* Restore unintentional change to metadata merging.
+
 ## [0.4.5] - 2016-01-014
 
 ### Fixed
