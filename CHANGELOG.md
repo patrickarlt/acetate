@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.3...master)
 
+## [0.4.5] - 2016-01-014
+
+### Fixed
+
+* Pages created with `acetate.output` are no longer added multiple times.
+
 ## [0.4.4] - 2016-01-013
 
 ### Fixed
@@ -162,3 +168,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.4.2]: https://github.com/patrickarlt/acetate/compare/v0.4.1...v0.4.2
 [0.4.3]: https://github.com/patrickarlt/acetate/compare/v0.4.2...v0.4.3
 [0.4.4]: https://github.com/patrickarlt/acetate/compare/v0.4.3...v0.4.4
+[0.4.5]: https://github.com/patrickarlt/acetate/compare/v0.4.4...v0.4.5
