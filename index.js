@@ -52,7 +52,7 @@ module.exports = function (options, callback) {
   }
 
   function pageBuilder (request, response, next) {
-    site.info('server', 'request recived for %s', request.url);
+    site.info('server', 'request received for %s', request.url);
 
     if (request.method !== 'GET') {
       next();
