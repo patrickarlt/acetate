@@ -4,6 +4,7 @@ var _ = require('lodash');
 var chokidar = require('chokidar');
 var path = require('path');
 var url = require('url');
+var mime = require('mime');
 
 module.exports = function (options, callback) {
   options = _.defaults(options, {
@@ -52,7 +53,7 @@ module.exports = function (options, callback) {
   }
 
   function pageBuilder (request, response, next) {
-    site.info('server', 'request recived for %s', request.url);
+    site.debug('server', 'request recived for %s', request.url);
 
     if (request.method !== 'GET') {
       next();
@@ -71,12 +72,13 @@ module.exports = function (options, callback) {
 
     var page = index[pathname];
 
-    if (page && (page.dirty || (!page.dirty && !builtPages[pathname]))) {
+    if (page) {
       page.dirty = true;
       site.runExtensions(function () {
-        page.build(function () {
-          builtPages[pathname] = true;
-          next();
+        page.render(function (error, html) {
+          response.writeHead(200, {'Content-Type': mime.lookup(page.src)});
+          response.end(html);
+          site.success('server', 'built %s', page.src);
           return;
         });
       });
@@ -99,14 +101,16 @@ module.exports = function (options, callback) {
       var serverOptions = _.clone(site.options.server);
 
       delete serverOptions.proxy;
-      serverOptions.logLevel = (options.log === 'debug' || options.log === 'silent') ? options.log : 'info';
+
       serverOptions.server = path.join(site.dest);
       serverOptions.files = path.join(site.dest, '**/*');
       serverOptions.port = serverOptions.port || options.port;
       serverOptions.host = serverOptions.host || options.host;
       serverOptions.open = serverOptions.open || options.open;
       serverOptions.https = serverOptions.https || options.https;
+      serverOptions.logLevel = (options.log === 'debug' || options.log === 'silent') ? options.log : 'info';
       serverOptions.logPrefix = 'Acetate';
+      serverOptions.logFileChanges = (options.log === 'debug');
       serverOptions.middleware = serverOptions.middleware || [];
       serverOptions.middleware.push(pageBuilder);
 
@@ -151,7 +155,7 @@ module.exports = function (options, callback) {
   function reload () {
     buildIndex(function () {
       site.info('server', 'refreshing pages');
-      server.reload(_(site.pages).collect('dirty').collect('url').value());
+      server.reload();
     });
   }
 
@@ -202,9 +206,7 @@ module.exports = function (options, callback) {
         }
 
         site.info('watcher', 'rebuilding %s', relativepath);
-
         page.dirty = true;
-
         site.pages.push(page);
 
         action();
