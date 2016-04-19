@@ -3,7 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.3...master)
+[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.8...master)
+
+## [0.4.8] - 2016-01-14
+
+### Changed
+
+* `info` log level is now less verbose
+* Server now re-renders pages on every request, not just when the source file changes.
+
+### Changed
 
 ## [0.4.7] - 2016-01-14
 
@@ -183,3 +192,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.4.5]: https://github.com/patrickarlt/acetate/compare/v0.4.4...v0.4.5
 [0.4.6]: https://github.com/patrickarlt/acetate/compare/v0.4.5...v0.4.6
 [0.4.7]: https://github.com/patrickarlt/acetate/compare/v0.4.6...v0.4.7
+[0.4.8]: https://github.com/patrickarlt/acetate/compare/v0.4.7...v0.4.8
