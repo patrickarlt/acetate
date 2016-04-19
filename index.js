@@ -22,7 +22,6 @@ module.exports = function (options, callback) {
   });
 
   var site = acetate(options);
-  var builtPages = {};
   var index;
   var server;
   var fileWatcher;
@@ -77,7 +76,7 @@ module.exports = function (options, callback) {
       site.runExtensions(function () {
         page.render(function (error, html) {
           response.writeHead(200, {'Content-Type': mime.lookup(page.src)});
-          response.end(html);
+          response.end(error || html);
           site.success('server', 'built %s', page.src);
           return;
         });
