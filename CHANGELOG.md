@@ -5,7 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.8...master)
 
-## [0.4.8] - 2016-01-14
+## [0.4.9] - 2016-04-22
+
+### Added
+
+* Added `https-cert` and `https-key` as CLI options to allow for custom SSL certificates while developing.
+
+## [0.4.8] - 2016-04-18
 
 ### Changed
 
