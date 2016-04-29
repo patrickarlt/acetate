@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.8...master)
 
+## [0.4.10] - 2016-04-28
+
+### Fixed
+
+* Proper MIME types for Markdown documents.
+
 ## [0.4.9] - 2016-04-22
 
 ### Added

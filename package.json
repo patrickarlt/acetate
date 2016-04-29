@@ -1,7 +1,7 @@
 {
   "name": "acetate",
   "description": "Layout and templating framework for static websites.",
-  "version": "0.4.9",
+  "version": "0.4.10",
   "author": "Patrick Arlt",
   "bugs": {
     "url": "https://github.com/patrickarlt/acetate/issues"
