@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.8...master)
 
+## [0.4.11] - 2016-05-21
+
+### Fixed
+
+* Queries are re-run whenever they are accessed to ensure the latest page data.
+
 ## [0.4.10] - 2016-04-28
 
 ### Fixed
