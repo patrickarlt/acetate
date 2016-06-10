@@ -26,6 +26,7 @@
     "mime": "^1.3.4",
     "mkdirp": "^0.5.1",
     "node-uuid": "^1.4.7",
+    "normalize-newline": "^2.0.0",
     "normalize-url": "^1.5.2",
     "nunjucks": "^2.4.2",
     "pretty-hrtime": "^1.0.2"
@@ -76,7 +77,6 @@
     "lint": "eslint lib test",
     "lint:fix": "eslint lib test --fix",
     "prepublish": "npm test",
-    "pretest": "npm run lint",
     "release": "npm publish && gh-release",
     "test": "ava test/*.test.js",
     "test:coverage": "nyc --require babel-register ava test/*.test.js --reporter=html"
