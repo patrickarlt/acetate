@@ -2,10 +2,9 @@ const test = require('ava');
 const fs = require('fs');
 const path = require('path');
 const Loader = require('../lib/Loader.js');
-const { createTempFixtures, removeTempFixtures } = require('./util.js');
+const { createTempFixtures } = require('./util.js');
 
 test.beforeEach(createTempFixtures);
-test.afterEach(removeTempFixtures);
 
 test('load pages with a glob', t => {
   const loader = new Loader({

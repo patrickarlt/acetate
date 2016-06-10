@@ -3,11 +3,10 @@ const path = require('path');
 const fs = require('fs');
 const Renderer = require('../lib/Renderer');
 const createPage = require('../lib/createPage');
-const { createTempFixtures, removeTempFixtures } = require('./util.js');
+const { createTempFixtures } = require('./util.js');
 const { stripIndent } = require('common-tags');
 
 test.beforeEach(createTempFixtures);
-test.afterEach(removeTempFixtures);
 
 test('should render a basic page', (t) => {
   const renderer = new Renderer({

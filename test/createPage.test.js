@@ -1,11 +1,10 @@
 const test = require('ava');
 const path = require('path');
 const createPage = require('../lib/createPage.js');
-const { createTempFixtures, removeTempFixtures } = require('./util.js');
+const { createTempFixtures } = require('./util.js');
 const { stripIndent } = require('common-tags');
 
 test.beforeEach(createTempFixtures);
-test.afterEach(removeTempFixtures);
 
 const template = stripIndent`
   ---

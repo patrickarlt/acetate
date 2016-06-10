@@ -2,10 +2,9 @@ const test = require('ava');
 const path = require('path');
 const Transformer = require('../lib/Transformer');
 const createPage = require('../lib/createPage.js');
-const { createTempFixtures, removeTempFixtures } = require('./util.js');
+const { createTempFixtures } = require('./util.js');
 
 test.beforeEach(createTempFixtures);
-test.afterEach(removeTempFixtures);
 
 test('perform a basic sync transformation', t => {
   const transformer = new Transformer({

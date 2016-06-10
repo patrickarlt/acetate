@@ -2,12 +2,11 @@ const test = require('ava');
 const fs = require('fs');
 const path = require('path');
 const Acetate = require('../lib/Acetate.js');
-const { createTempFixtures, removeTempFixtures } = require('./util.js');
+const { createTempFixtures } = require('./util.js');
 const { stripIndent } = require('common-tags');
 const createPage = require('../lib/createPage');
 
 test.beforeEach(createTempFixtures);
-test.afterEach(removeTempFixtures);
 
 test('load a basic config file', t => {
   const acetate = new Acetate({

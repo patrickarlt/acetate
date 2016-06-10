@@ -1,14 +1,13 @@
 const test = require('ava');
 const path = require('path');
 const Acetate = require('../lib/Acetate.js');
-const { createTempFixtures, removeTempFixtures } = require('./util.js');
+const { createTempFixtures } = require('./util.js');
 const createAcetateMiddleware = require('../lib/middleware.js');
 const sinon = require('sinon');
 const httpMocks = require('node-mocks-http');
 const EventEmitter = require('events');
 
 test.beforeEach(createTempFixtures);
-test.afterEach(removeTempFixtures);
 
 test.beforeEach(t => {
   t.context.response = httpMocks.createResponse({
