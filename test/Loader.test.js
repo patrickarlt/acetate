@@ -36,7 +36,7 @@ test('should throw if there is an error loading any page', t => {
   });
 });
 
-test.cb('the watcher should add pages when they are created', t => {
+test.only.cb('the watcher should add pages when they are created', t => {
   const sourceDir = path.join(t.context.temp, 'loader-basic');
   const addition = path.join(sourceDir, 'addition.html');
 
@@ -48,17 +48,10 @@ test.cb('the watcher should add pages when they are created', t => {
   loader.load('**/*.+(md|html)');
 
   loader.getPages().then(function () {
-    loader.emitter.once('watcher:ready', () => {
-      fs.writeFile(addition, 'File Added', function (error) {
-        if (error) {
-          t.fail(error);
-          t.end();
-        }
-      });
-    });
-
     loader.emitter.once('watcher:add', (page) => {
+      console.log('page in test', page); // eslint-disable-line
       loader.stopWatcher();
+
       t.is(page.src, 'addition.html');
       t.is(page.template, 'File Added');
 
@@ -68,6 +61,15 @@ test.cb('the watcher should add pages when they are created', t => {
       }).catch((error) => {
         t.fail(error);
         t.end();
+      });
+    });
+
+    loader.emitter.once('watcher:ready', () => {
+      fs.writeFile(addition, 'File Added', function (error) {
+        if (error) {
+          t.fail(error);
+          t.end();
+        }
       });
     });
 
