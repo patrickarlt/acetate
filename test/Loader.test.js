@@ -49,7 +49,6 @@ test.cb('the watcher should add pages when they are created', t => {
 
   loader.getPages().then(function () {
     loader.emitter.once('watcher:add', (page) => {
-      console.log('page in test', page); // eslint-disable-line
       loader.stopWatcher();
 
       t.is(page.src, 'addition.html');
