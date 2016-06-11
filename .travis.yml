@@ -6,3 +6,5 @@ script: "npm run test:coverage && nyc report --reporter=text-lcov | coveralls"
 cache:
   directories:
     - node_modules
+after_script:
+  - codeclimate < coverage/lcov.info

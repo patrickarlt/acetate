@@ -36,7 +36,7 @@ test('should throw if there is an error loading any page', t => {
   });
 });
 
-test.only.cb('the watcher should add pages when they are created', t => {
+test.cb('the watcher should add pages when they are created', t => {
   const sourceDir = path.join(t.context.temp, 'loader-basic');
   const addition = path.join(sourceDir, 'addition.html');
 
@@ -89,15 +89,6 @@ test.cb('the watcher should update pages when they are changed', t => {
   loader.load('**/*.+(md|html)');
 
   loader.getPages().then(function () {
-    loader.emitter.once('watcher:ready', () => {
-      fs.writeFile(change, '<h1>Index Changed</h1>', function (error) {
-        if (error) {
-          t.fail(error);
-          t.end();
-        }
-      });
-    });
-
     loader.emitter.once('watcher:change', (page) => {
       loader.stopWatcher();
       t.is(page.src, 'index.html');
@@ -108,6 +99,15 @@ test.cb('the watcher should update pages when they are changed', t => {
       }).catch((error) => {
         t.fail(error);
         t.end();
+      });
+    });
+
+    loader.emitter.once('watcher:ready', () => {
+      fs.writeFile(change, '<h1>Index Changed</h1>', function (error) {
+        if (error) {
+          t.fail(error);
+          t.end();
+        }
       });
     });
 
