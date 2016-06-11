@@ -80,7 +80,7 @@
     "prepublish": "npm test",
     "release": "npm publish && gh-release",
     "pretest": "npm run lint",
-    "test": "ava test/*.test.js",
+    "test": "ava test/*.test.js --serial",
     "posttest": "rimraf .acetate_fixtures",
     "test:coverage": "nyc --require babel-register ava test/*.test.js --reporter=html"
   }
