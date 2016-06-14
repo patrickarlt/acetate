@@ -289,6 +289,7 @@ test('should proxy transformer methods', function (t) {
   const transformAsyncSpy = sinon.spy(acetate.transformer, 'transformAsync');
   const transformAllAsyncSpy = sinon.spy(acetate.transformer, 'transformAllAsync');
   const generateSpy = sinon.spy(acetate.transformer, 'generate');
+  const querySpy = sinon.spy(acetate.transformer, 'query');
 
   acetate.data('name', 'data.json');
   acetate.layout('**/*', '_layout:main');
@@ -299,6 +300,7 @@ test('should proxy transformer methods', function (t) {
   acetate.transformAsync('**/*', noop);
   acetate.transformAllAsync('**/*', noop);
   acetate.generate(noop);
+  acetate.query('foo', noop, noop, noop);
 
   t.true(dataSpy.calledWith('name', 'data.json'));
   t.true(layoutSpy.calledWith('**/*', '_layout:main'));
@@ -309,6 +311,7 @@ test('should proxy transformer methods', function (t) {
   t.true(transformAsyncSpy.calledWith('**/*', noop));
   t.true(transformAllAsyncSpy.calledWith('**/*', noop));
   t.true(generateSpy.calledWith(noop));
+  t.true(querySpy.calledWith('foo', noop, noop, noop));
 });
 
 test('should proxy renderer methods', function (t) {
