@@ -10,4 +10,11 @@ engines:
     enabled: true
 ratings:
   paths:
-  - "**.js"
+  - "lib/**/*.js"
+exclude_paths:
+  - test/
+  - "CHANGELOG.md"
+  - "CONTRIBUTING.md"
+  - "LICENSE"
+  - "README.md"
+  - "appveyor.yml"
