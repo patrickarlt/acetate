@@ -18,3 +18,5 @@ exclude_paths:
   - "LICENSE"
   - "README.md"
   - "appveyor.yml"
+  - "package.json"
+  - "**/*.html"
