@@ -43,6 +43,32 @@ test.cb('should return a page when requested', t => {
   });
 });
 
+test.cb('should keep a cache of transformed pages by URL', t => {
+  const acetate = new Acetate({
+    root: path.join(t.context.temp, 'middleware-basic'),
+    logLevel: 'silent'
+  });
+
+  const middleware = createAcetateMiddleware(acetate);
+
+  const { response } = t.context;
+
+  const request = httpMocks.createRequest({
+    method: 'GET',
+    url: '/index.html'
+  });
+
+  const next = sinon.spy();
+
+  middleware(request, response, next);
+
+  response.on('end', function () {
+    const cachedPages = middleware.getPageCache();
+    t.is(cachedPages['/'].src, 'index.html');
+    t.end();
+  });
+});
+
 test.cb('should normalize request URLs to find matching pages', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'middleware-basic'),
@@ -115,7 +141,7 @@ test.cb('should return early on non GET requests', t => {
 
 test.cb('should return an error page if there is an error rendering the page', t => {
   const acetate = new Acetate({
-    root: path.join(t.context.temp, 'middleware-error'),
+    root: path.join(t.context.temp, 'middleware-render-error'),
     logLevel: 'silent'
   });
 
@@ -141,6 +167,34 @@ test.cb('should return an error page if there is an error rendering the page', t
   });
 });
 
-test.todo('should emit a warning when multupile pages with the same url are detected');
+test.cb('should return an error page if there is an error transforming the page', t => {
+  const acetate = new Acetate({
+    root: path.join(t.context.temp, 'middleware-transform-error'),
+    logLevel: 'silent'
+  });
+
+  const middleware = createAcetateMiddleware(acetate);
+
+  const { response } = t.context;
+
+  const request = httpMocks.createRequest({
+    method: 'GET',
+    url: '/'
+  });
+
+  const next = sinon.spy();
+
+  middleware(request, response, next);
+
+  response.on('end', function () {
+    t.is(next.callCount, 0);
+    t.truthy(response._getData());
+    t.is(response._getStatusCode(), 500);
+    t.is(response._getHeaders()['Content-Type'], 'text/html');
+    t.end();
+  });
+});
+
+test.todo('should emit a warning when 2 or more pages with the same url are detected');
 
 test.todo('should emit a warning when rendering an ignored page');

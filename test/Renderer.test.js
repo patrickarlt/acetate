@@ -5,6 +5,7 @@ const Renderer = require('../lib/Renderer');
 const createPage = require('../lib/createPage');
 const { createTempFixtures } = require('./util.js');
 const { stripIndent } = require('common-tags');
+const sinon = require('sinon');
 
 test.beforeEach(createTempFixtures);
 
@@ -145,7 +146,28 @@ test('should register a prerendering function', t => {
   });
 });
 
-test('should reject if there is an error in a prerender function', t => {
+test('should not prerender if a page does not match', t => {
+  const renderer = new Renderer({
+    sourceDir: path.join(t.context.temp, 'renderer'),
+    logLevel: 'silent'
+  });
+
+  const template = stripIndent`
+    <h1>{{title}}</h1>
+  `;
+
+  const page = createPage('index.html', template);
+
+  const spy = sinon.spy();
+
+  renderer.prerender('no/match', spy);
+
+  return renderer.renderPage(page).then((output) => {
+    t.is(spy.callCount, 0);
+  });
+});
+
+test('should reject if prerender function calls back with an error', t => {
   const renderer = new Renderer({
     sourceDir: path.join(t.context.temp, 'renderer'),
     logLevel: 'silent'
@@ -165,6 +187,27 @@ test('should reject if there is an error in a prerender function', t => {
 
   return t.throws(renderer.renderPage(page)).then((error) => {
     t.is(error, 'D\'oh');
+  });
+});
+
+test('should reject if there is an error thrown in a prerender function', t => {
+  const renderer = new Renderer({
+    sourceDir: path.join(t.context.temp, 'renderer'),
+    logLevel: 'silent'
+  });
+
+  const template = stripIndent`
+    <h1>{{title}}</h1>
+  `;
+
+  const page = createPage('index.html', template);
+
+  renderer.prerender('**/*', function (page, callback) {
+    throw new Error('D\'oh');
+  });
+
+  return t.throws(renderer.renderPage(page)).then((error) => {
+    t.is(error.message, 'D\'oh');
   });
 });
 
@@ -188,6 +231,7 @@ test.cb('should be able to invalidate a template', t => {
     fs.writeFile(path.join(root, '_partial.html'), 'Change', (error) => {
       if (error) {
         t.fail(error);
+        t.end();
         throw error;
       }
 
@@ -513,4 +557,23 @@ test('should catch errors in custom filters', t => {
   });
 });
 
-test.todo('should add a global variable');
+test('should register global variables', t => {
+  const root = path.join(t.context.temp, 'renderer');
+
+  const renderer = new Renderer({
+    sourceDir: root,
+    logLevel: 'silent'
+  });
+
+  renderer.global('foo', 'bar');
+
+  const template = stripIndent`
+    {{ foo }}
+  `;
+
+  const page = createPage('index.html', template);
+
+  return renderer.renderPage(page).then(function (output) {
+    t.is(output, 'bar');
+  });
+});

@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Loader = require('../lib/Loader.js');
 const { createTempFixtures } = require('./util.js');
+const { stripIndent } = require('common-tags');
 
 test.beforeEach(createTempFixtures);
 
@@ -145,6 +146,50 @@ test.cb('the watcher should remove pages when they are deleted', t => {
       }).catch((error) => {
         t.fail(error);
         t.end();
+      });
+    });
+
+    loader.startWatcher();
+  });
+});
+
+test.cb('the watcher should emit an error if there is an error loading pages', t => {
+  const sourceDir = path.join(t.context.temp, 'loader-basic');
+  const change = path.join(sourceDir, 'index.html');
+
+  const loader = new Loader({
+    sourceDir,
+    logLevel: 'silent'
+  });
+
+  loader.load('**/*.+(md|html)');
+
+  const template = stripIndent`
+    ---
+    foo: bar
+    foo: baz
+    ---
+
+    '<h1>Index Changed</h1>'
+  `;
+
+  loader.getPages().then(function () {
+    loader.emitter.once('watcher:error', (e) => {
+      loader.stopWatcher();
+      t.is(e.error.name, 'MetadataParseError');
+      t.is(e.error.message, 'duplicated mapping key at index.html(2:8)');
+      t.is(e.error.line, 2);
+      t.is(e.error.column, 8);
+      t.is(e.error.file, 'index.html');
+      t.end();
+    });
+
+    loader.emitter.once('watcher:ready', () => {
+      fs.writeFile(change, template, function (error) {
+        if (error) {
+          t.fail(error);
+          t.end();
+        }
       });
     });
 

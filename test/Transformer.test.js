@@ -3,6 +3,7 @@ const path = require('path');
 const Transformer = require('../lib/Transformer');
 const createPage = require('../lib/createPage.js');
 const { createTempFixtures } = require('./util.js');
+const sinon = require('sinon');
 
 test.beforeEach(createTempFixtures);
 
@@ -20,6 +21,22 @@ test('perform a basic sync transformation', t => {
 
   return transformer.transformPages([page]).then(pages => {
     t.is(pages[0].foo, 'foo');
+  });
+});
+
+test('should pass on a basic transformation that does not match', t => {
+  const transformer = new Transformer({
+    logLevel: 'silent'
+  });
+
+  const spy = sinon.spy();
+
+  transformer.transform('no/match', spy);
+
+  const page = createPage('index.html');
+
+  return transformer.transformPages([page]).then(pages => {
+    t.is(spy.callCount, 0);
   });
 });
 
@@ -56,6 +73,22 @@ test('perform a basic async transformation', t => {
   });
 });
 
+test('should pass on an async transformation that does not match', t => {
+  const transformer = new Transformer({
+    logLevel: 'silent'
+  });
+
+  const spy = sinon.spy();
+
+  transformer.transformAsync('no/match', spy);
+
+  const page = createPage('index.html');
+
+  return transformer.transformPages([page]).then(pages => {
+    t.is(spy.callCount, 0);
+  });
+});
+
 test('reject with an error from a async transformation', t => {
   const transformer = new Transformer({
     logLevel: 'silent'
@@ -69,6 +102,22 @@ test('reject with an error from a async transformation', t => {
 
   return t.throws(transformer.transformPages([page])).then(error => {
     t.is(error, 'D\'oh');
+  });
+});
+
+test('reject with an error thown inside an async transformation', t => {
+  const transformer = new Transformer({
+    logLevel: 'silent'
+  });
+
+  transformer.transformAsync('**/*', function (page, callback) {
+    throw new Error('D\'oh');
+  });
+
+  const page = createPage('index.html');
+
+  return t.throws(transformer.transformPages([page])).then(error => {
+    t.is(error.message, 'D\'oh');
   });
 });
 
@@ -154,6 +203,22 @@ test('reject with an error from a async transformation on all pages', t => {
   });
 });
 
+test('reject with an error thrown from an async transformation on all pages', t => {
+  const page1 = createPage('index.html');
+  const page2 = createPage('about.html');
+  const transformer = new Transformer({
+    logLevel: 'silent'
+  });
+
+  transformer.transformAllAsync(function (pages, done) {
+    throw new Error('D\'oh');
+  });
+
+  return t.throws(transformer.transformPages([page1, page2])).then((error) => {
+    t.is(error.message, 'D\'oh');
+  });
+});
+
 test('apply JSON data to a page', t => {
   const transformer = new Transformer({
     sourceDir: path.join(t.context.temp, 'transformer-json-data'),
@@ -201,6 +266,24 @@ test('apply data from a function to a page', t => {
 
   return transformer.transformPages([page]).then((pages) => {
     t.is(pages[0].data.async.foo, 'bar');
+  });
+});
+
+test('reject when a data function throws an error', t => {
+  const transformer = new Transformer({
+    logLevel: 'silent'
+  });
+
+  transformer.data('async', function (done) {
+    process.nextTick(function () {
+      done(new Error('D\'oh'));
+    });
+  });
+
+  const page = createPage('index.html');
+
+  return t.throws(transformer.transformPages([page])).then((error) => {
+    t.is(error.message, 'D\'oh');
   });
 });
 
@@ -304,5 +387,39 @@ test('should generate new pages while transforming', t => {
     t.is(pages.length, 2);
     t.is(pages[0].src, 'index.html');
     t.is(pages[1].src, 'generated.html');
+  });
+});
+
+test('should reject when generator throws an error', t => {
+  const transformer = new Transformer({
+    logLevel: 'silent'
+  });
+
+  const page = createPage('index.html');
+
+  transformer.generate((pages, createPage, done) => {
+    throw new Error('D\'oh');
+  });
+
+  return t.throws(transformer.transformPages([page])).then((error) => {
+    t.is(error.message, 'D\'oh');
+  });
+});
+
+test('should reject when generator calls back with an error', t => {
+  const transformer = new Transformer({
+    logLevel: 'silent'
+  });
+
+  const page = createPage('index.html');
+
+  transformer.generate((pages, createPage, done) => {
+    process.nextTick(function () {
+      done(new Error('D\'oh'));
+    });
+  });
+
+  return t.throws(transformer.transformPages([page])).then((error) => {
+    t.is(error.message, 'D\'oh');
   });
 });
