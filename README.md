@@ -44,12 +44,10 @@ It's also easy to get started with Acetate or integrate Acetate into an existing
 
 [![semistandard][semistandard-image]][semistandard-url]
 
-Please run `npm test` locally before you submit a PR. This will run the tests and check for [semistandard](https://github.com/Flet/semistandard) style.
+Please run `npm test` locally before you submit a PR. This will run the tests and check for [semistandard](https://github.com/Flet/semistandard) style and lint with the [ESLint recommended rules](http://eslint.org/).
 
 More details in the [contributing guide](CONTRIBUTING.md).
 
-[standard-image]: https://cdn.rawgit.com/feross/standard/master/badge.svg
-[standard-url]: https://github.com/feross/standard
 [semistandard-image]: https://cdn.rawgit.com/flet/semistandard/master/badge.svg
 [semistandard-url]: https://github.com/Flet/semistandard
 

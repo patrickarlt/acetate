@@ -17,13 +17,12 @@ Fork and clone the repo, then `npm install` to install all dependencies.
 
 Tests are run with `npm test`. Please ensure all tests are passing before submitting a pull request (unless you're creating a failing test to increase test coverage or show a problem).
 
-## Code Style
+## Code Style and Linting
+
+This repository uses [`semistandard`][semistandard-url] and [ESLine recommened rules][es-lint-url] to maintain code style and consistency and avoid style arguments. `npm test` runs linting and style checks so you don't have to!
 
 [![semistandard][semistandard-image]][semistandard-url]
 
-This repository uses [`semistandard`][semistandard-url] to maintain code style and consistency and avoid style arguments. `npm test` runs `semistandard` so you don't have to!
-
-[standard-image]: https://cdn.rawgit.com/feross/standard/master/badge.svg
-[standard-url]: https://github.com/feross/standard
 [semistandard-image]: https://cdn.rawgit.com/flet/semistandard/master/badge.svg
 [semistandard-url]: https://github.com/Flet/semistandard
+[eslint-url]: http://eslint.org/docs/rules/

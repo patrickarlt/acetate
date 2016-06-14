@@ -1,3 +1,6 @@
+# Acetate Test Fixtures
+.acetate_fixtures
+
 # Logs
 logs
 *.log

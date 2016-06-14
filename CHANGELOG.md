@@ -3,7 +3,47 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.8...master)
+[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.11...master)
+
+## [1.0.0] - In Progress
+
+### Added
+
+* `require` option to the CLI which lets you require tools like `babel-register` before executing Acetate.
+* `acetate.prerender(pattern, func)` helper which will run an async function before rendering pages whose `src` matches the supplied pattern.
+* `acetate.generate(func)` helper to asyncronously generate pages. `func` gets `pages`, `createPage` and `callback`.
+* `acetate.require('path')` helper to require another configuration file. This allows splitting configs up across files and also supports loading files from `node_modules`.
+* Dev server will now display errors from Acetate in both the console and as a fullscreen message in the browser.
+* Page metadata will appear in the console when using the dev server.
+
+### Changed
+
+* `acetate.transform` has changed it now `acetate.transform(pattern, transformer)` where `pattern` is a glob pattern and `transformer` is a function the gets a `page` and returns a `page`. It show gets a single `page` argument and should return that page after manipulating it. To Asyncronsouly alter pages matching a pattern use `acetate.transformAllAsync` which gets an array of all `pages` and a `callback` which takes `error` and the altered array of pages.
+* Pages no longer have a `dirty` flag. This makes rendering stateless and more predictable. However this may break some existing extensions that rely on `dirty`. To preform async actions when the page is "dirty", use `acetate.prerender` which will run before the page renders.
+* The `context` in helpers has changed. It is now an object with `page` and `options`. `options` are the [Nunjucks keyword arguments](https://mozilla.github.io/nunjucks/templating.html#keyword-arguments).
+* Output from helpers is automatically considered safe and escaped. This makes it easier to return HTML from helpers.
+* `acetate.nunjucks` and `acetate.markdown` are now located under the renderer `acetate.renderer.nunjucks`, `acetate.renderer.markdown`
+* `acetate.data` no longer accepts a path to a Common JS module. Instead pass a function that will recive a `callback` with a `callback(error, data)` signature.
+* Pages no longer can use the `data` key in their metadata to load data onto the page. Instead load all data with the `acetate.data()` helper.
+* `acetate.query` has changed it is now `acetate.query(name, filter, map, reduce, inital)` and functions like a map/reduce query over a filtered array of pages.
+* Pages can no longer use the `query` key in their metadata to retrive queries. All queries are now global.
+* You can now specify layouts, Nunjucks `{% include %}`, `{% extends %}` and `{% import %}` tags with a file extension.
+* Acetate no longer loads `**/*.+(html|md)` by default. Add `acetate.load('**/*.+(md|html)')` to the top of your config file.
+
+### Removed
+
+* `acetate.use`. Replace with `acetate.transformAllAsync`. You can no longer manipulate the state of the `acetate` object, only the pages.
+* `acetate.output`. Replaced with `acetate.generate`.
+
+### Fixed
+
+* Filters added with `acetate.filter` can now accept arguments.
+* Lots of strange behavior with the dev server, watcher and reloading configuration files.
+
+### Misc.
+
+* Tests have been rewritten with [AVA](https://github.com/avajs/ava)
+* Linting is now done by [ESLint](http://eslint.org/) with the [ESLint recommended rules](http://eslint.org/docs/rules/) and [Semistandard](https://github.com/Flet/semistandard)
 
 ## [0.4.11] - 2016-05-21
 
