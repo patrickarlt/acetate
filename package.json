@@ -82,7 +82,6 @@
     "pretest": "npm run lint",
     "test": "ava test/*.test.js",
     "test:coverage": "npm run lint && nyc --require babel-register ava test/*.test.js --reporter=html",
-    "test:appveyor": "npm run lint && ava test/*.test.js --serial",
     "test:travisci": "npm run lint && npm run test:coverage && nyc report --reporter=text-lcov | coveralls"
   }
 }
