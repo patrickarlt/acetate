@@ -36,7 +36,7 @@ test('should reject if there is an error at any point', (t) => {
   const acetate = new Acetate({
     root,
     config: 'error.config.js',
-    logLevel: 'debug'
+    logLevel: 'silent'
   });
 
   return t.throws(builder(acetate)).then(error => {
