@@ -2,9 +2,10 @@ language: node_js
 node_js:
   - '6'
 sudo: false
-script: "npm run test:travisci"
+script: "npm run test:coverage"
 cache:
   directories:
     - node_modules
 after_script:
-  - "codeclimate-test-reporter < coverage/lcov.info"
+  - "nyc report --reporter=text-lcov > coverage.lcov && codeclimate-test-reporter < coverage.lcov"
+  - "nyc report --reporter=text-lcov | coveralls"
