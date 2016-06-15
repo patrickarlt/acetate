@@ -52,7 +52,10 @@ test('reject with an error from a sync transformation', t => {
   const page = createPage('index.html');
 
   return t.throws(transformer.transformPages([page])).then(error => {
-    t.is(error.message, 'D\'oh');
+    t.regex(error.toString(), /Error D'oh at/);
+    t.is(typeof error.line, 'number');
+    t.is(typeof error.column, 'number');
+    t.truthy(error.file);
   });
 });
 
@@ -101,7 +104,10 @@ test('reject with an error from a async transformation', t => {
   const page = createPage('index.html');
 
   return t.throws(transformer.transformPages([page])).then(error => {
-    t.is(error, 'D\'oh');
+    t.regex(error.message, /D'oh/);
+    t.is(error.name, 'TransformerError');
+    t.is(typeof error.line, 'number');
+    t.is(typeof error.column, 'number');
   });
 });
 
@@ -117,7 +123,10 @@ test('reject with an error thown inside an async transformation', t => {
   const page = createPage('index.html');
 
   return t.throws(transformer.transformPages([page])).then(error => {
-    t.is(error.message, 'D\'oh');
+    t.regex(error.toString(), /Error D'oh at/);
+    t.is(typeof error.line, 'number');
+    t.is(typeof error.column, 'number');
+    t.truthy(error.file);
   });
 });
 
@@ -158,7 +167,10 @@ test('reject with an error from a sync transformation on all pages', t => {
   });
 
   return t.throws(transformer.transformPages([page1, page2])).then((error) => {
-    t.is(error, 'D\'oh');
+    t.regex(error.toString(), /Error D'oh at/);
+    t.is(typeof error.line, 'number');
+    t.is(typeof error.column, 'number');
+    t.truthy(error.file);
   });
 });
 
@@ -199,7 +211,10 @@ test('reject with an error from a async transformation on all pages', t => {
   });
 
   return t.throws(transformer.transformPages([page1, page2])).then((error) => {
-    t.is(error, 'D\'oh');
+    t.regex(error.toString(), /Error D'oh at/);
+    t.is(typeof error.line, 'number');
+    t.is(typeof error.column, 'number');
+    t.truthy(error.file);
   });
 });
 
@@ -215,7 +230,10 @@ test('reject with an error thrown from an async transformation on all pages', t 
   });
 
   return t.throws(transformer.transformPages([page1, page2])).then((error) => {
-    t.is(error.message, 'D\'oh');
+    t.regex(error.toString(), /Error D'oh at/);
+    t.is(typeof error.line, 'number');
+    t.is(typeof error.column, 'number');
+    t.truthy(error.file);
   });
 });
 
@@ -283,7 +301,10 @@ test('reject when a data function throws an error', t => {
   const page = createPage('index.html');
 
   return t.throws(transformer.transformPages([page])).then((error) => {
-    t.is(error.message, 'D\'oh');
+    t.regex(error.toString(), /Error D'oh at/);
+    t.is(typeof error.line, 'number');
+    t.is(typeof error.column, 'number');
+    t.truthy(error.file);
   });
 });
 
@@ -402,7 +423,10 @@ test('should reject when generator throws an error', t => {
   });
 
   return t.throws(transformer.transformPages([page])).then((error) => {
-    t.is(error.message, 'D\'oh');
+    t.regex(error.toString(), /Error D'oh at/);
+    t.is(typeof error.line, 'number');
+    t.is(typeof error.column, 'number');
+    t.truthy(error.file);
   });
 });
 
@@ -420,6 +444,9 @@ test('should reject when generator calls back with an error', t => {
   });
 
   return t.throws(transformer.transformPages([page])).then((error) => {
-    t.is(error.message, 'D\'oh');
+    t.regex(error.toString(), /Error D'oh at/);
+    t.is(typeof error.line, 'number');
+    t.is(typeof error.column, 'number');
+    t.truthy(error.file);
   });
 });
