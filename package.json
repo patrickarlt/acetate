@@ -9,7 +9,7 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/patrickarlt/acetate/issues"
+    "url": "https://github.com/patrickarlt/acetate/issues/"
   },
   "dependencies": {
     "async": "^1.5.2",
