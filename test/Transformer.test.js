@@ -237,6 +237,36 @@ test('reject with an error thrown from an async transformation on all pages', t 
   });
 });
 
+test('should query an array of all pages by default', t => {
+  const transformer = new Transformer({
+    log: 'silent'
+  });
+
+  function map (page) {
+    return {
+      src: page.src
+    };
+  }
+
+  function reduce (value, page) {
+    value.push(page.src);
+    return value;
+  }
+
+  transformer.query('pages', '**/*', map, reduce, []);
+
+  const page1 = createPage('page1.html');
+  const page2 = createPage('page2.html');
+  const page3 = createPage('page3.html');
+
+  return transformer.transformPages([page1, page2, page3]).then((pages) => {
+    t.is(pages[0].queries.pages.length, 3);
+    t.is(pages[0].queries.pages[0], 'page1.html');
+    t.is(pages[0].queries.pages[1], 'page2.html');
+    t.is(pages[0].queries.pages[2], 'page3.html');
+  });
+});
+
 test('apply JSON data to a page', t => {
   const transformer = new Transformer({
     sourceDir: path.join(t.context.temp, 'transformer-json-data'),
