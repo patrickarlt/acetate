@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <title>Config File | Acetate</title>
+  
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link href='//fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <nav class="navigation ">
+    <div class="grid-container">
+      <a href="/">Acetate</a>
+
+      <div class="right">
+        <a href="/getting-started/">Getting Started</a>
+        <a href="/documentation/" class="is-active">Documentation</a>
+        <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  
+<div class="grid-container">
+  <aside class="column-6">
+    <nav class="topic-list">
+      <a href="/getting-started/">Getting Started</a>
+      <a href="/understanding-acetate/">Understanding Acetate</a>
+
+      
+    </nav>
+  </aside>
+
+  <article class="column-18">
+    <h1>Config File</h1>
+    <p>Acetate is configured using a file called <code>acetate.config.js</code>. The configuration file should just be a Node module that will be called with the instance of acetate. Here is a minimal example of an acetate configuration file that simply sets the default layout, and adds a few files that are usually ignored by acetate:</p>
+<p><code class="filename">acetate.config.js</code></p>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  <span class="hljs-comment">// load all html and markdown files from our source folder</span>
+  acetate.load(<span class="hljs-string">'**/*.+(html|md)'</span>);
+
+  <span class="hljs-comment">// define a default layout to use on all pages</span>
+  acetate.layout(<span class="hljs-string">'**/*'</span>, <span class="hljs-string">'layouts/_layout:main'</span>);
+
+  <span class="hljs-comment">// load the CNAME file</span>
+  acetate.load(<span class="hljs-string">'CNAME'</span>);
+
+  <span class="hljs-comment">// dont layout hte CNAME file</span>
+  acetate.layout(<span class="hljs-string">'CNAME'</span>, <span class="hljs-literal">false</span>);
+};
+</code></pre>
+<p>Below is a summary of the other configuration options possible via the <code>acetate.config.js</code> file.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+<th>Phase</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>load('pattern')</code></td>
+<td>Loads files from the source directory that match <code>pattern</code></td>
+<td>Load</td>
+<td><a href="/documentation/creating-pages">Creating Pages</a></td>
+</tr>
+<tr>
+<td><code>layout('pattern', 'layout')</code></td>
+<td>Defines a <code>layout</code> for all pages whose source matches <code>pattern</code>.</td>
+<td>Transform</td>
+<td><a href="/documentation/layouts-and-partials/">Layouts and Partials</a></td>
+</tr>
+<tr>
+<td><code>data('name', 'path')</code></td>
+<td>Loads a JSON or YAML file and makes its contents available to pages.</td>
+<td>Transform</td>
+<td><a href="/documentation/external-data/">External Data</a></td>
+</tr>
+<tr>
+<td><code>data('name', handler)</code></td>
+<td>Define a <code>handler</code> function to load data from an external source.</td>
+<td>Transform</td>
+<td><a href="/documentation/external-data/">External Data</a></td>
+</tr>
+<tr>
+<td><code>ignore('pattern')</code></td>
+<td>Ignore all pages matching <code>pattern</code> from the build.</td>
+<td>Transform</td>
+<td><a href="/documentation/creating-pages">Creating Pages</a></td>
+</tr>
+<tr>
+<td><code>metadata('pattern', metadata)</code></td>
+<td>Merge a <code>metadata</code> object into all pages matching <code>pattern</code>.</td>
+<td>Transform</td>
+<td><a href="/documentation/page-metadata/">Page Metadata</a></td>
+</tr>
+<tr>
+<td><code>query('name', filter, map, reduce, inital)</code></td>
+<td>Define a map/reduce query across a filtered set of pages.</td>
+<td>Transform</td>
+<td><a href="/documentation/querying-pages/">Querying Pages</a></td>
+</tr>
+<tr>
+<td><code>generate(handler)</code></td>
+<td>Define a handler function to dymanically create new pages.</td>
+<td>Transform</td>
+<td><a href="/documentation/generating-pages/">Generating Pages</a></td>
+</tr>
+<tr>
+<td><code>transform('pattern', handler)</code></td>
+<td>Manipulate all pages matching <code>pattern</code>.</td>
+<td>Transform</td>
+<td><a href="/documentation/pages/">Transforming Pages</a></td>
+</tr>
+<tr>
+<td><code>transformAsync('pattern', handler)</code></td>
+<td>Manipulate all pages matching <code>pattern</code> with an async function.</td>
+<td>Transform</td>
+<td><a href="/documentation/pages/">Transforming Pages</a></td>
+</tr>
+<tr>
+<td><code>transformAll(handler)</code></td>
+<td>Bulk manipulate all pages.</td>
+<td>Transform</td>
+<td><a href="/documentation/pages/">Transforming Pages</a></td>
+</tr>
+<tr>
+<td><code>transformAllAsync(handler)</code></td>
+<td>Bulk manipulate all pages with an async function.</td>
+<td>Transform</td>
+<td><a href="/documentation/pages/">Transforming Pages</a></td>
+</tr>
+<tr>
+<td><code>prerender('pattern', handler)</code></td>
+<td>Run a async function against a page before rendering.</td>
+<td>Render</td>
+<td><a href="/documentation/prerender-functions">Prerender Functions</a></td>
+</tr>
+<tr>
+<td><code>helper('name', handler, options)</code></td>
+<td>Define a custom helper function.</td>
+<td>Configure</td>
+<td><a href="/documentation/custom-helpers">Custom Helpers</a></td>
+</tr>
+<tr>
+<td><code>block('name', handler, options)</code></td>
+<td>Define a custom block helper function.</td>
+<td>Configure</td>
+<td><a href="/documentation/custom-helpers">Custom Helpers</a></td>
+</tr>
+<tr>
+<td><code>filter('name', handler)</code></td>
+<td>Define a custom filter function.</td>
+<td>Configure</td>
+<td><a href="/documentation/custom-helpers">Custom Helpers</a></td>
+</tr>
+<tr>
+<td><code>global('name', value)</code></td>
+<td>Define a global variable that can be used in pages.</td>
+<td>Configure</td>
+<td></td>
+</tr>
+<tr>
+<td><code>require('moduleIdentifier')</code></td>
+<td>Require another configuration file.</td>
+<td>Configure</td>
+<td><a href="/documentation/multiple-config-files/">Multiple Config Files</a></td>
+</tr>
+<tr>
+<td><code>use(plugin)</code></td>
+<td>Execute another Acetate configuration function.</td>
+<td>Configure</td>
+<td><a href="/documentation/creating-plugins/">Creating Plugins</a></td>
+</tr>
+<tr>
+<td><code>debug(message)</code></td>
+<td>Print a debug message. Your message and all arguments will be passed to <a href="https://nodejs.org/api/util.html#util_util_format_format"><code>util.format</code></a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>info(message)</code></td>
+<td>Print a info message. Your message and all arguments will be passed to <a href="https://nodejs.org/api/util.html#util_util_format_format"><code>util.format</code></a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>success(message)</code></td>
+<td>Print a success message. Your message and all arguments will be passed to <a href="https://nodejs.org/api/util.html#util_util_format_format"><code>util.format</code></a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>warn(message)</code></td>
+<td>Print a warning message. Your message and all arguments will be passed to <a href="https://nodejs.org/api/util.html#util_util_format_format"><code>util.format</code></a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>error(message)</code></td>
+<td>Print an error message. Your message and all arguments will be passed to <a href="https://nodejs.org/api/util.html#util_util_format_format"><code>util.format</code></a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>time(label)</code></td>
+<td>Starting timing a particular operation.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>timeEnd(label)</code></td>
+<td>Stop timing a particular operation. Return a string duration for use in a log message.</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/config-file.md">Edit this Page on GitHub</a>
+    </p>
+  </article>
+</div>
+
+</body>
+</html>

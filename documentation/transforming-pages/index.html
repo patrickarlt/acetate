@@ -6,15 +6,16 @@
   
 
   <link rel="stylesheet" href="/assets/css/main.css">
-  <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="./" class="">Acetate</a>
+      <a href="/">Acetate</a>
+
       <div class="right">
-        <a href="/getting-started/" class="">Getting Started</a>
+        <a href="/getting-started/">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
         <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
       </div>
@@ -25,89 +26,46 @@
 <div class="grid-container">
   <aside class="column-6">
     <nav class="topic-list">
-      <a href="../../getting-started/" class="not-active">Getting Started</a>
+      <a href="/getting-started/">Getting Started</a>
+      <a href="/understanding-acetate/">Understanding Acetate</a>
 
-      
-        <section>
-          <h4>Pages</h4>
-          <ul>
-            
-            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
-            
-            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
-            
-            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
-            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-            
-            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
-            
-            <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
-            
-            <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
-          </ul>
-        </section>
-      
-        <section>
-          <h4>Configuration</h4>
-          <ul>
-            
-            <li><a href="../../documentation/introduction-to-configuration/" class="not-active">Introduction</a></li>
-            
-            <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
-            
-            <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
-            
-            <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
-            
-            <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
-            
-            <li><a href="../../documentation/transforming-pages/" class="is-active">Transforming Pages</a></li>
-            
-            <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
-            
-            <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
-            
-            <li><a href="../../documentation/page-sources/" class="not-active">Page Sources</a></li>
-            
-          </ul>
-        </section>
-      
-        <section>
-          <h4>Tools & Plugins</h4>
-          <ul>
-            
-            <li><a href="../../documentation/command-line/" class="not-active">Command Line</a></li>
-            
-            <li><a href="../../documentation/grunt-plugin/" class="not-active">Grunt Plugin</a></li>
-            
-            <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
-            
-          </ul>
-        </section>
-      
-        <section>
-          <h4>Extensions</h4>
-          <ul>
-            
-            <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
-            
-            <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
-            
-          </ul>
-        </section>
       
     </nav>
   </aside>
 
   <article class="column-18">
     <h1>Transforming Pages</h1>
-    
+    <p>Beyond <a href="/documentation/page-metadata">adding or updating page metdata</a> Acetate also provides helper functions for transforming and altering pages at a larger scale. There are 4 transformation methods.</p>
+<ul>
+<li><code>transform('pattern', handler)</code> - transform pages matching <code>pattern</code>. <code>handler</code> get the page as the first argument and should return the page after altering it.</li>
+<li><code>transformAsync('pattern', handler)</code> - transform pages matching <code>pattern</code>. <code>handler</code> gets the page as the first argument and a callback as the second. The callback should be called with error (or <code>null</code>) and the page.</li>
+<li><code>transformAll(handler)</code> - <code>handler</code> gets an array of all pages as the first argument and should return the array when finished.</li>
+<li><code>transformAllAsync(hander)</code> - <code>handler</code> gets an array of all pages as the first argument and a callback as the second. The callback should be called with error (or <code>null</code>) and the array of pages.</li>
+</ul>
+<p>Transformers are particularly useful for manipulating or extracting data from a pages <code>template</code> property or for altering metadata like <code>url</code> or <code>dest</code> in complex ways.</p>
+<h1>Example: Extracting Markdown Headers</h1>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  <span class="hljs-comment">// ...</span>
+
+  <span class="hljs-keyword">const</span> MARKDOWN_HEADER_REGEX = <span class="hljs-regexp">/^#{1,6}\s(.+)$/</span>;
+
+  acetate.transform(<span class="hljs-string">'**/*.md'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">page</span>) </span>{
+    <span class="hljs-keyword">if</span> (page.title) {
+      <span class="hljs-keyword">return</span> page;
+    }
+
+    <span class="hljs-keyword">var</span> headers = MARKDOWN_HEADER_REGEX.exec(page.template);
+
+    <span class="hljs-keyword">if</span> (headers &amp;&amp; headers[<span class="hljs-number">1</span>]) {
+      page.title = headers[<span class="hljs-number">1</span>];
+    }
+
+    <span class="hljs-keyword">return</span> page;
+  });
+
+  <span class="hljs-comment">// ...</span>
+};
+</code></pre>
     <hr>
     <p class="small">
       <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/transforming-pages.md">Edit this Page on GitHub</a>

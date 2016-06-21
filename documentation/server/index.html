@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <title>Server | Acetate</title>
+  
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link href='//fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <nav class="navigation ">
+    <div class="grid-container">
+      <a href="/">Acetate</a>
+
+      <div class="right">
+        <a href="/getting-started/">Getting Started</a>
+        <a href="/documentation/" class="is-active">Documentation</a>
+        <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  
+<div class="grid-container">
+  <aside class="column-6">
+    <nav class="topic-list">
+      <a href="/getting-started/">Getting Started</a>
+      <a href="/understanding-acetate/">Understanding Acetate</a>
+
+      
+    </nav>
+  </aside>
+
+  <article class="column-18">
+    <h1>Server</h1>
+    <p>Acetates server mode is a <a href="https://www.browsersync.io/">Browsersync</a> based live reloading server with the following features:</p>
+<ul>
+<li>Live reloading of pages during editing</li>
+<li>In browser console and fullscreen error messages</li>
+<li>Page metadata appears in browser</li>
+</ul>
+<p>Fast startup and rendering times even for large sites.</p>
+<p><em>Module</em>: <code>acetate/lib/modes/server</code></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> Acetate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'acetate'</span>);
+<span class="hljs-keyword">var</span> watch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'acetate/lib/modes/watcher'</span>);
+
+<span class="hljs-keyword">var</span> aceate = <span class="hljs-keyword">new</span> Acetate({
+  <span class="hljs-comment">// options</span>
+});
+
+<span class="hljs-keyword">var</span> browserSyncOptions = {}
+
+<span class="hljs-keyword">var</span> server = watch(acetate, browserSyncOptions);
+
+<span class="hljs-comment">// send a log message to browsers you can pass</span>
+<span class="hljs-comment">//  any additional arguments you would like</span>
+server.sendLog(<span class="hljs-string">'Hello!'</span>, );
+
+<span class="hljs-comment">// render a fullscreen message in the browser</span>
+server.sendFullscreenMessage(<span class="hljs-string">'title'</span>, <span class="hljs-string">'message'</span>, <span class="hljs-string">'extra'</span>);
+
+<span class="hljs-comment">// reload all connected pages</span>
+server.reload()
+
+<span class="hljs-comment">// use server.stop() to stop the server</span>
+</code></pre>
+<p>In general you can pass any <a href="https://www.browsersync.io/docs/options/">Browsersync options</a> to the server mode as a second argument. However Acetate will modify any options in the following way:</p>
+<ul>
+<li><code>logPrefix</code> will always be Acetate</li>
+<li><code>logLevel</code> will always match Acetates log level</li>
+<li><code>server</code> or <code>server.baseDir</code> will always be Acetate's output folder or include Acetate's output folder</li>
+<li><code>files</code> will always include all files in Acetates output folder</li>
+<li><code>snippetOptions.async</code> will always be <code>true</code></li>
+</ul>
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/server.md">Edit this Page on GitHub</a>
+    </p>
+  </article>
+</div>
+
+</body>
+</html>

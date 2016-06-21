@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <title>Watcher | Acetate</title>
+  
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link href='//fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <nav class="navigation ">
+    <div class="grid-container">
+      <a href="/">Acetate</a>
+
+      <div class="right">
+        <a href="/getting-started/">Getting Started</a>
+        <a href="/documentation/" class="is-active">Documentation</a>
+        <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  
+<div class="grid-container">
+  <aside class="column-6">
+    <nav class="topic-list">
+      <a href="/getting-started/">Getting Started</a>
+      <a href="/understanding-acetate/">Understanding Acetate</a>
+
+      
+    </nav>
+  </aside>
+
+  <article class="column-18">
+    <h1>Watcher</h1>
+    <p>Watch mode builds the entire site once when started and will rebuild pages when they change. If you add or edit a file the begins with a <code>_</code> (used to denote a layout or partial) the watcher will rebuild all pages in your site.</p>
+<p>Any pages you ignore while running the watcher will still build but with a warning. Due to this limitation it is preferable to use the <a href="/documentation/server">Acetate server</a> in development.</p>
+<p><em>Module:</em> <code>acetate/lib/modes/watcher</code>;</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> Acetate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'acetate'</span>);
+<span class="hljs-keyword">var</span> watch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'acetate/lib/modes/watcher'</span>);
+
+<span class="hljs-keyword">var</span> aceate = <span class="hljs-keyword">new</span> Acetate({
+  <span class="hljs-comment">// options</span>
+});
+
+<span class="hljs-keyword">var</span> watcher = watch(acetate);
+
+<span class="hljs-comment">// call watcher.stop() to stop watching files.</span>
+</code></pre>
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/watcher.md">Edit this Page on GitHub</a>
+    </p>
+  </article>
+</div>
+
+</body>
+</html>

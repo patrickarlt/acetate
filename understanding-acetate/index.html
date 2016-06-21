@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <title>Understanding Acetate | Acetate</title>
+  
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link href='//fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <nav class="navigation ">
+    <div class="grid-container">
+      <a href="/">Acetate</a>
+
+      <div class="right">
+        <a href="/getting-started/">Getting Started</a>
+        <a href="/documentation/">Documentation</a>
+        <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  
+<div class="grid-container">
+  <aside class="column-6">
+    <nav class="topic-list">
+      <a href="/getting-started/">Getting Started</a>
+      <a href="/understanding-acetate/" class="is-active">Understanding Acetate</a>
+
+      
+    </nav>
+  </aside>
+
+  <article class="column-18">
+    <h1>Understanding Acetate</h1>
+    <h2>Configure, Load, Transform, Render</h2>
+<p>Acetate sites divide the build process into 4 seperate phases called Configure, Load, Transform and Render. Each of these phases runs one after the other although many processes within each phase happen asyncronosly.</p>
+<p>Refer to the <a href="/documentation/config-file">config file documentation</a> for more information about which phase a method is part of.</p>
+<h3>The Configure Phase</h3>
+<p>This is the first phase that starts when you initially run Acetate. Your configuration file is loaded and tasks are queued for the remaining 3 phases. After your configuration file is evaluated Acetate will setup its own built in helpers.</p>
+<h3>The Load Phase</h3>
+<p>During the load phase Acetate will load all pages in your source folder according to the <code>acetate.load('pattern')</code> calls in your config file. Acetate does not load any pages by default so make sure you have at lease 1 <code>aceate.load</code> call. Generally a good starting point is to load all <code>.html</code> or <code>.md</code> files:</p>
+<p><code class="filename">acetate.config.js</code></p>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  <span class="hljs-comment">// load all html and markdown files from our source folder</span>
+  acetate.load(<span class="hljs-string">'**/*.+(html|md)'</span>);
+};
+</code></pre>
+<p>When running Acetate as a server or when watching file for changes Acetate will keep a cache of pages as they appear on disk and update them as you change them rather then reloading all files every time.</p>
+<h3>The Transform Phase</h3>
+<p>After pages are loaded Acetate can now manipulate the pages with other configuration directives like <code>acetate.metadata</code>, <code>acetate.layout</code> and <code>acetate.transform</code>. Transformations can be sync or async, but each transformation is applied one after the other.</p>
+<p>This makes understanding which transformation is being applied very simple. For example:</p>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  <span class="hljs-comment">// ...</span>
+
+  <span class="hljs-comment">// add an "author" metadata value to all pages</span>
+  acetate.metadata(<span class="hljs-string">'**/*'</span>, {
+    author: <span class="hljs-string">'Susan'</span>
+  });
+
+  <span class="hljs-comment">// override the "author" metadata on blog pages</span>
+  acetate.metadata(<span class="hljs-string">'blog/**/*'</span>, {
+    author: <span class="hljs-string">'Joe'</span>
+  });
+
+  <span class="hljs-comment">// since function in the transformation phase run after</span>
+  <span class="hljs-comment">// each other this will log "Susan" on all pages except</span>
+  <span class="hljs-comment">// for the blog pages which will log "Joe"</span>
+  acetate.transform(<span class="hljs-string">'**/*'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">page</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(page.author);
+  });
+
+  <span class="hljs-comment">// ...</span>
+};
+</code></pre>
+<h3>The Render Phase</h3>
+<p>After Acetate has transformed all the pages in the site pages are ready for rendering. Rendering a page first runs any <a href="/documentation/prerender-functions/">prerender functions</a>P that apply to the page.</p>
+<p><a href="/documentation/prerender-functions/">Prerender functions</a> are ideal for pages that require expensive async optations before the page gets rendered. Since prerendering function are only run before the individal page is rendered rather then as a part of the transformation phase which is run before <em>any</em> page is rendered.</p>
+<h2>Modes</h2>
+<p>Acetate ships with 3 default implimentations for how it can be used to create a website as part of a larger build process. Usage of these modes is mostly handled by other tools but you might find it neccessary to use them as part of a custom implimentation.</p>
+<ul>
+<li><a href="/documentation/builder/">Builder</a> - Builds the site to the output folder.</li>
+<li><a href="/documentation/watcher/">Watcher</a> - Build the site then watch for changes and rebuild.</li>
+<li><a href="/documentation/server/">Server</a> - Fully featured development server.</li>
+</ul>
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/understanding-acetate.md">Edit this Page on GitHub</a>
+    </p>
+  </article>
+</div>
+
+</body>
+</html>

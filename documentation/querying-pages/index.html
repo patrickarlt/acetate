@@ -6,15 +6,16 @@
   
 
   <link rel="stylesheet" href="/assets/css/main.css">
-  <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="./" class="">Acetate</a>
+      <a href="/">Acetate</a>
+
       <div class="right">
-        <a href="/getting-started/" class="">Getting Started</a>
+        <a href="/getting-started/">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
         <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
       </div>
@@ -25,89 +26,87 @@
 <div class="grid-container">
   <aside class="column-6">
     <nav class="topic-list">
-      <a href="../../getting-started/" class="not-active">Getting Started</a>
+      <a href="/getting-started/">Getting Started</a>
+      <a href="/understanding-acetate/">Understanding Acetate</a>
 
-      
-        <section>
-          <h4>Pages</h4>
-          <ul>
-            
-            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
-            
-            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
-            
-            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
-            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-            
-            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
-            
-            <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
-            
-            <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
-          </ul>
-        </section>
-      
-        <section>
-          <h4>Configuration</h4>
-          <ul>
-            
-            <li><a href="../../documentation/introduction-to-configuration/" class="not-active">Introduction</a></li>
-            
-            <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
-            
-            <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
-            
-            <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
-            
-            <li><a href="../../documentation/querying-pages/" class="is-active">Querying Pages</a></li>
-            
-            <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
-            
-            <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
-            
-            <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
-            
-            <li><a href="../../documentation/page-sources/" class="not-active">Page Sources</a></li>
-            
-          </ul>
-        </section>
-      
-        <section>
-          <h4>Tools & Plugins</h4>
-          <ul>
-            
-            <li><a href="../../documentation/command-line/" class="not-active">Command Line</a></li>
-            
-            <li><a href="../../documentation/grunt-plugin/" class="not-active">Grunt Plugin</a></li>
-            
-            <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
-            
-          </ul>
-        </section>
-      
-        <section>
-          <h4>Extensions</h4>
-          <ul>
-            
-            <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
-            
-            <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
-            
-          </ul>
-        </section>
       
     </nav>
   </aside>
 
   <article class="column-18">
     <h1>Querying Pages</h1>
-    
+    <p>Queries allow to to select and save groups of pages or calculate values based on your pages metadata.</p>
+<p>The <code>acetate.query</code> function takes 5 arguments.</p>
+<ol>
+<li><code>name</code> - the unique <code>name</code> of this query. You will use this to access query results in your template.</li>
+<li><code>filter</code> - filter pages with a glob pattern like <code>**/*</code>. This will form an inital array of pages to pass to the map function.</li>
+<li><code>map</code> - Iterate over results from the filter and create a new array of results. The function is identical to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>Array.map()</code></a>. The results of the map will have all falsy values removed.</li>
+<li><code>reduce</code> - Iterate over the array of results from the <code>map</code> function and return a new value. This funciton is eqivilant to the callback in <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce"><code>Array.reduce()</code></a></li>
+<li><code>inital</code> - The inital value to pass into the reduce function.</li>
+</ol>
+<h3>Example: Dymanically Generated Navigation</h3>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  <span class="hljs-comment">// ...</span>
+
+  acetate.query(
+    <span class="hljs-comment">// create a new query called `doc_nav`</span>
+    <span class="hljs-string">'doc_nav'</span>,
+
+    <span class="hljs-comment">// get all pages in the documentation folder</span>
+    <span class="hljs-string">'documentation/*'</span>,
+
+    <span class="hljs-comment">// the map function extracts values from each page</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">map</span> (<span class="hljs-params">page</span>) </span>{
+      <span class="hljs-keyword">return</span> {
+        topic: page.topic,
+        order: page.order,
+        url: page.url,
+        title: page.navTitle || page.title
+      };
+    },
+
+    <span class="hljs-comment">// the reduce function will take each 'page' and insert it</span>
+    <span class="hljs-comment">// into the navigation for that topic and sort topics in order</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reduce</span> (<span class="hljs-params">nav, page</span>) </span>{
+      <span class="hljs-keyword">let</span> section = _.find(nav, {name: page.topic})
+
+      <span class="hljs-keyword">if</span> (section) {
+        section.pages.push(page);
+        section.pages = _.sortBy(section.pages, <span class="hljs-string">'order'</span>);
+      } <span class="hljs-keyword">else</span> {
+        nav.push({
+          name: page.topic,
+          pages: [ page ]
+        });
+      }
+
+      <span class="hljs-keyword">return</span> _.sortBy(nav, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">group</span>) </span>{
+        <span class="hljs-keyword">var</span> order = [<span class="hljs-string">'Basic'</span>, <span class="hljs-string">'Advanced'</span>, <span class="hljs-string">'Integrations'</span>, <span class="hljs-string">'Modes'</span>, <span class="hljs-string">'Misc.'</span>];
+        <span class="hljs-keyword">return</span> order.indexOf(group.name);
+      });
+    },
+
+    <span class="hljs-comment">// start with an empty array</span>
+    []
+  );
+
+  <span class="hljs-comment">// ...</span>
+};
+</code></pre>
+<p>Once you have saved your query you can access the final value under <code>queries.name</code> in your templates.</p>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">nav</span>&gt;</span>
+  {% for section in queries.doc_nav %}
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>{{ section.name }}<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        {% for page in section.pages %}
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>{% link page.url, page.title %}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        {% endfor %}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+  {% endfor %}
+<span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
+</code></pre>
     <hr>
     <p class="small">
       <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/querying-pages.md">Edit this Page on GitHub</a>

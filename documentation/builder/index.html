@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <title>Builder | Acetate</title>
+  
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link href='//fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <nav class="navigation ">
+    <div class="grid-container">
+      <a href="/">Acetate</a>
+
+      <div class="right">
+        <a href="/getting-started/">Getting Started</a>
+        <a href="/documentation/" class="is-active">Documentation</a>
+        <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  
+<div class="grid-container">
+  <aside class="column-6">
+    <nav class="topic-list">
+      <a href="/getting-started/">Getting Started</a>
+      <a href="/understanding-acetate/">Understanding Acetate</a>
+
+      
+    </nav>
+  </aside>
+
+  <article class="column-18">
+    <h1>Builder</h1>
+    <p>The build mode simply builds all files to the output directory. THe builder will not build any pages that have their <code>ignore</code> metadata key set to true.</p>
+<p><em>Module:</em> <code>acetate/lib/modes/builder</code>;</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> Acetate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'acetate'</span>);
+<span class="hljs-keyword">var</span> builder = <span class="hljs-built_in">require</span>(<span class="hljs-string">'acetate/lib/modes/builder'</span>);
+
+<span class="hljs-keyword">var</span> aceate = <span class="hljs-keyword">new</span> Acetate({
+  <span class="hljs-comment">// options</span>
+});
+
+builder(acetate).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Success"</span>);
+});
+</code></pre>
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/builder.md">Edit this Page on GitHub</a>
+    </p>
+  </article>
+</div>
+
+</body>
+</html>

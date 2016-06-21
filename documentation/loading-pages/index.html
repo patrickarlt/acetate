@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <title>Loading Pages | Acetate</title>
+  
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link href='//fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <nav class="navigation ">
+    <div class="grid-container">
+      <a href="/">Acetate</a>
+
+      <div class="right">
+        <a href="/getting-started/">Getting Started</a>
+        <a href="/documentation/" class="is-active">Documentation</a>
+        <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  
+<div class="grid-container">
+  <aside class="column-6">
+    <nav class="topic-list">
+      <a href="/getting-started/">Getting Started</a>
+      <a href="/understanding-acetate/">Understanding Acetate</a>
+
+      
+    </nav>
+  </aside>
+
+  <article class="column-18">
+    <h1>Loading Pages</h1>
+    <p>Acetate does not load any pages by default. Generally it is a good idea to load all HTML and Markdown files in your source folder.</p>
+<p><code class="filename">acetate.config.js</code></p>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  acetate.load(<span class="hljs-string">'**/*.+(html|md)'</span>);
+};
+</code></pre>
+<p>Once page are loaded they can be processed, manipulated and ultimatly built to disk or served by Acetate's build in server.</p>
+<h2>Ignoring Pages</h2>
+<p>By default, Acetate will build all pages with use the extensions <code>.md</code>, <code>.markdown</code>, and <code>.html</code>. To ignore pages, you can either prefix them with an underscore (like <code>_about.html</code>) or use the <code>acetate.ignore()</code> method in <code>acetate.conf.js</code>. The <code>ignore</code> method should be called with a string representing the path (or glob pattern) to the file you'd like to ignore:</p>
+<p><code class="filename">acetate.config.js</code></p>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  acetate.ignore(<span class="hljs-string">'ignore.html'</span>);
+  acetate.ignore(<span class="hljs-string">'ignored/**/*'</span>);
+};
+</code></pre>
+    <hr>
+    <p class="small">
+      <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/loading-pages.md">Edit this Page on GitHub</a>
+    </p>
+  </article>
+</div>
+
+</body>
+</html>

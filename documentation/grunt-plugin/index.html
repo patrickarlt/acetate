@@ -2,19 +2,20 @@
 <html>
 <head>
   
-    <title>Grunt Plugin | Acetate</title>
+    <title>Using with Grunt | Acetate</title>
   
 
   <link rel="stylesheet" href="/assets/css/main.css">
-  <link href='http://fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Unica+One|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
   <nav class="navigation ">
     <div class="grid-container">
-      <a href="./" class="">Acetate</a>
+      <a href="/">Acetate</a>
+
       <div class="right">
-        <a href="/getting-started/" class="">Getting Started</a>
+        <a href="/getting-started/">Getting Started</a>
         <a href="/documentation/" class="is-active">Documentation</a>
         <a href="http://github.com/patrickarlt/acetate/">GitHub</a>
       </div>
@@ -25,111 +26,38 @@
 <div class="grid-container">
   <aside class="column-6">
     <nav class="topic-list">
-      <a href="../../getting-started/" class="not-active">Getting Started</a>
+      <a href="/getting-started/">Getting Started</a>
+      <a href="/understanding-acetate/">Understanding Acetate</a>
 
-      
-        <section>
-          <h4>Pages</h4>
-          <ul>
-            
-            <li><a href="../../documentation/introduction-to-pages/" class="not-active">Introduction</a></li>
-            
-            <li><a href="../../documentation/templating/" class="not-active">Templating</a></li>
-            
-            <li><a href="../../documentation/layouts/" class="not-active">Layouts</a></li>
-            
-            <li><a href="../../documentation/partials/" class="not-active">Partials</a></li>
-            
-            <li><a href="../../documentation/page-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/built-in-helpers/" class="not-active">Built-in Helpers</a></li>
-            
-            <li><a href="../../documentation/custom-helpers/" class="not-active">Custom Helpers</a></li>
-            
-            <li><a href="../../documentation/external-data/" class="not-active">External Data</a></li>
-            
-          </ul>
-        </section>
-      
-        <section>
-          <h4>Configuration</h4>
-          <ul>
-            
-            <li><a href="../../documentation/introduction-to-configuration/" class="not-active">Introduction</a></li>
-            
-            <li><a href="../../documentation/arguments/" class="not-active">Custom Arguments</a></li>
-            
-            <li><a href="../../documentation/altering-metadata/" class="not-active">Page Metadata</a></li>
-            
-            <li><a href="../../documentation/configuring-layouts/" class="not-active">Configuring Layouts</a></li>
-            
-            <li><a href="../../documentation/ignoring-pages/" class="not-active">Ignoring Pages</a></li>
-            
-            <li><a href="../../documentation/querying-pages/" class="not-active">Querying Pages</a></li>
-            
-            <li><a href="../../documentation/transforming-pages/" class="not-active">Transforming Pages</a></li>
-            
-            <li><a href="../../documentation/data-sources/" class="not-active">Data Sources</a></li>
-            
-            <li><a href="../../documentation/global-variables/" class="not-active">Global Variables</a></li>
-            
-            <li><a href="../../documentation/page-sources/" class="not-active">Page Sources</a></li>
-            
-          </ul>
-        </section>
-      
-        <section>
-          <h4>Tools & Plugins</h4>
-          <ul>
-            
-            <li><a href="../../documentation/command-line/" class="not-active">Command Line</a></li>
-            
-            <li><a href="../../documentation/grunt-plugin/" class="is-active">Grunt Plugin</a></li>
-            
-            <li><a href="../../documentation/gulp-usage/" class="not-active">Using with Gulp</a></li>
-            
-          </ul>
-        </section>
-      
-        <section>
-          <h4>Extensions</h4>
-          <ul>
-            
-            <li><a href="../../documentation/using-extensions/" class="not-active">Introduction</a></li>
-            
-            <li><a href="../../documentation/creating-extensions/" class="not-active">Creation</a></li>
-            
-          </ul>
-        </section>
       
     </nav>
   </aside>
 
   <article class="column-18">
-    <h1>Grunt Plugin</h1>
+    <h1>Using with Grunt</h1>
     <p>For easy use with Grunt install the <code>grunt-acetate</code> plugin with this command:</p>
 <pre><code class="bash">npm install grunt-acetate --save-dev
 </code></pre>
 <p>Then load it into your Gruntfile:</p>
 <pre><code class="js">grunt.loadNpmTasks(<span class="hljs-string">'grunt-acetate'</span>);
 </code></pre>
-<p>In your project's Gruntfile, add a section named acetate to the data object passed into <code>grunt.initConfig()</code>:</p>
-<pre><code>grunt.initConfig({
-  acetate: {
+<p>In your project's Gruntfile, add a section named <code>acetate</code> to the config object passed into <code>grunt.initConfig()</code>:</p>
+<pre><code><span class="hljs-selector-tag">grunt</span><span class="hljs-selector-class">.initConfig</span>({
+  <span class="hljs-attribute">acetate</span>: {
     <span class="hljs-comment">// global options</span>
-    <span class="hljs-keyword">options</span>: {
-      config: <span class="hljs-string">'acetate.conf.js'</span>,
+    <span class="hljs-attribute">options</span>: {
+      <span class="hljs-attribute">config</span>: <span class="hljs-string">'acetate.config.js'</span>,
     },
 
     <span class="hljs-comment">// with all default options</span>
-    build: {
-    
+    <span class="hljs-attribute">build</span>: {
+      <span class="hljs-attribute">mode</span>: <span class="hljs-string">'build'</span>
     },
 
     <span class="hljs-comment">// with custom options</span>
-    watch: {
-      <span class="hljs-keyword">options</span>: {
-        mode: <span class="hljs-string">'server'</span>
+    <span class="hljs-attribute">watch</span>: {
+      <span class="hljs-attribute">options</span>: {
+        <span class="hljs-attribute">mode</span>: <span class="hljs-string">'server'</span>
       }
     }
   }
@@ -146,6 +74,11 @@
 </thead>
 <tbody>
 <tr>
+<td><code>mode</code></td>
+<td><em>REQUIRED</em></td>
+<td>The Acetate mode to run in. Either <code>'build'</code>, <code>'watcher'</code>, or <code>'server</code>.</td>
+</tr>
+<tr>
 <td><code>config</code></td>
 <td><code>'acetate.conf.js'</code></td>
 <td>The name of your configuration file.</td>
@@ -153,12 +86,12 @@
 <tr>
 <td><code>root</code></td>
 <td><code>process.cwd()</code></td>
-<td>The root directory where you are working. This shoudl contain your <code>src</code> and <code>dest</code> folders.</td>
+<td>The root directory where you are working. This should contain your <code>src</code> and <code>dest</code> folders.</td>
 </tr>
 <tr>
 <td><code>src</code></td>
 <td><code>'src'</code></td>
-<td>The folder where pages are located in</td>
+<td>The folder where pages are located.</td>
 </tr>
 <tr>
 <td><code>dest</code></td>
@@ -178,7 +111,7 @@
 <tr>
 <td><code>host</code></td>
 <td><code>'localhost'</code></td>
-<td>The hostname to server the website on.</td>
+<td>The hostname to serve the website on.</td>
 </tr>
 <tr>
 <td><code>log</code></td>
@@ -188,13 +121,17 @@
 <tr>
 <td><code>args</code></td>
 <td><code>{}</code></td>
-<td>Any additonal arguments you want to be available under <code>acetate.args</code> in your config file.</td>
+<td>Any additional arguments you want to be available under <code>acetate.args</code> in your config file.</td>
+</tr>
+<tr>
+<td><code>server</code></td>
+<td><code>{}</code></td>
+<td>Any <a href="https://www.browsersync.io/docs/options/">additional Browsersync options</a> to use when running in <code>server</code> mode.</td>
 </tr>
 </tbody>
 </table>
 <h3>Example</h3>
 <p>The Acetate website is built with Grunt. Take a look at it's <a href="https://github.com/patrickarlt/acetate-site/blob/master/Gruntfile.js">Gruntfile</a>.</p>
-
     <hr>
     <p class="small">
       <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/grunt-plugin.md">Edit this Page on GitHub</a>
