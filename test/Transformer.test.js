@@ -370,25 +370,6 @@ test('update layout', t => {
   });
 });
 
-test('should query an array of all pages by default', t => {
-  const transformer = new Transformer({
-    log: 'silent'
-  });
-
-  transformer.query('allPages');
-
-  const page1 = createPage('page1.html');
-  const page2 = createPage('page2.html');
-  const page3 = createPage('page3.html');
-
-  return transformer.transformPages([page1, page2, page3]).then((pages) => {
-    t.is(pages[0].queries.allPages.length, 3);
-    t.is(pages[0].queries.allPages[0].src, 'page1.html');
-    t.is(pages[0].queries.allPages[1].src, 'page2.html');
-    t.is(pages[0].queries.allPages[2].src, 'page3.html');
-  });
-});
-
 test('should generate new pages while transforming', t => {
   const transformer = new Transformer({
     log: 'silent'
