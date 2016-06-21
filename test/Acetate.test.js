@@ -188,12 +188,24 @@ test('should highlight code with a built in helper', t => {
     {% highlight 'js' %}
     var foo = bar;
     {% endhighlight %}
+
+    {% highlight 'text' %}
+    foo
+    {% endhighlight %}
+
+    {% highlight 'plain' %}
+    foo
+    {% endhighlight %}
   `);
 
   const expected = stripIndent`
     <pre><code class="actionscript"><span class="hljs-keyword">var</span> foo = bar;</code></pre>
 
     <pre><code class="js"><span class="hljs-keyword">var</span> foo = bar;</code></pre>
+
+    <pre><code class="text">foo</code></pre>
+
+    <pre><code class="plain">foo</code></pre>
   `;
 
   return acetate.renderer.renderPage(page).then(output => {
