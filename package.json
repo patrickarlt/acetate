@@ -63,7 +63,7 @@
     "template",
     "templating"
   ],
-  "license": "MIT",
+  "license": "ISC",
   "main": "lib/Acetate.js",
   "nyc": {
     "exclude": [
