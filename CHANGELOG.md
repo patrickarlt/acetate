@@ -5,7 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.11...master)
 
-## [1.0.0] - In Progress
+## [1.0.1] - 2016-6-17
+
+### Fixed
+
+* `acetate.query` now works properly.
+
+## [1.0.0] - 2016-6-17
 
 ### Added
 
