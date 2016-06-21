@@ -33,14 +33,12 @@ test('should set basic properties', t => {
   t.is(page.relativePath, '');
 });
 
-test('should set `__isHTML` and `__isMarkdown`', t => {
+test('should set `__isMarkdown`', t => {
   const htmlPage = createPage('index.html');
   const markdownPage = createPage('index.md');
 
-  t.true(htmlPage.__isHTML);
   t.true(markdownPage.__isMarkdown);
   t.false(htmlPage.__isMarkdown);
-  t.false(markdownPage.__isHTML);
 });
 
 test('should set `__templateErrorOffset`', t => {
@@ -90,7 +88,6 @@ test('should load a page from a template', (t) => {
     t.is(page.template, 'Template');
     t.is(page.foo, 'bar');
     t.is(page.__templateErrorOffset, 4);
-    t.true(page.__isHTML);
   });
 });
 

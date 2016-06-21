@@ -18,7 +18,7 @@ test.beforeEach(t => {
 test.cb('should return a page when requested', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'middleware-basic'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const middleware = createAcetateMiddleware(acetate);
@@ -46,7 +46,7 @@ test.cb('should return a page when requested', t => {
 test.cb('should keep a cache of transformed pages by URL', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'middleware-basic'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const middleware = createAcetateMiddleware(acetate);
@@ -72,7 +72,7 @@ test.cb('should keep a cache of transformed pages by URL', t => {
 test.cb('should normalize request URLs to find matching pages', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'middleware-basic'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const middleware = createAcetateMiddleware(acetate);
@@ -100,7 +100,7 @@ test.cb('should normalize request URLs to find matching pages', t => {
 test.cb('should pass though if no page is found', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'middleware-basic'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const middleware = createAcetateMiddleware(acetate);
@@ -121,7 +121,7 @@ test.cb('should pass though if no page is found', t => {
 test.cb('should return early on non GET requests', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'middleware-basic'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const middleware = createAcetateMiddleware(acetate);
@@ -142,7 +142,7 @@ test.cb('should return early on non GET requests', t => {
 test.cb('should return an error page if there is an error rendering the page', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'middleware-render-error'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const middleware = createAcetateMiddleware(acetate);
@@ -170,7 +170,7 @@ test.cb('should return an error page if there is an error rendering the page', t
 test.cb('should return an error page if there is an error transforming the page', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'middleware-transform-error'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const middleware = createAcetateMiddleware(acetate);

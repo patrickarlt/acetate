@@ -10,7 +10,7 @@ test.beforeEach(createTempFixtures);
 test('load pages with a glob', t => {
   const loader = new Loader({
     sourceDir: path.join(t.context.temp, 'loader-basic'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   loader.load('**/*.+(md|html)');
@@ -23,7 +23,7 @@ test('load pages with a glob', t => {
 test('should throw if there is an error loading any page', t => {
   const loader = new Loader({
     sourceDir: path.join(t.context.temp, 'loader-error'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   loader.load('**/*.+(md|html)');
@@ -43,7 +43,7 @@ test.cb('the watcher should add pages when they are created', t => {
 
   const loader = new Loader({
     sourceDir,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   loader.load('**/*.+(md|html)');
@@ -83,7 +83,7 @@ test.cb('the watcher should update pages when they are changed', t => {
 
   const loader = new Loader({
     sourceDir,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   loader.load('**/*.+(md|html)');
@@ -121,7 +121,7 @@ test.cb('the watcher should remove pages when they are deleted', t => {
 
   const loader = new Loader({
     sourceDir,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   loader.load('**/*.+(md|html)');
@@ -159,7 +159,7 @@ test.cb('the watcher should emit an error if there is an error loading pages', t
 
   const loader = new Loader({
     sourceDir,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   loader.load('**/*.+(md|html)');
@@ -186,6 +186,96 @@ test.cb('the watcher should emit an error if there is an error loading pages', t
 
     loader.emitter.once('watcher:ready', () => {
       fs.writeFile(change, template, function (error) {
+        if (error) {
+          t.fail(error);
+          t.end();
+        }
+      });
+    });
+
+    loader.startWatcher();
+  });
+});
+
+test.cb('should emit an add event when a potential template is added', t => {
+  const sourceDir = path.join(t.context.temp, 'loader-basic');
+  const addition = path.join(sourceDir, '_addition.html');
+
+  const loader = new Loader({
+    sourceDir,
+    log: 'silent'
+  });
+
+  loader.load('**/*.+(md|html)');
+
+  loader.getPages().then(function () {
+    loader.emitter.once('watcher:template:add', (page) => {
+      loader.stopWatcher();
+      t.end();
+    });
+
+    loader.emitter.once('watcher:ready', () => {
+      fs.writeFile(addition, 'File Added', function (error) {
+        if (error) {
+          t.fail(error);
+          t.end();
+        }
+      });
+    });
+
+    loader.startWatcher();
+  });
+});
+
+test.cb('should emit a change event when a potential template is edited', t => {
+  const sourceDir = path.join(t.context.temp, 'loader-basic');
+  const change = path.join(sourceDir, '_not-loaded.html');
+
+  const loader = new Loader({
+    sourceDir,
+    log: 'silent'
+  });
+
+  loader.load('**/*.+(md|html)');
+
+  loader.getPages().then(function () {
+    loader.emitter.once('watcher:template:change', (page) => {
+      loader.stopWatcher();
+      t.end();
+    });
+
+    loader.emitter.once('watcher:ready', () => {
+      fs.writeFile(change, 'File Changed', function (error) {
+        if (error) {
+          t.fail(error);
+          t.end();
+        }
+      });
+    });
+
+    loader.startWatcher();
+  });
+});
+
+test.cb('should emit a delete event when a potential template is edited', t => {
+  const sourceDir = path.join(t.context.temp, 'loader-basic');
+  const remove = path.join(sourceDir, '_not-loaded.html');
+
+  const loader = new Loader({
+    sourceDir,
+    log: 'silent'
+  });
+
+  loader.load('**/*.+(md|html)');
+
+  loader.getPages().then(function () {
+    loader.emitter.once('watcher:template:delete', (page) => {
+      loader.stopWatcher();
+      t.end();
+    });
+
+    loader.emitter.once('watcher:ready', () => {
+      fs.unlink(remove, function (error) {
         if (error) {
           t.fail(error);
           t.end();

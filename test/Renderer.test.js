@@ -12,7 +12,7 @@ test.beforeEach(createTempFixtures);
 test('should render a basic page', (t) => {
   const renderer = new Renderer({
     sourceDir: path.join(t.context.temp, 'renderer'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -31,7 +31,7 @@ test('should render a basic page', (t) => {
 test('should capture rendering errors and prettyify', (t) => {
   const renderer = new Renderer({
     sourceDir: path.join(t.context.temp, 'renderer'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -54,7 +54,7 @@ test('should capture rendering errors and prettyify', (t) => {
 test('should be able to use {% include %} to include other pages', t => {
   const renderer = new Renderer({
     sourceDir: path.join(t.context.temp, 'renderer'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -71,7 +71,7 @@ test('should be able to use {% include %} to include other pages', t => {
 test('extension on {% include %} should be optional', t => {
   const renderer = new Renderer({
     sourceDir: path.join(t.context.temp, 'renderer'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -88,7 +88,7 @@ test('extension on {% include %} should be optional', t => {
 test('should be able to use {% import %} to include exports from other templates', t => {
   const renderer = new Renderer({
     sourceDir: path.join(t.context.temp, 'renderer'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -106,7 +106,7 @@ test('should be able to use {% import %} to include exports from other templates
 test('should handle other Errors that get thrown in templates', t => {
   const renderer = new Renderer({
     sourceDir: path.join(t.context.temp, 'renderer'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -127,7 +127,7 @@ test('should handle other Errors that get thrown in templates', t => {
 test('should register a prerendering function', t => {
   const renderer = new Renderer({
     sourceDir: path.join(t.context.temp, 'renderer'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -149,7 +149,7 @@ test('should register a prerendering function', t => {
 test('should not prerender if a page does not match', t => {
   const renderer = new Renderer({
     sourceDir: path.join(t.context.temp, 'renderer'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -170,7 +170,7 @@ test('should not prerender if a page does not match', t => {
 test('should reject if prerender function calls back with an error', t => {
   const renderer = new Renderer({
     sourceDir: path.join(t.context.temp, 'renderer'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -193,7 +193,7 @@ test('should reject if prerender function calls back with an error', t => {
 test('should reject if there is an error thrown in a prerender function', t => {
   const renderer = new Renderer({
     sourceDir: path.join(t.context.temp, 'renderer'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -216,7 +216,7 @@ test.cb('should be able to invalidate a template', t => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -250,7 +250,7 @@ test('should render a markdown page', (t) => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -269,7 +269,7 @@ test('should still interpolate variables in a markdown page', (t) => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -290,7 +290,7 @@ test('should render a markdown page in a layout', (t) => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -318,7 +318,7 @@ test('should render a page in a layout', (t) => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -346,7 +346,7 @@ test('should syntax highlight code blocks', (t) => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const template = stripIndent`
@@ -357,12 +357,24 @@ test('should syntax highlight code blocks', (t) => {
     \`\`\`js
     var foo = bar;
     \`\`\`
+
+    \`\`\`plain
+    var foo = bar;
+    \`\`\`
+
+    \`\`\`text
+    var foo = bar;
+    \`\`\`
   `;
 
   const expected = stripIndent`
     <pre><code><span class="hljs-keyword">var</span> foo = bar;
     </code></pre>
     <pre><code class="js"><span class="hljs-keyword">var</span> foo = bar;
+    </code></pre>
+    <pre><code class="plain">var foo = bar;
+    </code></pre>
+    <pre><code class="text">var foo = bar;
     </code></pre>
   `;
 
@@ -378,7 +390,7 @@ test('should register a custom helper that can be used in templates', t => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   renderer.helper('title', function (context, prefix) {
@@ -403,7 +415,7 @@ test('should pass options with defaults to helpers', t => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   renderer.helper('link', function (context, url, text) {
@@ -437,7 +449,7 @@ test('should be able to handle errors thrown in custom helpers', t => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   renderer.helper('throw', function () {
@@ -462,7 +474,7 @@ test('should register a custom block that can be used in templates', t => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   renderer.block('codeblock', function (context, body, highlightAs) {
@@ -493,7 +505,7 @@ test('should register a custom filter that can be used in templates', t => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   renderer.filter('strong', function (value) {
@@ -516,7 +528,7 @@ test('should allow passing arguments in filters', t => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   renderer.filter('wrapInTag', function (value, tag) {
@@ -539,7 +551,7 @@ test('should catch errors in custom filters', t => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   renderer.filter('throw', function () {
@@ -562,7 +574,7 @@ test('should register global variables', t => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   renderer.global('foo', 'bar');

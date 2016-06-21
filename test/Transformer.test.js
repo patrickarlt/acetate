@@ -9,7 +9,7 @@ test.beforeEach(createTempFixtures);
 
 test('perform a basic sync transformation', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.transform('**/*', function (page) {
@@ -26,7 +26,7 @@ test('perform a basic sync transformation', t => {
 
 test('should pass on a basic transformation that does not match', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const spy = sinon.spy();
@@ -42,7 +42,7 @@ test('should pass on a basic transformation that does not match', t => {
 
 test('reject with an error from a sync transformation', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.transform('**/*', function () {
@@ -61,7 +61,7 @@ test('reject with an error from a sync transformation', t => {
 
 test('perform a basic async transformation', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.transformAsync('**/*', function (page, callback) {
@@ -78,7 +78,7 @@ test('perform a basic async transformation', t => {
 
 test('should pass on an async transformation that does not match', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const spy = sinon.spy();
@@ -94,7 +94,7 @@ test('should pass on an async transformation that does not match', t => {
 
 test('reject with an error from a async transformation', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.transformAsync('**/*', function (page, callback) {
@@ -113,7 +113,7 @@ test('reject with an error from a async transformation', t => {
 
 test('reject with an error thown inside an async transformation', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.transformAsync('**/*', function (page, callback) {
@@ -134,7 +134,7 @@ test('should transform all pages', (t) => {
   const page1 = createPage('index.html');
   const page2 = createPage('about.html');
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.transformAll(function (pages) {
@@ -155,7 +155,7 @@ test('reject with an error from a sync transformation on all pages', t => {
   const page1 = createPage('index.html');
   const page2 = createPage('about.html');
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.transformAll(function (pages) {
@@ -178,7 +178,7 @@ test('should transform all pages async', (t) => {
   const page1 = createPage('index.html');
   const page2 = createPage('about.html');
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.transformAllAsync(function (pages, done) {
@@ -201,7 +201,7 @@ test('reject with an error from a async transformation on all pages', t => {
   const page1 = createPage('index.html');
   const page2 = createPage('about.html');
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.transformAllAsync(function (pages, done) {
@@ -222,7 +222,7 @@ test('reject with an error thrown from an async transformation on all pages', t 
   const page1 = createPage('index.html');
   const page2 = createPage('about.html');
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.transformAllAsync(function (pages, done) {
@@ -240,7 +240,7 @@ test('reject with an error thrown from an async transformation on all pages', t 
 test('apply JSON data to a page', t => {
   const transformer = new Transformer({
     sourceDir: path.join(t.context.temp, 'transformer-json-data'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.data('json', 'data.json');
@@ -255,7 +255,7 @@ test('apply JSON data to a page', t => {
 test('apply YAML data to a page', t => {
   const transformer = new Transformer({
     sourceDir: path.join(t.context.temp, 'transformer-yaml-data'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.data('yaml', 'data.yaml');
@@ -269,7 +269,7 @@ test('apply YAML data to a page', t => {
 
 test('apply data from a function to a page', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.data('async', function (done) {
@@ -289,7 +289,7 @@ test('apply data from a function to a page', t => {
 
 test('reject when a data function throws an error', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.data('async', function (done) {
@@ -310,7 +310,7 @@ test('reject when a data function throws an error', t => {
 
 test('ignore a page', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.ignore('index.html');
@@ -324,7 +324,7 @@ test('ignore a page', t => {
 
 test('merge metadata', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.metadata('index.html', {
@@ -340,7 +340,7 @@ test('merge metadata', t => {
 
 test('merge metadata should not overwrite local metadata', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.metadata('index.html', {
@@ -358,7 +358,7 @@ test('merge metadata should not overwrite local metadata', t => {
 
 test('update layout', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.layout('index.html', '_layout.html:main');
@@ -372,7 +372,7 @@ test('update layout', t => {
 
 test('should query an array of all pages by default', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   transformer.query('allPages');
@@ -391,7 +391,7 @@ test('should query an array of all pages by default', t => {
 
 test('should generate new pages while transforming', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const page = createPage('index.html');
@@ -413,7 +413,7 @@ test('should generate new pages while transforming', t => {
 
 test('should reject when generator throws an error', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const page = createPage('index.html');
@@ -432,7 +432,7 @@ test('should reject when generator throws an error', t => {
 
 test('should reject when generator calls back with an error', t => {
   const transformer = new Transformer({
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const page = createPage('index.html');

@@ -12,7 +12,7 @@ test.beforeEach(createTempFixtures);
 test('load a basic config file', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   return acetate.loader.getPages().then(pages => {
@@ -25,7 +25,24 @@ test('should seperate the configuration over multiple files', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),
     config: 'with-require.config.js',
-    logLevel: 'silent'
+    log: 'silent'
+  });
+
+  return acetate.loader.getPages().then(pages => {
+    t.is(pages[0].src, 'foo/markdown.md');
+    t.is(pages[1].src, 'index.html');
+  });
+});
+
+test('should impliment a plugin interface', t => {
+  const acetate = new Acetate({
+    root: path.join(t.context.temp, 'acetate-configs'),
+    config: 'blank.config.js',
+    log: 'silent'
+  });
+
+  acetate.use(function (a) {
+    a.load('**/*.+(md|html)');
   });
 
   return acetate.loader.getPages().then(pages => {
@@ -39,7 +56,7 @@ test.cb('should watch config file for changes and reload the configuration', t =
   const configPath = path.join(root, 'acetate.config.js');
   const acetate = new Acetate({
     root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const newConfig = stripIndent`
@@ -73,7 +90,7 @@ test('should throw if an invalid config is loaded', t => {
     new Acetate({// eslint-disable-line no-new
       root: path.join(t.context.temp, 'acetate-configs'),
       config: 'with-error.config.js',
-      logLevel: 'silent'
+      log: 'silent'
     });
   });
 });
@@ -83,7 +100,7 @@ test.cb('should emit an error if the config throws an error while the watcher is
   const configPath = path.join(root, 'acetate.config.js');
   const acetate = new Acetate({
     root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const newConfig = stripIndent`
@@ -115,7 +132,7 @@ test.cb('should emit an error if the config throws an error while the watcher is
   const configPath = path.join(root, 'acetate.config.js');
   const acetate = new Acetate({
     root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const newConfig = stripIndent`
@@ -143,7 +160,7 @@ test.cb('should emit an error if the config throws an error while the watcher is
 test('should render markdown with a built in helper', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const page = createPage('index.html', stripIndent`
@@ -160,7 +177,7 @@ test('should render markdown with a built in helper', t => {
 test('should highlight code with a built in helper', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const page = createPage('index.html', stripIndent`
@@ -187,7 +204,7 @@ test('should highlight code with a built in helper', t => {
 test('should create anchors code with a built in helper', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const page = createPage('nested/page/index.html', stripIndent`
@@ -198,8 +215,12 @@ test('should create anchors code with a built in helper', t => {
     {% link '../', 'Back', class="back-link" %}
     {% link '../', 'Back', class="back-link", activeClass="active" %}
     {% link '/nested/', 'Back', requireExactMatch=true %}
+    {% link '/nested/page/', 'Page' %}
     {% link 'http://example.com', 'Example', class="external-link" %}
     {% link '//example.com', 'Example' %}
+    {% link '/about/#team', 'Team' %}
+    {% link '/nested/page/#team', 'Team' %}
+    {% link '#team', 'Team' %}
   `);
 
   const expected = stripIndent`
@@ -210,8 +231,12 @@ test('should create anchors code with a built in helper', t => {
     <a href="/nested/" class="is-active back-link">Back</a>
     <a href="/nested/" class="active back-link">Back</a>
     <a href="/nested/">Back</a>
+    <a href="/nested/page/" class="is-active">Page</a>
     <a href="http://example.com" class="external-link">Example</a>
     <a href="//example.com">Example</a>
+    <a href="/about/#team">Team</a>
+    <a href="/nested/page/#team" class="is-active">Team</a>
+    <a href="#team" class="is-active">Team</a>
   `;
 
   return acetate.renderer.renderPage(page).then(output => {
@@ -222,7 +247,7 @@ test('should create anchors code with a built in helper', t => {
 test('should add stats to pages loaded from templates', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   return acetate.loader.getPages()
@@ -237,7 +262,7 @@ test('should add stats to pages loaded from templates', t => {
 test('should not add stats for non-template based pages', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const page = createPage('index.html', 'Home');
@@ -250,7 +275,7 @@ test('should not add stats for non-template based pages', t => {
 test('raise an error if there is an error getting stats', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const page = createPage('index.html', 'Home');
@@ -262,7 +287,7 @@ test('raise an error if there is an error getting stats', t => {
 test('should proxy loader methods', function (t) {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const loadSpy = sinon.spy(acetate.loader, 'load');
@@ -275,7 +300,7 @@ test('should proxy loader methods', function (t) {
 test('should proxy transformer methods', function (t) {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const noop = function () {};
@@ -317,7 +342,7 @@ test('should proxy transformer methods', function (t) {
 test('should proxy renderer methods', function (t) {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const noop = function () {};
@@ -344,7 +369,7 @@ test('should proxy renderer methods', function (t) {
 test('should proxy logger methods', function (t) {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const logSpy = sinon.spy(acetate.logger, 'log');
@@ -378,7 +403,7 @@ test('should proxy logger methods', function (t) {
 test('should proxy event emitter methods', function (t) {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   const noop = function () {};

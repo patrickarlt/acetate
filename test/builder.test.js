@@ -14,7 +14,7 @@ test('should perform a basic build', (t) => {
   const root = path.join(t.context.temp, 'builder');
   const acetate = new Acetate({
     root,
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   return builder(acetate).then(pages => {
@@ -36,7 +36,7 @@ test('should reject if there is an error at any point', (t) => {
   const acetate = new Acetate({
     root,
     config: 'error.config.js',
-    logLevel: 'silent'
+    log: 'silent'
   });
 
   return t.throws(builder(acetate)).then(error => {
