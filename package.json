@@ -81,7 +81,7 @@
     "prepublish": "npm test",
     "release": "npm publish && gh-release",
     "pretest": "npm run lint",
-    "test": "ava test/*.test.js",
+    "test": "ava test/*.test.js --verbose --fail-fast",
     "test:coverage": "npm run lint && nyc --require babel-register ava test/*.test.js --reporter=html",
     "precommit": "npm run lint",
     "prepush": "npm test"
