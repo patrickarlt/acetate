@@ -341,6 +341,31 @@ test('should render a page in a layout', (t) => {
   });
 });
 
+test.cb('should capture errors when rendering with a layout', (t) => {
+  const root = path.join(t.context.temp, 'renderer');
+
+  const renderer = new Renderer({
+    sourceDir: root,
+    log: 'silent'
+  });
+
+  const template = stripIndent`
+    <h1>{{title}}</h1>
+  `;
+
+  const page = createPage('index.html', template, {
+    title: 'HTML',
+    layout: '_layout-error:main'
+  });
+
+  renderer.emitter.on('renderer:error', function (e) {
+    t.is(e.error.toString(), 'PageRenderError: expected block end in < statement while rendering _layout-error(4:2)');
+    t.end();
+  });
+
+  renderer.renderPage(page);
+});
+
 test('should syntax highlight code blocks', (t) => {
   const root = path.join(t.context.temp, 'renderer');
 
