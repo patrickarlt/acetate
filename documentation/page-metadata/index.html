@@ -109,7 +109,7 @@
 
   <article class="column-18">
     <h1>Page Metadata</h1>
-    <p>All pages can declare local metadata (as YAML) to use in their tempaltes and configure their behavior. Anything you declare in the metadata is accessable as a variable in your templates.</p>
+    <p>All pages can declare local metadata (as YAML) to use in their templates and configure their behavior. Anything you declare in the metadata is accessible as a variable in your templates.</p>
 <pre><code><span class="hljs-meta">---</span>
 <span class="hljs-attr">title:</span> Page with YAML metadata
 <span class="hljs-attr">layout:</span> _layout:master
@@ -126,9 +126,9 @@ acetate.metadata(<span class="hljs-string">'blog/**/*'</span>, {
     author: <span class="hljs-string">'Patrick Arlt'</span>
 });
 </code></pre>
-<p>Local Metadata declared on the page is always kept. So if a page aleady had <code>author</code> defined locally this would not override it.</p>
+<p>Local Metadata declared on the page is always kept. So if a page already had <code>author</code> defined locally this would not override it.</p>
 <h2>Using Metadata in Templates</h2>
-<p>Values in the metadata are passed directly to the local template context. See <a href="/documentation/templating">templating</a> to learn the basics fo the <a href="https://mozilla.github.io/nunjucks/">Nunjucks</a> templating language.</p>
+<p>Values in the metadata are passed directly to the local template context. See <a href="/documentation/templating">templating</a> to learn the basics of the <a href="https://mozilla.github.io/nunjucks/">Nunjucks</a> templating language.</p>
 <pre><code><span class="hljs-meta">---</span>
 <span class="hljs-attr">title:</span> Page with YAML metadata
 <span class="hljs-attr">layout:</span> _layout:master
@@ -161,7 +161,7 @@ acetate.metadata(<span class="hljs-string">'blog/**/*'</span>, {
 | <code>dest</code> | Output path for this file relative to the <code>acetate.dest</code> folder. | <a href="/documentation/built-in-helpers">Built-in Helpers</a>
 | <code>url</code> | URL for this page. | <a href="/documentation/built-in-helpers">Built-in Helpers</a></p>
 <h3>Read Only</h3>
-<p>These metadata keys are available for you to use in your templates but are read only can cannot be changed.</p>
+<p>These metadata keys are available for you to use in your templates but are read only and cannot be changed.</p>
 <table>
 <thead>
 <tr>

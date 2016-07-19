@@ -109,7 +109,13 @@
 
   <article class="column-18">
     <h1>Configuring Nunjucks</h1>
-    <p>Coming Soon.</p>
+    <p><code>acetate.renderer.nunjucks</code> is a full <a href="https://mozilla.github.io/nunjucks/api.html#environment">Nunjucks <code>environment</code></a>. This makes it easy to use any of the <a href="https://mozilla.github.io/nunjucks/api.html#environment">Nunjucks environemnt methods</a> to configure Nunjucks as well as install helper libraries like <a href="https://github.com/techmsi/nunjucks-date"><code>nunjucks-date</code></a>.</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> nunjucksDate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'nunjucks-date'</span>);
+
+nunjucksDate.setDefaultFormat(<span class="hljs-string">'MMMM Do YYYY, h:mm:ss a'</span>);
+
+nunjucksDate.install(acetate.renderer.nunjucks);
+</code></pre>
     <hr>
     <p class="small">
       <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/configuring-nunjucks.md">Edit this Page on GitHub</a>

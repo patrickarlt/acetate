@@ -147,7 +147,7 @@ dogs:
 {% endfor %}
 </code></pre>
 <h3>Conditionals</h3>
-<p>You can use Nunjucks <code>{% if %}</code> tag to create conditional statements.</p>
+<p>You can use Nunjucks' <code>{% if %}</code> tag to create conditional statements.</p>
 <p><code class="filename">src/conditionals.html</code></p>
 <pre><code class="html">{% if src == 'index.html' %}
   On the home page.
@@ -162,11 +162,11 @@ dogs:
 <h3>Layouts</h3>
 <p>You can use either the <a href="/documentation/layouts-and-partials">Acetate layout system</a> or <a href="https://mozilla.github.io/nunjucks/templating.html#template-inheritance">Nunjucks template inheritence</a>  to create reuseable layouts to wrap your content.</p>
 <h3>Partials</h3>
-<p>Acetate leverages the <a href="https://mozilla.github.io/nunjucks/templating.html#include">Nunjucks include tag</a> to create partials that can be used across multupile pages. To learn how to use partials in Acetate refer to the <a href="/documentation/layouts-and-partials/">partials documentation</a>.</p>
+<p>Acetate leverages the <a href="https://mozilla.github.io/nunjucks/templating.html#include">Nunjucks include tag</a> to create partials that can be used across multiple pages. To learn how to use partials in Acetate refer to the <a href="/documentation/layouts-and-partials/">partials documentation</a>.</p>
 <h3>Helpers</h3>
 <p>In addition to having access to everything in the <a href="https://mozilla.github.io/nunjucks/templating.html#include">Nunjucks templating language</a> you can also <a href="/documetation/built-in-helpers/">access built in variables provided by Acetate</a> and <a href="/documentation/custom-helpers/">create custom helpers</a> to use in your template.</p>
 <h3>Filters</h3>
-<p>To use a filter add it after a variable seperated by a <code>|</code> character <code>{{variable | filter}}</code>.</p>
+<p>To use a filter add it after a variable separated by a <code>|</code> character <code>{{variable | filter}}</code>.</p>
 <p>You can use any of the <a href="https://mozilla.github.io/nunjucks/templating.html#builtin-filters">Nunjucks filters</a> like <code>sort</code>, <code>first</code>, and <code>trim</code> and you can <a href="/documentation/custom-helpers/">define your own filters</a>.</p>
     <hr>
     <p class="small">

@@ -109,7 +109,24 @@
 
   <article class="column-18">
     <h1>Multiple Config Files</h1>
-    <p>Coming Soon.</p>
+    <p>As your Acetate installation grows in complexity you can reduce complexity by seperating out your configuration into multupile files with the <code>acetate.require</code> helper.</p>
+<p><code class="filename">acetate.config.js</code></p>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  acetate.require(<span class="hljs-string">'./external.config.js'</span>);
+}
+</code></pre>
+<p><code class="filename">external.config.js</code></p>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  <span class="hljs-comment">// do additional configuration here</span>
+}
+</code></pre>
+<p>You can also require additional configurations directly from NPM.</p>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  <span class="hljs-comment">// would require the `common-acetate-helpers` module from NPM.</span>
+  acetate.require(<span class="hljs-string">'common-acetate-helpers'</span>);
+}
+</code></pre>
+<p><code>acetate.require</code> will also listen for changes in external configuration helpers and reload itself when in <a href="../server/">server mode</a> or <a href="../watcher/">watch mode</a>.</p>
     <hr>
     <p class="small">
       <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/multiple-config-files.md">Edit this Page on GitHub</a>

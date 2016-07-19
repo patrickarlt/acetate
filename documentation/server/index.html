@@ -140,12 +140,12 @@ server.reload()
 
 <span class="hljs-comment">// use server.stop() to stop the server</span>
 </code></pre>
-<p>In general you can pass any <a href="https://www.browsersync.io/docs/options/">Browsersync options</a> to the server mode as a second argument. However Acetate will modify any options in the following way:</p>
+<p>In general, you can pass any <a href="https://www.browsersync.io/docs/options/">Browsersync options</a> to the server mode as a second argument. However, Acetate will modify any options in the following way:</p>
 <ul>
 <li><code>logPrefix</code> will always be Acetate</li>
 <li><code>logLevel</code> will always match Acetates log level</li>
 <li><code>server</code> or <code>server.baseDir</code> will always be Acetate's output folder or include Acetate's output folder</li>
-<li><code>files</code> will always include all files in Acetates output folder</li>
+<li><code>files</code> will always include all files in Acetate's output folder</li>
 <li><code>snippetOptions.async</code> will always be <code>true</code></li>
 </ul>
     <hr>

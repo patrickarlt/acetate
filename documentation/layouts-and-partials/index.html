@@ -123,7 +123,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
-<p>Now that you have a layout you declare it in a page's metadata with the <code>layout</code> key. Format the value like <code>path/to/layout:block_name_in_layout</code>. You can optionally omit the file extension, Acetate will search for files ending in <code>.html</code> and <code>.md</code>.</p>
+<p>Now that you have a layout you declare it in a page's metadata with the <code>layout</code> key. Format the value like <code>path/to/layout:block_name_in_layout</code>. You can optionally omit the file extension; Acetate will search for files ending in <code>.html</code> and <code>.md</code>.</p>
 <p><code class="filename">src/index.html</code></p>
 <pre><code class="html">---
 title: Using Layouts
@@ -171,15 +171,15 @@ layout: _nested:content
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Look I'm using a nested layout!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
 <h2>Using Nunjucks Template Inheritance</h2>
-<p>You do not have to use Acetates layout system for all your pages. If you want to declare more then one block in a template and fill in that content from page just use <a href="https://mozilla.github.io/nunjucks/templating.html#template-inheritance">Nunjucks template inheritance</a> as normal and set the <code>layout</code> metadata key to <code>false</code>.</p>
+<p>You do not have to use Acetate's layout system for all your pages. If you want to declare more then one block in a template and fill in that content from page just use <a href="https://mozilla.github.io/nunjucks/templating.html#template-inheritance">Nunjucks template inheritance</a> as normal and set the <code>layout</code> metadata key to <code>false</code>.</p>
 <p>Markdown pages cannot use template inheritance. They must use the <code>layout</code> key in their metadata.</p>
 <h2>Partials</h2>
-<p>You can use build and include reusable templates accross multupile pages with Nunjucks <code>include</code> tag. Remember filenames that begin with <code>_</code> are not built so they are ideal for partials.</p>
+<p>You can use build and include reusable templates across multiple pages with Nunjucks <code>include</code> tag. Remember filenames that begin with <code>_</code> are not built so they are ideal for partials.</p>
 <p><code class="filename">src/_partial.html</code></p>
 <pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>{{title}}<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"description"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"{{description}}"</span>&gt;</span>
 </code></pre>
-<p>Now that we have defined a tempalte file we can inclucde it accross multupile pages with <code>{% include '_partial' %}</code>. Like with layouts you dont have to include the file extension and the path is relative to your source folder.</p>
+<p>Now that we have defined a template file we can include it across multiple pages with <code>{% include '_partial' %}</code>. As with layouts, you don't have to include the file extension and the path is relative to your source folder.</p>
 <p><code class="filename">src/contact.html</code></p>
 <pre><code class="html">---
 title: Contact
@@ -213,7 +213,7 @@ description: Learn a little more about us.
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
 <h2>Macros and Imports</h2>
-<p>Acetate also allows you to use <a href="https://mozilla.github.io/nunjucks/templating.html#import">Nunjucks import</a> in templates. Just remember the path will be relative to your source directory.</p>
+<p>Acetate also allows you to use <a href="https://mozilla.github.io/nunjucks/templating.html#import">Nunjucks import</a> in templates. Remember, the path will be relative to your source directory.</p>
     <hr>
     <p class="small">
       <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/layouts-and-partials.md">Edit this Page on GitHub</a>

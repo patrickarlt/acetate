@@ -109,7 +109,29 @@
 
   <article class="column-18">
     <h1>Generating Pages</h1>
-    <p>Coming Soon.</p>
+    <p>Acetate has the capability to dynamically generate pages, you might find this useful if you need to create pages based on other pages, such as a index blog posts) or pages based on data, such as a page showing your popular GitHub projects.</p>
+<p><code>acetate.generator</code> is a configuration method that adds new pages to the site. <code>acetate.generator</code> takes a single argument which is a function that recives 3 arguments:</p>
+<ul>
+<li><code>pages</code> - an array of all existing pages in the site. This is useful for generating pages that index other pages like a blog feed or archive page.</li>
+<li><code>createPage(src, template, metdata)</code> - a function which will generate a new page object with a given <code>src</code> property, <code>template</code> and <code>metadata</code>.</li>
+<li><code>createPage.fromTemplate(src, templatePath)</code> - a function that will create a new page with <code>src</code> from the file at <code>templatePath</code>. Any metadata in the file will be parsed and assigned to the page.</li>
+<li><code>createPage.fromTemplateString(src, template)</code> - a function that will create a new page with <code>src</code> from a given template string. Any metadata in the <code>template</code> will be parsed and added the page.</li>
+<li><code>done(error, newPages)</code> - a callback function that you should call with a <code>error</code> or with an array of <code>newPages</code>.</li>
+</ul>
+<p><code class="filename">acetate.config.js</code></p>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  acetate.generate(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateNewPages</span> (<span class="hljs-params">pages, createPage, done</span>) </span>{
+
+    <span class="hljs-keyword">var</span> page = createPage(<span class="hljs-string">'newPage.html'</span>, <span class="hljs-string">'template'</span>, {
+      ignore: <span class="hljs-literal">true</span>
+    });
+
+    done(<span class="hljs-literal">null</span>, [
+      page
+    ]);
+  });
+};
+</code></pre>
     <hr>
     <p class="small">
       <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/generating-pages.md">Edit this Page on GitHub</a>

@@ -109,14 +109,14 @@
 
   <article class="column-18">
     <h1>Transforming Pages</h1>
-    <p>Beyond <a href="/documentation/page-metadata">adding or updating page metdata</a> Acetate also provides helper functions for transforming and altering pages at a larger scale. There are 4 transformation methods.</p>
+    <p>Beyond <a href="/documentation/page-metadata">adding or updating page metadata</a> Acetate also provides helper functions for transforming and altering pages at a larger scale. There are 4 transformation methods.</p>
 <ul>
 <li><code>transform('pattern', handler)</code> - transform pages matching <code>pattern</code>. <code>handler</code> get the page as the first argument and should return the page after altering it.</li>
 <li><code>transformAsync('pattern', handler)</code> - transform pages matching <code>pattern</code>. <code>handler</code> gets the page as the first argument and a callback as the second. The callback should be called with error (or <code>null</code>) and the page.</li>
 <li><code>transformAll(handler)</code> - <code>handler</code> gets an array of all pages as the first argument and should return the array when finished.</li>
 <li><code>transformAllAsync(hander)</code> - <code>handler</code> gets an array of all pages as the first argument and a callback as the second. The callback should be called with error (or <code>null</code>) and the array of pages.</li>
 </ul>
-<p>Transformers are particularly useful for manipulating or extracting data from a pages <code>template</code> property or for altering metadata like <code>url</code> or <code>dest</code> in complex ways.</p>
+<p>Transformers are particularly useful for manipulating or extracting data from a page's <code>template</code> property or for altering metadata like <code>url</code> or <code>dest</code> in complex ways.</p>
 <h1>Example: Extracting Markdown Headers</h1>
 <pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
   <span class="hljs-comment">// ...</span>

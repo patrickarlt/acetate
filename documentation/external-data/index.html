@@ -109,7 +109,7 @@
 
   <article class="column-18">
     <h1>External Data</h1>
-    <p>Acetate can include data from external JSON and YAML files or you can define function to load data. To load data files place <code>.json</code>, <code>.yaml</code> or <code>.yml</code> files in your source folder. Then in your config file you can declare those files as data sources.</p>
+    <p>Acetate can include data from external JSON and YAML files or you can define function to load data. To load data files place, <code>.json</code>, <code>.yaml</code> or <code>.yml</code> files in your source folder. In your config file you can then declare those files as data sources.</p>
 <p><code class="filename">acetate.config.js</code></p>
 <pre><code class="js">acetate.data(<span class="hljs-string">'projects'</span>, <span class="hljs-string">'projects.json'</span>);
 acetate.data(<span class="hljs-string">'people'</span>, <span class="hljs-string">'people.yaml'</span>);
@@ -182,7 +182,7 @@ title: Employee Directory
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 </code></pre>
 <h3>Dynamic Data</h3>
-<p>You can also use function that query data dynamically at build time. This is great for things that need to come from external sources like an API or a database but don't need to be always up to date.</p>
+<p>You can also use functions that query data dynamically at build time. This is great for things that need to come from external sources like an API or a database but don't need to be always up to date.</p>
 <p><code class="filename">acetate.config.js</code></p>
 <pre><code class="js"><span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
 

@@ -109,7 +109,37 @@
 
   <article class="column-18">
     <h1>Creating Plugins</h1>
-    <p>Coming Soon.</p>
+    <p>Acetate has support for distributing code via NPM as a plugin. For an example of a simple plugin you can look at the source code for <a href="https://github.com/patrickarlt/acetate-asset-revisions/blob/master/index.js"><code>acetate-asset-revisions</code></a></p>
+<p><code class="filename">acetate.config.js</code></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> assetRevisions = <span class="hljs-built_in">require</span>(<span class="hljs-string">'acetate-asset-revisions'</span>)
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">acetate</span>)</span>{
+  acetate.use(assetRevisions({
+    manifest: <span class="hljs-string">'build/assets.json'</span>
+  }));
+};
+</code></pre>
+<p>To use a plugin simply pass a a function to <code>acetate.use</code>. That function will get the <code>acetate</code> object as its first argument and can call additional helpers. For example</p>
+<p><code class="filename">my-plugin.js</code></p>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-comment">// anything you want your plugin to do one per config phase can be done here</span>
+
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+    <span class="hljs-comment">// call any configuration methods you need for your plugin</span>
+  }
+};
+</code></pre>
+<p><code class="filename">acetate.config.js</code></p>
+<pre><code class="js"><span class="hljs-comment">// require plugin as a module</span>
+<span class="hljs-keyword">var</span> myPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'my-plugin'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">acetate</span>)</span>{
+  <span class="hljs-comment">// call myPlugin which returns an acetate configuration function</span>
+  acetate.use(myPlugin({
+    <span class="hljs-comment">// options</span>
+  }));
+};
+</code></pre>
     <hr>
     <p class="small">
       <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/creating-plugins.md">Edit this Page on GitHub</a>

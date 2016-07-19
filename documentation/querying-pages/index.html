@@ -109,16 +109,16 @@
 
   <article class="column-18">
     <h1>Querying Pages</h1>
-    <p>Queries allow to to select and save groups of pages or calculate values based on your pages metadata.</p>
+    <p>Queries allow to to select and save groups of pages or calculate values based on your pages' metadata.</p>
 <p>The <code>acetate.query</code> function takes 5 arguments.</p>
 <ol>
 <li><code>name</code> - the unique <code>name</code> of this query. You will use this to access query results in your template.</li>
-<li><code>filter</code> - filter pages with a glob pattern like <code>**/*</code>. This will form an inital array of pages to pass to the map function.</li>
-<li><code>map</code> - Iterate over results from the filter and create a new array of results. The function is identical to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>Array.map()</code></a>. The results of the map will have all falsy values removed.</li>
+<li><code>filter</code> - filter all pages by either a glob pattern like <code>**/*</code> or a function that received a <code>page</code> as an argument and returns a boolean. The function syntax is identical to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"><code>Array.filter()</code></a></li>
+<li><code>map</code> - Iterate over results from the filter and create a new array of results. The function is identical to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>Array.map()</code></a></li>
 <li><code>reduce</code> - Iterate over the array of results from the <code>map</code> function and return a new value. This funciton is eqivilant to the callback in <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce"><code>Array.reduce()</code></a></li>
-<li><code>inital</code> - The inital value to pass into the reduce function.</li>
+<li><code>initial</code> - The initial value to pass into the reduce function.</li>
 </ol>
-<h3>Example: Dymanically Generated Navigation</h3>
+<h3>Example: Dynamically Generated Navigation</h3>
 <pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
   <span class="hljs-comment">// ...</span>
 
@@ -167,7 +167,7 @@
   <span class="hljs-comment">// ...</span>
 };
 </code></pre>
-<p>Once you have saved your query you can access the final value under <code>queries.name</code> in your templates.</p>
+<p>Once you have saved your query, you can access the final value under <code>queries.name</code> in your templates.</p>
 <pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">nav</span>&gt;</span>
   {% for section in queries.doc_nav %}
     <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>

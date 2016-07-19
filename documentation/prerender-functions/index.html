@@ -109,7 +109,28 @@
 
   <article class="column-18">
     <h1>Prerender Functions</h1>
-    <p>Coming Soon.</p>
+    <p>Although it would be possible to request external data with other helpers like <code>acetate.transformAllAsync</code> it would happen every time a page needs to be rendered. In server mode this would cause external data to be requested every time a page was requested even is that data had nothing to do with that page.</p>
+<p><code>acetate.prerender(pattern, handler)</code> will execute the <code>handler</code> function only before rendering a page that matches the <code>pattern</code>. <code>handler</code> will be called with the <code>page</code> object and a callback function that accepts <code>error</code> and the modified <code>page</code> object.</p>
+<p><code class="filename">acetate.config.js</code></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> GitHubApi = <span class="hljs-built_in">require</span>(<span class="hljs-string">"github"</span>);
+<span class="hljs-keyword">var</span> github = <span class="hljs-keyword">new</span> GitHubApi();
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  renderer.prerender(<span class="hljs-string">'gists.html'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">page, callback</span>) </span>{
+    github.gists.getForUser({
+      user: <span class="hljs-string">'patrickarlt'</span>,
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error, gists</span>) </span>{
+      <span class="hljs-keyword">if</span> (error) {
+        callback(error);
+        <span class="hljs-keyword">return</span>;
+      }
+
+      page.gists = gists;
+      callback(<span class="hljs-literal">null</span>, page);
+    });
+  });
+};
+</code></pre>
     <hr>
     <p class="small">
       <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/prerender-functions.md">Edit this Page on GitHub</a>

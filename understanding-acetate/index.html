@@ -110,12 +110,12 @@
   <article class="column-18">
     <h1>Understanding Acetate</h1>
     <h2>Configure, Load, Transform, Render</h2>
-<p>Acetate sites divide the build process into 4 seperate phases called Configure, Load, Transform and Render. Each of these phases runs one after the other although many processes within each phase happen asyncronosly.</p>
+<p>Acetate sites divide the build process into 4 separate phases called Configure, Load, Transform and Render. Each of these phases runs one after the other although many processes within each phase happen asynchronously.</p>
 <p>Refer to the <a href="/documentation/config-file">config file documentation</a> for more information about which phase a method is part of.</p>
 <h3>The Configure Phase</h3>
-<p>This is the first phase that starts when you initially run Acetate. Your configuration file is loaded and tasks are queued for the remaining 3 phases. After your configuration file is evaluated Acetate will setup its own built in helpers.</p>
+<p>This is the first phase that starts when you initially run Acetate. Your configuration file is loaded and tasks are queued for the remaining 3 phases. After your configuration file is evaluated, Acetate will setup its own built-in helpers.</p>
 <h3>The Load Phase</h3>
-<p>During the load phase Acetate will load all pages in your source folder according to the <code>acetate.load('pattern')</code> calls in your config file. Acetate does not load any pages by default so make sure you have at lease 1 <code>aceate.load</code> call. Generally a good starting point is to load all <code>.html</code> or <code>.md</code> files:</p>
+<p>During the load phase Acetate will load all pages in your source folder according to the <code>acetate.load('pattern')</code> calls in your config file. Acetate does not load any pages by default so make sure you have at lease 1 <code>acetate.load</code> call. Generally a good starting point is to load all <code>.html</code> or <code>.md</code> files:</p>
 <p><code class="filename">acetate.config.js</code></p>
 <pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
   <span class="hljs-comment">// load all html and markdown files from our source folder</span>
@@ -150,10 +150,10 @@
 };
 </code></pre>
 <h3>The Render Phase</h3>
-<p>After Acetate has transformed all the pages in the site pages are ready for rendering. Rendering a page first runs any <a href="/documentation/prerender-functions/">prerender functions</a>P that apply to the page.</p>
-<p><a href="/documentation/prerender-functions/">Prerender functions</a> are ideal for pages that require expensive async optations before the page gets rendered. Since prerendering function are only run before the individal page is rendered rather then as a part of the transformation phase which is run before <em>any</em> page is rendered.</p>
+<p>After Acetate has transformed all the pages in the site, pages are ready for rendering. Rendering a page first runs any <a href="/documentation/prerender-functions/">prerender functions</a>P that apply to the page.</p>
+<p><a href="/documentation/prerender-functions/">Prerender functions</a> are ideal for pages that require expensive async operations before the page gets rendered. Prerendering functions are only run before the individual page is rendered, rather then as a part of the transformation phase which is run before <em>any</em> page is rendered.</p>
 <h2>Modes</h2>
-<p>Acetate ships with 3 default implimentations for how it can be used to create a website as part of a larger build process. Usage of these modes is mostly handled by other tools but you might find it neccessary to use them as part of a custom implimentation.</p>
+<p>Acetate ships with 3 default implementations for how it can be used to create a website as part of a larger build process. Usage of these modes is mostly handled by other tools but you might find it necessary to use them as part of a custom implementation.</p>
 <ul>
 <li><a href="/documentation/builder/">Builder</a> - Builds the site to the output folder.</li>
 <li><a href="/documentation/watcher/">Watcher</a> - Build the site then watch for changes and rebuild.</li>

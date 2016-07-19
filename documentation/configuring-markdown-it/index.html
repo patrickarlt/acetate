@@ -109,7 +109,25 @@
 
   <article class="column-18">
     <h1>Configuring Markdown It</h1>
-    <p>Coming Soon.</p>
+    <p>You can access the internal instance of <a href="https://github.com/MoOx/markdown-it-toc-and-anchor">MarkdownIt</a> at <code>acetate.renderer.markdown</code> in your configuration file. This means you can easily use MarkdownIt plugins](<a href="https://www.npmjs.com/package/markdown-it-toc-and-anchor">https://www.npmjs.com/package/markdown-it-toc-and-anchor</a>) by simply registering them in your configuration file.</p>
+<p><code class="filename">acetate.config.js</code></p>
+<pre><code class="js"><span class="hljs-keyword">const</span> markdownItTocAndAnchor = <span class="hljs-built_in">require</span>(<span class="hljs-string">'markdown-it-toc-and-anchor'</span>).default;
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  acetate.renderer.markdown.use(markdownItTocAndAnchor);
+}
+</code></pre>
+<p>You can also replace the MarkdownIt instance entirely by making a new instance and assigning it to <code>acetate.renderer.markdown</code>.</p>
+<p><code class="filename">acetate.config.js</code></p>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acetate</span>) </span>{
+  acetate.renderer.markdown = <span class="hljs-keyword">new</span> MarkdownIt({
+      html: <span class="hljs-literal">true</span>,
+      linkify: <span class="hljs-literal">true</span>,
+      typographer: <span class="hljs-literal">true</span>
+    });
+  }
+}
+</code></pre>
     <hr>
     <p class="small">
       <a href="https://github.com/patrickarlt/acetate-site/edit/master/src/documentation/configuring-markdown-it.md">Edit this Page on GitHub</a>
