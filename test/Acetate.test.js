@@ -174,6 +174,23 @@ test('should render markdown with a built in helper', t => {
   });
 });
 
+test('should render markdown included from another file with a built in helper', t => {
+  const acetate = new Acetate({
+    root: path.join(t.context.temp, 'acetate-configs'),
+    log: 'silent'
+  });
+
+  const page = createPage('index.html', stripIndent`
+    {% markdown %}
+      {% include '_markdown_partial.md'%}
+    {% endmarkdown %}
+  `);
+
+  return acetate.renderer.renderPage(page).then(output => {
+    t.is(output, '<h1>Markdown</h1>');
+  });
+});
+
 test('should highlight code with a built in helper', t => {
   const acetate = new Acetate({
     root: path.join(t.context.temp, 'acetate-configs'),

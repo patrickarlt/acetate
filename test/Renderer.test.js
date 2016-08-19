@@ -318,7 +318,7 @@ test('should render a page in a layout', (t) => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    log: 'silent'
+    log: 'debug'
   });
 
   const template = stripIndent`
@@ -358,12 +358,10 @@ test.cb('should capture errors when rendering with a layout', (t) => {
     layout: '_layout-error:main'
   });
 
-  renderer.emitter.on('renderer:error', function (e) {
-    t.is(e.error.toString(), 'PageRenderError: expected block end in < statement while rendering _layout-error(4:2)');
+  t.throws(renderer.renderPage(page)).then((error) => {
+    t.is(error.toString(), 'PageRenderError: expected block end in < statement while rendering _layout-error.html(4:2)');
     t.end();
   });
-
-  renderer.renderPage(page);
 });
 
 test('should syntax highlight code blocks', (t) => {
