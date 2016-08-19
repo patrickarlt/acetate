@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.11...master)
 
+## [1.0.2] - 2016-8-18
+
+### Fixed
+
+* Switch back to a syncronous loader for Nunjucks that is more reliable.
+
 ## [1.0.1] - 2016-6-17
 
 ### Fixed
