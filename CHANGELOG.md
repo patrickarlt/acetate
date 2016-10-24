@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.11...master)
 
+## [1.1.0] - 2016-10-24
+
+### Added
+
+* The `{% link %}` helper now accepts a new `currentUrl` option for resolving the URL and active state. This allows `{% link %}` to be used in macros where the current page context cannot be accessed.
+
 ## [1.0.2] - 2016-8-18
 
 ### Fixed

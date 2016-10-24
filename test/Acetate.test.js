@@ -236,7 +236,7 @@ test('should create anchors code with a built in helper', t => {
     log: 'silent'
   });
 
-  const page = createPage('nested/page/index.html', stripIndent`
+  const template = stripIndent`
     {% link '/', 'Home' %}
     {% link '/', 'Home', 'data-foo'='Foo', 'data-bar'='Bar' %}
     {% link '/', 'Home', id="logo", class="nav-link" %}
@@ -250,7 +250,13 @@ test('should create anchors code with a built in helper', t => {
     {% link '/about/#team', 'Team' %}
     {% link '/nested/page/#team', 'Team' %}
     {% link '#team', 'Team' %}
-  `);
+    {% link '/', 'Home', currentUrl='/' %}
+    {% link '/', 'Home', currentUrl='/nested/' %}
+    {% link '/nested/', 'Page', currentUrl='/' %}
+    {% link '/nested/', 'Page', currentUrl='/nested/' %}
+  `;
+
+  const page = createPage('nested/page/index.html', template);
 
   const expected = stripIndent`
     <a href="/">Home</a>
@@ -266,10 +272,19 @@ test('should create anchors code with a built in helper', t => {
     <a href="/about/#team">Team</a>
     <a href="/nested/page/#team" class="is-active">Team</a>
     <a href="#team" class="is-active">Team</a>
+    <a href="/" class="is-active">Home</a>
+    <a href="/">Home</a>
+    <a href="/nested/">Page</a>
+    <a href="/nested/" class="is-active">Page</a>
   `;
 
   return acetate.renderer.renderPage(page).then(output => {
-    t.is(output, expected);
+    const outputLines = output.split('\n');
+    const expectedLines = expected.split('\n');
+    const templateLines = expected.split('\n');
+    outputLines.forEach((line, i) => {
+      t.is(line, expectedLines[i], templateLines[i]);
+    });
   });
 });
 
