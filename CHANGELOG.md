@@ -3,13 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.11...master)
+[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v1.1.1...master)
 
 ## [1.1.1] - 2016-11-22
 
 ### Fixed
 
 * Cached patterns for Minimatch in transformers. This should provide a large speed boost during the transform phase.
+* Highlight JS tests
 
 ## [1.1.0] - 2016-10-24
 
@@ -275,3 +276,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.4.6]: https://github.com/patrickarlt/acetate/compare/v0.4.5...v0.4.6
 [0.4.7]: https://github.com/patrickarlt/acetate/compare/v0.4.6...v0.4.7
 [0.4.8]: https://github.com/patrickarlt/acetate/compare/v0.4.7...v0.4.8
+[0.4.9]: https://github.com/patrickarlt/acetate/compare/v0.4.8...v0.4.9
+[0.4.10]: https://github.com/patrickarlt/acetate/compare/v0.4.9...v0.4.10
+[0.4.11]:https://github.com/patrickarlt/acetate/compare/v0.4.10...v0.4.11
+[1.0.0]: https://github.com/patrickarlt/acetate/compare/v0.4.11...v1.0.0
+[1.0.1]: https://github.com/patrickarlt/acetate/compare/v1.0.0...v1.0.1
+[1.0.2]: https://github.com/patrickarlt/acetate/compare/v1.0.1...v1.0.2
+[1.1.0]:https://github.com/patrickarlt/acetate/compare/v1.0.2...v1.1.0
+[1.1.1]:https://github.com/patrickarlt/acetate/compare/v1.1.0...v1.1.1

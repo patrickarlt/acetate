@@ -391,7 +391,7 @@ test('should syntax highlight code blocks', (t) => {
   `;
 
   const expected = stripIndent`
-    <pre><code><span class="hljs-keyword">var</span> foo = bar;
+    <pre><code><span class="hljs-attribute">var foo</span> = bar;
     </code></pre>
     <pre><code class="js"><span class="hljs-keyword">var</span> foo = bar;
     </code></pre>
