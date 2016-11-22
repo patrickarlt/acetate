@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v0.4.11...master)
 
+## [1.1.1] - 2016-11-22
+
+### Fixed
+
+* Cached patterns for Minimatch in transformers. This should provide a large speed boost during the transform phase.
+
 ## [1.1.0] - 2016-10-24
 
 ### Added
