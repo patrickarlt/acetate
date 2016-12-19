@@ -368,6 +368,46 @@ test('merge metadata', t => {
   });
 });
 
+test('deep merge metadata', t => {
+  const transformer = new Transformer({
+    log: 'silent'
+  });
+
+  transformer.metadata('index.html', {
+    foo: {
+      foo: 'foo',
+      bar: 'foo',
+      simpleArray: [1, 2, 3],
+      objectArray: [{
+        foo: 'foo'
+      }]
+    }
+  });
+
+  transformer.metadata('index.html', {
+    foo: {
+      bar: 'bar',
+      baz: 'baz',
+      simpleArray: [4, 5, 6],
+      objectArray: [{
+        bar: 'bar'
+      }]
+    }
+  });
+
+  const page = createPage('index.html');
+
+  return transformer.transformPages([page]).then((pages) => {
+    t.is(pages[0].foo.foo, 'foo');
+    t.is(pages[0].foo.bar, 'bar');
+    t.is(pages[0].foo.baz, 'baz');
+    t.deepEqual(pages[0].foo.simpleArray, [4, 5, 6]);
+    t.deepEqual(pages[0].foo.objectArray, [{
+      bar: 'bar'
+    }]);
+  });
+});
+
 test('merge metadata should not overwrite local metadata', t => {
   const transformer = new Transformer({
     log: 'silent'

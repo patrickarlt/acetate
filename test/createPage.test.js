@@ -68,6 +68,14 @@ test('should merge in metadata and calculate the proper metadata offset', t => {
   t.is(page.__templateErrorOffset, 4);
 });
 
+test('should creat a page froma template string with default metadata', t => {
+  const page = createPage.fromTemplateString('index.html', template, {
+    foo: 'bar'
+  });
+
+  t.is(page.foo, 'bar');
+});
+
 test('should throw on invalid metadata', t => {
   const e = t.throws(function () {
     createPage.fromTemplateString('index.html', invalidMetadata);
@@ -88,6 +96,16 @@ test('should load a page from a template', (t) => {
     t.is(page.template, 'Template');
     t.is(page.foo, 'bar');
     t.is(page.__templateErrorOffset, 4);
+  });
+});
+
+test('should load a page from a template with default metadata', (t) => {
+  const templatepath = path.join(t.context.temp, 'create-page', 'page.html');
+
+  return createPage.fromTemplate('page.html', templatepath, {
+    foo: 'bar'
+  }).then((page) => {
+    t.is(page.foo, 'bar');
   });
 });
 

@@ -20,6 +20,21 @@ test('load pages with a glob', t => {
   });
 });
 
+test('load pages with a glob and default metadata', t => {
+  const loader = new Loader({
+    sourceDir: path.join(t.context.temp, 'loader-basic'),
+    log: 'silent'
+  });
+
+  loader.load('**/*.+(md|html)', {
+    foo: 'bar'
+  });
+
+  return loader.getPages().then(pages => {
+    t.is(pages[0].foo, 'bar');
+  });
+});
+
 test('should throw if there is an error loading any page', t => {
   const loader = new Loader({
     sourceDir: path.join(t.context.temp, 'loader-error'),
