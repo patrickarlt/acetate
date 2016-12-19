@@ -3,7 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v1.1.1...master)
+[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v1.2.1...master)
+
+## [1.2.1] - 2016-12-19
+
+### Changed
+
+* `acetate.metadata` now uses [`_.defaultsDeep`](https://lodash.com/docs/4.17.2#defaultsDeep) instead of `Object.assign` to allow for merging metadata recursivly.
+
+### Fixed
+
+* `relativePath` on root pages (`index.html`) now properly equals `.` to allow for things like `{{relativePath}}/main.js` which wil properly render on all pages.
+* Several fixes for the CLI https://github.com/patrickarlt/acetate/pull/64 (@paulcpederson)
 
 ## [1.1.1] - 2016-11-22
 
@@ -284,3 +295,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [1.0.2]: https://github.com/patrickarlt/acetate/compare/v1.0.1...v1.0.2
 [1.1.0]:https://github.com/patrickarlt/acetate/compare/v1.0.2...v1.1.0
 [1.1.1]:https://github.com/patrickarlt/acetate/compare/v1.1.0...v1.1.1
+[1.2.1]:https://github.com/patrickarlt/acetate/compare/v1.1.1...v1.2.1
