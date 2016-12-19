@@ -30,7 +30,7 @@ test('should set basic properties', t => {
   t.is(page.template, 'index page');
   t.is(page.dest, 'index.html');
   t.is(page.url, '/');
-  t.is(page.relativePath, '');
+  t.is(page.relativePath, '.');
 });
 
 test('should set `__isMarkdown`', t => {
@@ -97,7 +97,7 @@ test('should prettyify index.html at the root level', (t) => {
   t.is(page.src, 'index.html');
   t.is(page.dest, 'index.html');
   t.is(page.url, '/');
-  t.is(page.relativePath, '');
+  t.is(page.relativePath, '.');
 });
 
 test('should prettyify url for page at root of the source folder', (t) => {
