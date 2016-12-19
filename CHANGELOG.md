@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v1.2.1...master)
 
+## [1.3.2] - 2016-12-19
+
+### Fixed
+
+* Fixed undesireable variables being merged into pages in some edgecases.
+
 ## [1.3.1] - 2016-12-19
 
 ### Added
@@ -306,4 +312,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [1.1.0]:https://github.com/patrickarlt/acetate/compare/v1.0.2...v1.1.0
 [1.1.1]:https://github.com/patrickarlt/acetate/compare/v1.1.0...v1.1.1
 [1.2.1]:https://github.com/patrickarlt/acetate/compare/v1.1.1...v1.2.1
-[1.2.1]:https://github.com/patrickarlt/acetate/compare/v1.2.1...v1.3.1
+[1.3.1]:https://github.com/patrickarlt/acetate/compare/v1.2.1...v1.3.1
+[1.3.2]:https://github.com/patrickarlt/acetate/compare/v1.3.1...v1.3.2
