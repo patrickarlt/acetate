@@ -92,6 +92,47 @@ test.cb('the watcher should add pages when they are created', t => {
   });
 });
 
+test.cb('the watcher should use default metadata when pages are created', t => {
+  const sourceDir = path.join(t.context.temp, 'loader-basic');
+  const addition = path.join(sourceDir, 'addition.html');
+
+  const loader = new Loader({
+    sourceDir,
+    log: 'silent'
+  });
+
+  loader.load('**/*.+(md|html)', {
+    foo: 'bar'
+  });
+
+  loader.getPages().then(function () {
+    loader.emitter.once('watcher:add', (page) => {
+      loader.stopWatcher();
+      t.is(page.foo, 'bar');
+
+      loader.getPages().then(pages => {
+        t.is(pages.length, 2);
+        t.is(pages[1].foo, 'bar');
+        t.end();
+      }).catch((error) => {
+        t.fail(error);
+        t.end();
+      });
+    });
+
+    loader.emitter.once('watcher:ready', () => {
+      fs.writeFile(addition, 'File Added', function (error) {
+        if (error) {
+          t.fail(error);
+          t.end();
+        }
+      });
+    });
+
+    loader.startWatcher();
+  });
+});
+
 test.cb('the watcher should update pages when they are changed', t => {
   const sourceDir = path.join(t.context.temp, 'loader-basic');
   const change = path.join(sourceDir, 'index.html');
@@ -110,6 +151,47 @@ test.cb('the watcher should update pages when they are changed', t => {
       t.is(page.template, '<h1>Index Changed</h1>');
       loader.getPages().then(pages => {
         t.is(pages.length, 1);
+        t.end();
+      }).catch((error) => {
+        t.fail(error);
+        t.end();
+      });
+    });
+
+    loader.emitter.once('watcher:ready', () => {
+      fs.writeFile(change, '<h1>Index Changed</h1>', function (error) {
+        if (error) {
+          t.fail(error);
+          t.end();
+        }
+      });
+    });
+
+    loader.startWatcher();
+  });
+});
+
+test.cb('the watcher should preserve default metadata when pages are changed', t => {
+  const sourceDir = path.join(t.context.temp, 'loader-basic');
+  const change = path.join(sourceDir, 'index.html');
+
+  const loader = new Loader({
+    sourceDir,
+    log: 'silent'
+  });
+
+  loader.load('**/*.+(md|html)', {
+    foo: 'bar'
+  });
+
+  loader.getPages().then(function () {
+    loader.emitter.once('watcher:change', (page) => {
+      loader.stopWatcher();
+
+      t.is(page.foo, 'bar');
+
+      loader.getPages().then(pages => {
+        t.is(page.foo, 'bar');
         t.end();
       }).catch((error) => {
         t.fail(error);

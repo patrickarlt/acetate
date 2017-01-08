@@ -318,7 +318,7 @@ test('should render a page in a layout', (t) => {
 
   const renderer = new Renderer({
     sourceDir: root,
-    log: 'debug'
+    log: 'silent'
   });
 
   const template = stripIndent`

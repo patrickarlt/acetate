@@ -77,7 +77,7 @@ test.cb('should watch config file for changes and reload the configuration', t =
 
     fs.writeFile(configPath, newConfig, function (error) {
       if (error) {
-        t.fail('Could not write new config file to ${configPath}');
+        t.fail(`Could not write new config file to ${configPath}`);
       }
     });
   });
@@ -119,7 +119,7 @@ test.cb('should emit an error if the config throws an error while the watcher is
 
     fs.writeFile(configPath, newConfig, function (error) {
       if (error) {
-        t.fail('Could not write new config file to ${configPath}');
+        t.fail(`Could not write new config file to ${configPath}`);
       }
     });
   });
@@ -149,7 +149,7 @@ test.cb('should emit an error if the config throws an error while the watcher is
 
     fs.writeFile(configPath, newConfig, function (error) {
       if (error) {
-        t.fail('Could not write new config file to ${configPath}');
+        t.fail(`Could not write new config file to ${configPath}`);
       }
     });
   });
