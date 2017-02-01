@@ -3,7 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v1.3.3...master)
+[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v1.3.4...master)
+
+## [1.3.4] - 2017-01-31
+
+### Fixed
+
+Live reloading of Markdown files on Windows now works.
 
 ## [1.3.3] - 2017-01-08
 
@@ -325,3 +331,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [1.3.1]:https://github.com/patrickarlt/acetate/compare/v1.2.1...v1.3.1
 [1.3.2]:https://github.com/patrickarlt/acetate/compare/v1.3.1...v1.3.2
 [1.3.3]:https://github.com/patrickarlt/acetate/compare/v1.3.2...v1.3.3
+[1.3.4]:https://github.com/patrickarlt/acetate/compare/v1.3.3...v1.3.4
