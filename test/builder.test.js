@@ -14,10 +14,10 @@ test('should perform a basic build', (t) => {
   const root = path.join(t.context.temp, 'builder');
   const acetate = new Acetate({
     root,
-    log: 'silent'
+    log: 'debug'
   });
 
-  return builder(acetate).then(pages => {
+  return builder(acetate).then(() => {
     return Promise.all([
       readFile(path.join(root, 'build', 'index.html'), 'utf8'),
       readFile(path.join(root, 'build', 'foo', 'markdown', 'index.html'), 'utf8')
