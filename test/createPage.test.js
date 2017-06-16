@@ -82,9 +82,9 @@ test('should throw on invalid metadata', t => {
   });
 
   t.is(e.name, 'MetadataParseError');
-  t.is(e.message, 'duplicated mapping key at index.html(2:8)');
+  t.is(e.message, 'duplicated mapping key at index.html(2:0)');
   t.is(e.line, 2);
-  t.is(e.column, 8);
+  t.is(e.column, 0);
   t.is(e.file, 'index.html');
 });
 
