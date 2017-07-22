@@ -14,7 +14,7 @@ test('should perform a basic build', (t) => {
   const root = path.join(t.context.temp, 'builder');
   const acetate = new Acetate({
     root,
-    log: 'debug'
+    log: 'silent'
   });
 
   return builder(acetate).then(() => {
