@@ -1,3 +1,3 @@
 module.exports = function (acetate) {
-  acetate.require('./shared.config.js');
+  acetate.require("./shared.config.js");
 };

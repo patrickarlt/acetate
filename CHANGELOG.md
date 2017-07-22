@@ -5,6 +5,29 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v1.3.5...master)
 
+## [2.0.0-rc.1] - 2017-07-22
+
+### Major Architechure Changes
+
+* The development server now only transforms the requested pages rather then transforming the entire site. The leads to greatly improved rendering times.
+* The `Renderer`, `Transformer`, and `Loader` classed used by the `Acetate` class have all been refactored directly into the main `Acetate` class.
+
+### Breaking changes
+
+* Logging methods (`log`, `info`, `debug`, 'success', `error`, `time`, and `timeEnd`) are no longer on instances of `Acetate`. They are available on under `acetate.log` object. You will need to make the following changes:
+   * `acetate.log(/* ... */)` => `acetate.log.log(/* ... */)`
+   * `acetate.info(/* ... */)` => `acetate.log.info(/* ... */)`
+   * `acetate.debug(/* ... */)` => `acetate.log.debug(/* ... */)`
+   * `acetate.success(/* ... */)` => `acetate.log.success(/* ... */)`
+   * `acetate.error(/* ... */)` => `acetate.log.error(/* ... */)`
+   * `acetate.time(/* ... */)` => `acetate.log.time(/* ... */)`
+   * `acetate.timeEnd(/* ... */)` => `acetate.log.timeEnd(/* ... */)`
+* `acetate.transformAync` has been removed. You can now use `acetate.transform` for the same purpose. You will need to make the following changes:
+   * `acetate.transformAsync(/* ... */)` => `acetate.transform(/* ... */)`.
+* `acetate.transformAll` and `acetate.transformAllAsync` have been removed. Removal of these funcations allows for the performance improvments in the development server.
+* The [MarkdownIt](https://markdown-it.github.io/markdown-it/) instance at `acetate.renderer.markdown` has been moved to `acetate.markdown`.
+* The [Nunjucks environment](https://mozilla.github.io/nunjucks/api.html#environment) instance at `acetate.renderer.nunjucks` has been moved to `acetate.nunjucks`.
+
 ## [1.3.5] - 2017-06-16
 
 ### Fixed

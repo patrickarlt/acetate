@@ -1,61 +1,61 @@
-const test = require('ava');
-const fs = require('fs');
-const path = require('path');
-const Acetate = require('../lib/Acetate.js');
-const { createTempFixtures } = require('./util.js');
-const { stripIndent } = require('common-tags');
-const createPage = require('../lib/createPage');
+const test = require("ava");
+const fs = require("fs");
+const path = require("path");
+const Acetate = require("../lib/Acetate.js");
+const { createTempFixtures } = require("./util.js");
+const { stripIndent } = require("common-tags");
+const createPage = require("../lib/createPage");
 
 test.beforeEach(createTempFixtures);
 
-test('load a basic config file', t => {
+test("load a basic config file", t => {
   const acetate = new Acetate({
-    root: path.join(t.context.temp, 'acetate-configs'),
-    log: 'silent'
+    root: path.join(t.context.temp, "acetate-configs"),
+    log: "silent"
   });
 
   return acetate.getPages().then(pages => {
-    t.is(pages[0].src, 'foo/markdown.md');
-    t.is(pages[1].src, 'index.html');
+    t.is(pages[0].src, "foo/markdown.md");
+    t.is(pages[1].src, "index.html");
   });
 });
 
-test('should seperate the configuration over multiple files', t => {
+test("should seperate the configuration over multiple files", t => {
   const acetate = new Acetate({
-    root: path.join(t.context.temp, 'acetate-configs'),
-    config: 'with-require.config.js',
-    log: 'silent'
+    root: path.join(t.context.temp, "acetate-configs"),
+    config: "with-require.config.js",
+    log: "silent"
   });
 
   return acetate.getPages().then(pages => {
-    t.is(pages[0].src, 'foo/markdown.md');
-    t.is(pages[1].src, 'index.html');
+    t.is(pages[0].src, "foo/markdown.md");
+    t.is(pages[1].src, "index.html");
   });
 });
 
-test('should impliment a plugin interface', t => {
+test("should impliment a plugin interface", t => {
   const acetate = new Acetate({
-    root: path.join(t.context.temp, 'acetate-configs'),
-    config: 'blank.config.js',
-    log: 'silent'
+    root: path.join(t.context.temp, "acetate-configs"),
+    config: "blank.config.js",
+    log: "silent"
   });
 
   acetate.use(function (a) {
-    a.load('**/*.+(md|html)');
+    a.load("**/*.+(md|html)");
   });
 
   return acetate.getPages().then(pages => {
-    t.is(pages[0].src, 'foo/markdown.md');
-    t.is(pages[1].src, 'index.html');
+    t.is(pages[0].src, "foo/markdown.md");
+    t.is(pages[1].src, "index.html");
   });
 });
 
-test.cb('should watch config file for changes and reload the configuration', t => {
-  const root = path.join(t.context.temp, 'acetate-configs');
-  const configPath = path.join(root, 'acetate.config.js');
+test.cb("should watch config file for changes and reload the configuration", t => {
+  const root = path.join(t.context.temp, "acetate-configs");
+  const configPath = path.join(root, "acetate.config.js");
   const acetate = new Acetate({
     root,
-    log: 'silent'
+    log: "silent"
   });
 
   const newConfig = stripIndent`
@@ -64,8 +64,8 @@ test.cb('should watch config file for changes and reload the configuration', t =
     }
   `;
 
-  acetate.once('config:watcher:ready', function () {
-    acetate.once('config:loaded', function () {
+  acetate.once("config:watcher:ready", function () {
+    acetate.once("config:loaded", function () {
       acetate.stopWatcher();
 
       acetate.getPages().then(function (pages) {
@@ -84,22 +84,22 @@ test.cb('should watch config file for changes and reload the configuration', t =
   acetate.startWatcher();
 });
 
-test('should throw if an invalid config is loaded', t => {
+test("should throw if an invalid config is loaded", t => {
   t.throws(function () {
     new Acetate({// eslint-disable-line no-new
-      root: path.join(t.context.temp, 'acetate-configs'),
-      config: 'with-error.config.js',
-      log: 'silent'
+      root: path.join(t.context.temp, "acetate-configs"),
+      config: "with-error.config.js",
+      log: "silent"
     });
   });
 });
 
-test.cb('should emit an error if the config throws an error while the watcher is running', t => {
-  const root = path.join(t.context.temp, 'acetate-configs');
-  const configPath = path.join(root, 'acetate.config.js');
+test.cb("should emit an error if the config throws an error while the watcher is running", t => {
+  const root = path.join(t.context.temp, "acetate-configs");
+  const configPath = path.join(root, "acetate.config.js");
   const acetate = new Acetate({
     root,
-    log: 'silent'
+    log: "silent"
   });
 
   const newConfig = stripIndent`
@@ -108,11 +108,11 @@ test.cb('should emit an error if the config throws an error while the watcher is
     }
   `;
 
-  acetate.once('config:watcher:ready', function () {
-    acetate.once('config:error', function (e) {
+  acetate.once("config:watcher:ready", function () {
+    acetate.once("config:error", function (e) {
       acetate.stopWatcher();
 
-      t.is(e.error.name, 'AcetateConfigError');
+      t.is(e.error.name, "AcetateConfigError");
       t.end();
     });
 
@@ -126,12 +126,12 @@ test.cb('should emit an error if the config throws an error while the watcher is
   acetate.startWatcher();
 });
 
-test.cb('should emit an error if the config throws an error while the watcher is running', t => {
-  const root = path.join(t.context.temp, 'acetate-configs');
-  const configPath = path.join(root, 'acetate.config.js');
+test.cb("should emit an error if the config throws an error while the watcher is running", t => {
+  const root = path.join(t.context.temp, "acetate-configs");
+  const configPath = path.join(root, "acetate.config.js");
   const acetate = new Acetate({
     root,
-    log: 'silent'
+    log: "silent"
   });
 
   const newConfig = stripIndent`
@@ -140,9 +140,9 @@ test.cb('should emit an error if the config throws an error while the watcher is
     }
   `;
 
-  acetate.once('config:watcher:ready', function () {
-    acetate.once('config:error', function (e) {
-      t.is(e.error.name, 'AcetateConfigError');
+  acetate.once("config:watcher:ready", function () {
+    acetate.once("config:error", function (e) {
+      t.is(e.error.name, "AcetateConfigError");
       t.end();
     });
 
@@ -156,47 +156,47 @@ test.cb('should emit an error if the config throws an error while the watcher is
   acetate.startWatcher();
 });
 
-test('should render markdown with a built in helper', t => {
+test("should render markdown with a built in helper", t => {
   const acetate = new Acetate({
-    root: path.join(t.context.temp, 'acetate-configs'),
-    log: 'silent'
+    root: path.join(t.context.temp, "acetate-configs"),
+    log: "silent"
   });
 
-  const page = createPage('index.html', stripIndent`
+  const page = createPage("index.html", stripIndent`
     {% markdown %}
       # Markdown
     {% endmarkdown %}
   `);
 
   return acetate.renderPage(page).then(output => {
-    t.is(output, '<h1>Markdown</h1>');
+    t.is(output, "<h1>Markdown</h1>");
   });
 });
 
-test('should render markdown included from another file with a built in helper', t => {
+test("should render markdown included from another file with a built in helper", t => {
   const acetate = new Acetate({
-    root: path.join(t.context.temp, 'acetate-configs'),
-    log: 'silent'
+    root: path.join(t.context.temp, "acetate-configs"),
+    log: "silent"
   });
 
-  const page = createPage('index.html', stripIndent`
+  const page = createPage("index.html", stripIndent`
     {% markdown %}
       {% include '_markdown_partial.md'%}
     {% endmarkdown %}
   `);
 
   return acetate.renderPage(page).then(output => {
-    t.is(output, '<h1>Markdown</h1>');
+    t.is(output, "<h1>Markdown</h1>");
   });
 });
 
-test('should highlight code with a built in helper', t => {
+test("should highlight code with a built in helper", t => {
   const acetate = new Acetate({
-    root: path.join(t.context.temp, 'acetate-configs'),
-    log: 'silent'
+    root: path.join(t.context.temp, "acetate-configs"),
+    log: "silent"
   });
 
-  const page = createPage('index.html', stripIndent`
+  const page = createPage("index.html", stripIndent`
     {% highlight %}
     var foo = bar;
     {% endhighlight %}
@@ -229,10 +229,10 @@ test('should highlight code with a built in helper', t => {
   });
 });
 
-test('should create anchors code with a built in helper', t => {
+test("should create anchors code with a built in helper", t => {
   const acetate = new Acetate({
-    root: path.join(t.context.temp, 'acetate-configs'),
-    log: 'silent'
+    root: path.join(t.context.temp, "acetate-configs"),
+    log: "silent"
   });
 
   const template = stripIndent`
@@ -255,7 +255,7 @@ test('should create anchors code with a built in helper', t => {
     {% link '/nested/', 'Page', currentUrl='/nested/' %}
   `;
 
-  const page = createPage('nested/page/index.html', template);
+  const page = createPage("nested/page/index.html", template);
 
   const expected = stripIndent`
     <a href="/">Home</a>
@@ -278,19 +278,19 @@ test('should create anchors code with a built in helper', t => {
   `;
 
   return acetate.renderPage(page).then(output => {
-    const outputLines = output.split('\n');
-    const expectedLines = expected.split('\n');
-    const templateLines = expected.split('\n');
+    const outputLines = output.split("\n");
+    const expectedLines = expected.split("\n");
+    const templateLines = expected.split("\n");
     outputLines.forEach((line, i) => {
       t.is(line, expectedLines[i], templateLines[i]);
     });
   });
 });
 
-test('should add stats to pages loaded from templates', t => {
+test("should add stats to pages loaded from templates", t => {
   const acetate = new Acetate({
-    root: path.join(t.context.temp, 'acetate-configs'),
-    log: 'silent'
+    root: path.join(t.context.temp, "acetate-configs"),
+    log: "silent"
   });
 
   return acetate.getPages()
@@ -302,27 +302,27 @@ test('should add stats to pages loaded from templates', t => {
     });
 });
 
-test('should not add stats for non-template based pages', t => {
+test("should not add stats for non-template based pages", t => {
   const acetate = new Acetate({
-    root: path.join(t.context.temp, 'acetate-configs'),
-    log: 'silent'
+    root: path.join(t.context.temp, "acetate-configs"),
+    log: "silent"
   });
 
-  const page = createPage('index.html', 'Home');
+  const page = createPage("index.html", "Home");
 
   return acetate.transformPage(page).then(function (page) {
     t.is(page.stats, undefined);
   });
 });
 
-test('raise an error if there is an error getting stats', t => {
+test("raise an error if there is an error getting stats", t => {
   const acetate = new Acetate({
-    root: path.join(t.context.temp, 'acetate-configs'),
-    log: 'silent'
+    root: path.join(t.context.temp, "acetate-configs"),
+    log: "silent"
   });
 
-  const page = createPage('index.html', 'Home');
-  page.templatePath = path.join(acetate.sourceDir, 'does-not-exist.html');
+  const page = createPage("index.html", "Home");
+  page.templatePath = path.join(acetate.sourceDir, "does-not-exist.html");
 
   return t.throws(acetate.transformPage(page));
 });

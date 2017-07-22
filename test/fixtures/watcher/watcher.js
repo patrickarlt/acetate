@@ -1,8 +1,8 @@
-const Acetate = require('../../../lib/Acetate');
-const watcher = require('../../../lib/modes/watcher');
+const Acetate = require("../../../lib/Acetate");
+const watcher = require("../../../lib/modes/watcher");
 
 var acetate = new Acetate({
-  logLevel: 'debug'
+  logLevel: "debug"
 });
 
 watcher(acetate);
