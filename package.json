@@ -4,9 +4,7 @@
   "version": "2.0.0-rc.1",
   "author": "Patrick Arlt <patrick.arlt@gmail.com> (https://patrickarlt.com/)",
   "babel": {
-    "presets": [
-      "es2015"
-    ]
+    "presets": ["es2015"]
   },
   "bugs": {
     "url": "https://github.com/patrickarlt/acetate/issues/"
@@ -32,6 +30,7 @@
     "normalize-url": "^1.5.2",
     "nunjucks": "^3.0.0",
     "pretty-hrtime": "^1.0.2",
+    "symlink-dir": "^1.1.0",
     "yargs": "^6.6.0"
   },
   "devDependencies": {
@@ -62,30 +61,23 @@
     "node": ">=6.0.0"
   },
   "homepage": "https://acetate.io",
-  "keywords": [
-    "site",
-    "static",
-    "template",
-    "templating"
-  ],
+  "keywords": ["site", "static", "template", "templating"],
   "license": "ISC",
   "main": "lib/Acetate.js",
   "nyc": {
-    "exclude": [
-      ".acetate_fixtures",
-      "test/**/*"
-    ]
+    "exclude": [".acetate_fixtures", "test/**/*"]
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:patrickarlt/acetate.git"
   },
   "scripts": {
+    "clean:fixtures": "rimraf .acetate_fixtures",
     "lint": "eslint lib test",
     "lint:fix": "eslint lib test --fix",
     "prepublish": "npm test",
     "release": "npm publish && gh-release",
-    "pretest": "npm run lint",
+    "pretest": "npm run clean:fixtures && npm run lint",
     "test": "ava test/*.test.js",
     "test:coverage": "nyc --reporter text --reporter html --require babel-register ava test/*.test.js ",
     "precommit": "npm run prettier && npm run lint",

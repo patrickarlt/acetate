@@ -5,6 +5,25 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v1.3.5...master)
 
+## [2.0.0-rc.2] - Unreleased
+
+### Breaking Changes
+
+* `acetate.generate` has changed. Previously `acetate.generate` accepted a function with the following signature `function (pages, createPage, callback) { }`. This signate is now `function (createPage, callback) { }`. You will no longer recive an array of pages in your generator function.
+
+### Additions
+
+* Options for `acetate.load` now accepts a `basePath` option which will prepend a path to all pages loaded by that loader. For example:
+
+  ```js
+  acetate.load("**/*.+(md|html)", {
+    basePath: 'doc'
+  });
+  ```
+
+  Will cause all pages to have `/doc/` prepended to their URLs and be output to the `/doc` folder when building.
+* A new config method `acetate.symlink(src, dest)` will create a symlink from a `src` directory, relative to `acetate.root` (usually `process.cwd()`) to a destination directory in your source folder. This should allow you to easily bring external directories into your acetate site, for example you could `acetate.symlink` a Git submodule.
+
 ## [2.0.0-rc.1] - 2017-07-22
 
 ### Major Architechure Changes
@@ -12,7 +31,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * The development server now only transforms the requested pages rather then transforming the entire site. The leads to greatly improved rendering times.
 * The `Renderer`, `Transformer`, and `Loader` classed used by the `Acetate` class have all been refactored directly into the main `Acetate` class.
 
-### Breaking changes
+### Breaking Changes
 
 * Logging methods (`log`, `info`, `debug`, 'success', `error`, `time`, and `timeEnd`) are no longer on instances of `Acetate`. They are available on under `acetate.log` object. You will need to make the following changes:
    * `acetate.log(/* ... */)` => `acetate.log.log(/* ... */)`
@@ -27,6 +46,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * `acetate.transformAll` and `acetate.transformAllAsync` have been removed. Removal of these funcations allows for the performance improvments in the development server.
 * The [MarkdownIt](https://markdown-it.github.io/markdown-it/) instance at `acetate.renderer.markdown` has been moved to `acetate.markdown`.
 * The [Nunjucks environment](https://mozilla.github.io/nunjucks/api.html#environment) instance at `acetate.renderer.nunjucks` has been moved to `acetate.nunjucks`.
+* `acetate.load` now accepts an options object with the following signateure `{ignore: ['glob'], metadata: {}}`. `ignore` will be an array of globs that this loader will ignore, and `metadata` will be the default metadata assigned to every page.
+* Use of `prettyURL` in page metadata has been removed. If you want to disable prettification of URLs you need to set `prettyURL` in the `metadata` option of `acetate.load` (see above).
 
 ## [1.3.5] - 2017-06-16
 

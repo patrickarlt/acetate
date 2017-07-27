@@ -41,6 +41,102 @@ test("load pages with a glob and default metadata", t => {
   });
 });
 
+test("load pages with a glob and a basePath", t => {
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "loader-basic",
+    log: "silent",
+    config: false
+  });
+
+  acetate.load("**/*.+(md|html)", {
+    basePath: "javascript"
+  });
+
+  return acetate.getPages().then(pages => {
+    t.is(pages[0].url, "/javascript/");
+  });
+});
+
+test("should load directories with symlinks", t => {
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "loader-basic",
+    log: "silent",
+    config: false
+  });
+
+  acetate.load("**/*.+(md|html)");
+
+  acetate.symlink("create-page", "external");
+
+  return acetate.getPages().then(pages => {
+    const page = pages.find(page => page.src === "external/page.html");
+    t.is(page.src, "external/page.html");
+  });
+});
+
+test("should use an arbitrary function to generate pages", t => {
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "loader-basic",
+    log: "silent",
+    config: false
+  });
+
+  acetate.generate((createPage, callback) => {
+    const page = createPage("index.html", "Home", {
+      foo: "bar"
+    });
+
+    callback(null, [page]);
+  });
+
+  return acetate.getPages().then(pages => {
+    t.is(pages[0].foo, "bar");
+  });
+});
+
+test("should throw an error if there is an error in a generator function", t => {
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "loader-basic",
+    log: "silent",
+    config: false
+  });
+
+  acetate.generate((createPage, callback) => {
+    const page = createPage("index.html", "Home", {
+      foo: bar // eslint-disable-line
+    });
+
+    callback(null, [page]);
+  });
+
+  return t.throws(acetate.getPages()).then(e => {
+    t.is(e.name, "ReferenceError");
+    t.is(e.message, "bar is not defined");
+  });
+});
+
+test("should throw an error if there is an error passed to the callback in a generator function", t => {
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "loader-basic",
+    log: "silent",
+    config: false
+  });
+
+  acetate.generate((createPage, callback) => {
+    callback(new Error("Foo"));
+  });
+
+  return t.throws(acetate.getPages()).then(e => {
+    t.is(e.name, "Error");
+    t.is(e.message, "Foo");
+  });
+});
+
 test("should throw if there is an error loading any page", t => {
   const acetate = new Acetate({
     root: t.context.temp,
@@ -73,24 +169,27 @@ test.cb("the watcher should add pages when they are created", t => {
 
   acetate.load("**/*.+(md|html)");
 
-  acetate.getPages().then(function () {
-    acetate.once("watcher:add", (page) => {
+  acetate.getPages().then(function() {
+    acetate.once("watcher:add", page => {
       acetate.stopWatcher();
 
       t.is(page.src, "addition.html");
       t.is(page.template, "File Added");
 
-      acetate.getPages().then(pages => {
-        t.is(pages.length, 2);
-        t.end();
-      }).catch((error) => {
-        t.fail(error);
-        t.end();
-      });
+      acetate
+        .getPages()
+        .then(pages => {
+          t.is(pages.length, 2);
+          t.end();
+        })
+        .catch(error => {
+          t.fail(error);
+          t.end();
+        });
     });
 
     acetate.once("watcher:ready", () => {
-      fs.writeFile(addition, "File Added", function (error) {
+      fs.writeFile(addition, "File Added", function(error) {
         if (error) {
           t.fail(error);
           t.end();
@@ -119,23 +218,26 @@ test.cb("the watcher should use default metadata when pages are created", t => {
     }
   });
 
-  acetate.getPages().then(function () {
-    acetate.once("watcher:add", (page) => {
+  acetate.getPages().then(function() {
+    acetate.once("watcher:add", page => {
       acetate.stopWatcher();
       t.is(page.foo, "bar");
 
-      acetate.getPages().then(pages => {
-        t.is(pages.length, 2);
-        t.is(pages[1].foo, "bar");
-        t.end();
-      }).catch((error) => {
-        t.fail(error);
-        t.end();
-      });
+      acetate
+        .getPages()
+        .then(pages => {
+          t.is(pages.length, 2);
+          t.is(pages[1].foo, "bar");
+          t.end();
+        })
+        .catch(error => {
+          t.fail(error);
+          t.end();
+        });
     });
 
     acetate.once("watcher:ready", () => {
-      fs.writeFile(addition, "File Added", function (error) {
+      fs.writeFile(addition, "File Added", function(error) {
         if (error) {
           t.fail(error);
           t.end();
@@ -160,22 +262,25 @@ test.cb("the watcher should update pages when they are changed", t => {
 
   acetate.load("**/*.+(md|html)");
 
-  acetate.getPages().then(function () {
-    acetate.once("watcher:change", (page) => {
+  acetate.getPages().then(function() {
+    acetate.once("watcher:change", page => {
       acetate.stopWatcher();
       t.is(page.src, "index.html");
       t.is(page.template, "<h1>Index Changed</h1>");
-      acetate.getPages().then(pages => {
-        t.is(pages.length, 1);
-        t.end();
-      }).catch((error) => {
-        t.fail(error);
-        t.end();
-      });
+      acetate
+        .getPages()
+        .then(pages => {
+          t.is(pages.length, 1);
+          t.end();
+        })
+        .catch(error => {
+          t.fail(error);
+          t.end();
+        });
     });
 
     acetate.once("watcher:ready", () => {
-      fs.writeFile(change, "<h1>Index Changed</h1>", function (error) {
+      fs.writeFile(change, "<h1>Index Changed</h1>", function(error) {
         if (error) {
           t.fail(error);
           t.end();
@@ -187,50 +292,56 @@ test.cb("the watcher should update pages when they are changed", t => {
   });
 });
 
-test.cb("the watcher should preserve default metadata when pages are changed", t => {
-  const sourceDir = path.join(t.context.temp, "loader-basic");
-  const change = path.join(sourceDir, "index.html");
+test.cb(
+  "the watcher should preserve default metadata when pages are changed",
+  t => {
+    const sourceDir = path.join(t.context.temp, "loader-basic");
+    const change = path.join(sourceDir, "index.html");
 
-  const acetate = new Acetate({
-    root: t.context.temp,
-    sourceDir: "loader-basic",
-    log: "silent",
-    config: false
-  });
+    const acetate = new Acetate({
+      root: t.context.temp,
+      sourceDir: "loader-basic",
+      log: "silent",
+      config: false
+    });
 
-  acetate.load("**/*.+(md|html)", {
-    metadata: {
-      foo: "bar"
-    }
-  });
+    acetate.load("**/*.+(md|html)", {
+      metadata: {
+        foo: "bar"
+      }
+    });
 
-  acetate.getPages().then(function () {
-    acetate.once("watcher:change", (page) => {
-      acetate.stopWatcher();
+    acetate.getPages().then(function() {
+      acetate.once("watcher:change", page => {
+        acetate.stopWatcher();
 
-      t.is(page.foo, "bar");
-
-      acetate.getPages().then(pages => {
         t.is(page.foo, "bar");
-        t.end();
-      }).catch((error) => {
-        t.fail(error);
-        t.end();
-      });
-    });
 
-    acetate.once("watcher:ready", () => {
-      fs.writeFile(change, "<h1>Index Changed</h1>", function (error) {
-        if (error) {
-          t.fail(error);
-          t.end();
-        }
+        acetate
+          .getPages()
+          .then(pages => {
+            t.is(page.foo, "bar");
+            t.end();
+          })
+          .catch(error => {
+            t.fail(error);
+            t.end();
+          });
       });
-    });
 
-    acetate.startWatcher();
-  });
-});
+      acetate.once("watcher:ready", () => {
+        fs.writeFile(change, "<h1>Index Changed</h1>", function(error) {
+          if (error) {
+            t.fail(error);
+            t.end();
+          }
+        });
+      });
+
+      acetate.startWatcher();
+    });
+  }
+);
 
 test.cb("the watcher should remove pages when they are deleted", t => {
   const sourceDir = path.join(t.context.temp, "loader-basic");
@@ -245,9 +356,9 @@ test.cb("the watcher should remove pages when they are deleted", t => {
 
   acetate.load("**/*.+(md|html)");
 
-  acetate.getPages().then(function () {
+  acetate.getPages().then(function() {
     acetate.once("watcher:ready", () => {
-      fs.unlink(remove, function (error) {
+      fs.unlink(remove, function(error) {
         if (error) {
           t.fail(error);
           t.end();
@@ -255,37 +366,42 @@ test.cb("the watcher should remove pages when they are deleted", t => {
       });
     });
 
-    acetate.once("watcher:delete", (page) => {
+    acetate.once("watcher:delete", page => {
       acetate.stopWatcher();
       t.is(page.src, "index.html");
       t.is(page.template, "<h1>index.html</h1>");
-      acetate.getPages().then(pages => {
-        t.is(pages.length, 0);
-        t.end();
-      }).catch((error) => {
-        t.fail(error);
-        t.end();
-      });
+      acetate
+        .getPages()
+        .then(pages => {
+          t.is(pages.length, 0);
+          t.end();
+        })
+        .catch(error => {
+          t.fail(error);
+          t.end();
+        });
     });
 
     acetate.startWatcher();
   });
 });
 
-test.cb("the watcher should emit an error if there is an error loading pages", t => {
-  const sourceDir = path.join(t.context.temp, "loader-basic");
-  const change = path.join(sourceDir, "index.html");
+test.cb(
+  "the watcher should emit an error if there is an error loading pages",
+  t => {
+    const sourceDir = path.join(t.context.temp, "loader-basic");
+    const change = path.join(sourceDir, "index.html");
 
-  const acetate = new Acetate({
-    root: t.context.temp,
-    sourceDir: "loader-basic",
-    log: "silent",
-    config: false
-  });
+    const acetate = new Acetate({
+      root: t.context.temp,
+      sourceDir: "loader-basic",
+      log: "silent",
+      config: false
+    });
 
-  acetate.load("**/*.+(md|html)");
+    acetate.load("**/*.+(md|html)");
 
-  const template = stripIndent`
+    const template = stripIndent`
     ---
     foo: bar
     foo: baz
@@ -294,29 +410,30 @@ test.cb("the watcher should emit an error if there is an error loading pages", t
     '<h1>Index Changed</h1>'
   `;
 
-  acetate.getPages().then(function () {
-    acetate.once("watcher:error", (e) => {
-      acetate.stopWatcher();
-      t.is(e.error.name, "MetadataParseError");
-      t.is(e.error.message, "duplicated mapping key at index.html(2:0)");
-      t.is(e.error.line, 2);
-      t.is(e.error.column, 0);
-      t.is(e.error.file, "index.html");
-      t.end();
-    });
-
-    acetate.once("watcher:ready", () => {
-      fs.writeFile(change, template, function (error) {
-        if (error) {
-          t.fail(error);
-          t.end();
-        }
+    acetate.getPages().then(function() {
+      acetate.once("watcher:error", e => {
+        acetate.stopWatcher();
+        t.is(e.error.name, "MetadataParseError");
+        t.is(e.error.message, "duplicated mapping key at index.html(2:0)");
+        t.is(e.error.line, 2);
+        t.is(e.error.column, 0);
+        t.is(e.error.file, "index.html");
+        t.end();
       });
-    });
 
-    acetate.startWatcher();
-  });
-});
+      acetate.once("watcher:ready", () => {
+        fs.writeFile(change, template, function(error) {
+          if (error) {
+            t.fail(error);
+            t.end();
+          }
+        });
+      });
+
+      acetate.startWatcher();
+    });
+  }
+);
 
 test.cb("should emit an add event when a potential template is added", t => {
   const sourceDir = path.join(t.context.temp, "loader-basic");
@@ -331,14 +448,14 @@ test.cb("should emit an add event when a potential template is added", t => {
 
   acetate.load("**/*.+(md|html)");
 
-  acetate.getPages().then(function () {
-    acetate.once("watcher:template:add", (page) => {
+  acetate.getPages().then(function() {
+    acetate.once("watcher:template:add", page => {
       acetate.stopWatcher();
       t.end();
     });
 
     acetate.once("watcher:ready", () => {
-      fs.writeFile(addition, "File Added", function (error) {
+      fs.writeFile(addition, "File Added", function(error) {
         if (error) {
           t.fail(error);
           t.end();
@@ -363,14 +480,14 @@ test.cb("should emit a change event when a potential template is edited", t => {
 
   acetate.load("**/*.+(md|html)");
 
-  acetate.getPages().then(function () {
-    acetate.once("watcher:template:change", (page) => {
+  acetate.getPages().then(function() {
+    acetate.once("watcher:template:change", page => {
       acetate.stopWatcher();
       t.end();
     });
 
     acetate.once("watcher:ready", () => {
-      fs.writeFile(change, "File Changed", function (error) {
+      fs.writeFile(change, "File Changed", function(error) {
         if (error) {
           t.fail(error);
           t.end();
@@ -395,14 +512,14 @@ test.cb("should emit a delete event when a potential template is edited", t => {
 
   acetate.load("**/*.+(md|html)");
 
-  acetate.getPages().then(function () {
-    acetate.once("watcher:template:delete", (page) => {
+  acetate.getPages().then(function() {
+    acetate.once("watcher:template:delete", page => {
       acetate.stopWatcher();
       t.end();
     });
 
     acetate.once("watcher:ready", () => {
-      fs.unlink(remove, function (error) {
+      fs.unlink(remove, function(error) {
         if (error) {
           t.fail(error);
           t.end();
