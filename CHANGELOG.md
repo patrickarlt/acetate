@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v1.3.5...master)
 
-## [2.0.0-rc.2] - Unreleased
+## [2.0.0-rc.2] - 2017-07-27
 
 ### Breaking Changes
 
@@ -383,3 +383,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [1.3.3]:https://github.com/patrickarlt/acetate/compare/v1.3.2...v1.3.3
 [1.3.4]:https://github.com/patrickarlt/acetate/compare/v1.3.3...v1.3.4
 [1.3.5]:https://github.com/patrickarlt/acetate/compare/v1.3.4...v1.3.5
+[2.0.0-rc.1]:https://github.com/patrickarlt/acetate/compare/v1.3.5...2.0.0-rc.1
+[2.0.0-rc.2]:https://github.com/patrickarlt/acetate/compare/2.0.0-rc.1...2.0.0-rc.2
