@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v1.3.5...master)
 
+## [2.0.0-rc.3] - 2017-07-28
+
+### Fixes
+
+* Fix `ignore` option in loader
+
 ## [2.0.0-rc.2] - 2017-07-27
 
 ### Breaking Changes
