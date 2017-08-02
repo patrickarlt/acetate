@@ -78,7 +78,7 @@
     "prepublish": "npm test",
     "release": "npm publish && gh-release",
     "pretest": "npm run clean:fixtures && npm run lint",
-    "test": "ava test/*.test.js",
+    "test": "ava test/*.test.js --verbose --serial",
     "test:coverage": "nyc --reporter text --reporter html --require babel-register ava test/*.test.js ",
     "precommit": "npm run prettier && npm run lint",
     "prepush": "npm test",
