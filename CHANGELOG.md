@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v1.3.5...master)
 
+## [2.0.0-rc.4] - 2017-08-11
+
+### Changed
+
+* Templates for pages in `src` and dymanically created pages that were created `createPage.fromTemplate()` will now be reloaded from disk every time they are requested in from the dev server.
+
 ## [2.0.0-rc.3] - 2017-07-28
 
 ### Fixes
