@@ -149,9 +149,9 @@ test("should throw if there is an error loading any page", t => {
 
   return t.throws(acetate.getPages()).then(e => {
     t.is(e.name, "MetadataParseError");
-    t.is(e.message, "duplicated mapping key at index.html(2:0)");
-    t.is(e.line, 2);
-    t.is(e.column, 0);
+    t.is(e.message, `duplicated mapping key at index.html(${e.line}:${e.column})`);
+    t.is(typeof e.line, 'number');
+    t.is(typeof e.column, 'number');
     t.is(e.file, "index.html");
   });
 });
@@ -414,9 +414,9 @@ test.cb(
       acetate.once("watcher:error", e => {
         acetate.stopWatcher();
         t.is(e.error.name, "MetadataParseError");
-        t.is(e.error.message, "duplicated mapping key at index.html(2:0)");
-        t.is(e.error.line, 2);
-        t.is(e.error.column, 0);
+        t.is(e.error.message, `duplicated mapping key at index.html(${e.error.line}:${e.error.column})`);
+        t.is(typeof e.error.line, 'number');
+        t.is(typeof e.error.column, 'number');
         t.is(e.error.file, "index.html");
         t.end();
       });
