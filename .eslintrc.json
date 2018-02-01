@@ -4,13 +4,6 @@
     "node": true,
     "browser": true
   },
-  "extends": [
-    "eslint:recommended",
-    "semistandard"
-  ],
-  "rules": {
-    "indent": [2, 2],
-    "quotes": [2, "single"],
-    "semi": [2, "always"]
-  }
+  "extends": ["eslint:recommended", "semistandard", "prettier"],
+  "plugins": ["prettier"]
 }

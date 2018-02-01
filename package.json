@@ -19,6 +19,8 @@
     "chokidar": "^1.5.1",
     "common-tags": "^1.2.0",
     "es6-promisify": "^5.0.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.5.0",
     "glob": "^7.0.3",
     "highlight.js": "^9.9.0",
     "js-yaml": "^3.6.1",
@@ -30,6 +32,7 @@
     "normalize-newline": "^3.0.0",
     "normalize-url": "^1.5.2",
     "nunjucks": "^3.0.0",
+    "prettier": "^1.10.2",
     "pretty-hrtime": "^1.0.2",
     "yargs": "^6.6.0"
   },
