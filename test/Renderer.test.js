@@ -423,8 +423,12 @@ test("should use a custom syntax highlighter code blocks", t => {
   });
 
   renderer.hljs = {
-    highlight: s => s,
-    highlightAuto: s => s
+    highlight: (lang, body) => {
+      return { language: lang, value: body };
+    },
+    highlightAuto: body => {
+      return { language: undefined, value: body };
+    }
   };
 
   const template = stripIndent`
