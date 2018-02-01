@@ -4,9 +4,6 @@
     "node": true,
     "browser": true
   },
-  "extends": [
-    "eslint:recommended",
-    "semistandard",
-    "prettier"
-  ]
+  "extends": ["eslint:recommended", "semistandard", "prettier"],
+  "plugins": ["prettier"]
 }
