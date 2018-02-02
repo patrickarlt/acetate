@@ -1,7 +1,7 @@
 module.exports = function (acetate) {
-  acetate.load('**/*');
+  acetate.load("**/*");
 
-  acetate.metadata('**/*', {
-    foo: 'foo'
+  acetate.metadata("**/*", {
+    foo: "foo"
   });
 };

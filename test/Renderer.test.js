@@ -1,7 +1,7 @@
 const test = require("ava");
 const path = require("path");
 const fs = require("fs");
-const Renderer = require("../lib/Renderer");
+const Acetate = require("../lib/Acetate");
 const createPage = require("../lib/createPage");
 const { createTempFixtures } = require("./util.js");
 const { stripIndent } = require("common-tags");
@@ -10,9 +10,11 @@ const sinon = require("sinon");
 test.beforeEach(createTempFixtures);
 
 test("should render a basic page", t => {
-  const renderer = new Renderer({
-    sourceDir: path.join(t.context.temp, "renderer"),
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -23,15 +25,17 @@ test("should render a basic page", t => {
     title: "Home"
   });
 
-  return renderer.renderPage(page).then(function(output) {
+  return acetate.renderPage(page).then(function(output) {
     t.is(output, "<h1>Home</h1>");
   });
 });
 
 test("should capture rendering errors and prettyify", t => {
-  const renderer = new Renderer({
-    sourceDir: path.join(t.context.temp, "renderer"),
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -42,7 +46,7 @@ test("should capture rendering errors and prettyify", t => {
     title: "Home"
   });
 
-  return t.throws(renderer.renderPage(page)).then(e => {
+  return t.throws(acetate.renderPage(page)).then(e => {
     t.is(e.message, "expected variable end while rendering index.html(1:11)");
     t.is(e.name, "PageRenderError");
     t.is(e.file, "index.html");
@@ -52,9 +56,11 @@ test("should capture rendering errors and prettyify", t => {
 });
 
 test("should be able to use {% include %} to include other pages", t => {
-  const renderer = new Renderer({
-    sourceDir: path.join(t.context.temp, "renderer"),
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -63,15 +69,17 @@ test("should be able to use {% include %} to include other pages", t => {
 
   const page = createPage("index.html", template);
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, "Partial");
   });
 });
 
 test("extension on {% include %} should be optional", t => {
-  const renderer = new Renderer({
-    sourceDir: path.join(t.context.temp, "renderer"),
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -80,15 +88,17 @@ test("extension on {% include %} should be optional", t => {
 
   const page = createPage("index.html", template);
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, "Partial");
   });
 });
 
 test("should be able to use {% import %} to include exports from other templates", t => {
-  const renderer = new Renderer({
-    sourceDir: path.join(t.context.temp, "renderer"),
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -98,15 +108,17 @@ test("should be able to use {% import %} to include exports from other templates
 
   const page = createPage("index.html", template);
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, "bar");
   });
 });
 
 test("should handle other Errors that get thrown in templates", t => {
-  const renderer = new Renderer({
-    sourceDir: path.join(t.context.temp, "renderer"),
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -118,7 +130,7 @@ test("should handle other Errors that get thrown in templates", t => {
     title: "Home"
   });
 
-  return t.throws(renderer.renderPage(page)).then(e => {
+  return t.throws(acetate.renderPage(page)).then(e => {
     t.is(
       e.message,
       "TemplateNotFoundError: could not find template matching _does-not-exist.html (tried _does-not-exist.html) while rendering index.html"
@@ -128,9 +140,11 @@ test("should handle other Errors that get thrown in templates", t => {
 });
 
 test("should register a prerendering function", t => {
-  const renderer = new Renderer({
-    sourceDir: path.join(t.context.temp, "renderer"),
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -139,20 +153,22 @@ test("should register a prerendering function", t => {
 
   const page = createPage("index.html", template);
 
-  renderer.prerender("**/*", function(page, callback) {
+  acetate.prerender("**/*", function(page, callback) {
     page.title = "Home";
     callback(null, page);
   });
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, "<h1>Home</h1>");
   });
 });
 
 test("should not prerender if a page does not match", t => {
-  const renderer = new Renderer({
-    sourceDir: path.join(t.context.temp, "renderer"),
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -163,17 +179,19 @@ test("should not prerender if a page does not match", t => {
 
   const spy = sinon.spy();
 
-  renderer.prerender("no/match", spy);
+  acetate.prerender("no/match", spy);
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(spy.callCount, 0);
   });
 });
 
 test("should reject if prerender function calls back with an error", t => {
-  const renderer = new Renderer({
-    sourceDir: path.join(t.context.temp, "renderer"),
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -182,21 +200,23 @@ test("should reject if prerender function calls back with an error", t => {
 
   const page = createPage("index.html", template);
 
-  renderer.prerender("**/*", function(page, callback) {
+  acetate.prerender("**/*", function(page, callback) {
     process.nextTick(function() {
       callback("D'oh");
     });
   });
 
-  return t.throws(renderer.renderPage(page)).then(error => {
+  return t.throws(acetate.renderPage(page)).then(error => {
     t.is(error, "D'oh");
   });
 });
 
 test("should reject if there is an error thrown in a prerender function", t => {
-  const renderer = new Renderer({
-    sourceDir: path.join(t.context.temp, "renderer"),
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -205,21 +225,21 @@ test("should reject if there is an error thrown in a prerender function", t => {
 
   const page = createPage("index.html", template);
 
-  renderer.prerender("**/*", function(page, callback) {
+  acetate.prerender("**/*", function(page, callback) {
     throw new Error("D'oh");
   });
 
-  return t.throws(renderer.renderPage(page)).then(error => {
+  return t.throws(acetate.renderPage(page)).then(error => {
     t.is(error.message, "D'oh");
   });
 });
 
 test.cb("should be able to invalidate a template", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -228,32 +248,36 @@ test.cb("should be able to invalidate a template", t => {
 
   const page = createPage("index.html", template);
 
-  renderer.renderPage(page).then(output => {
+  acetate.renderPage(page).then(output => {
     t.is(output, "Partial");
 
-    fs.writeFile(path.join(root, "_partial.html"), "Change", error => {
-      if (error) {
-        t.fail(error);
-        t.end();
-        throw error;
+    fs.writeFile(
+      path.join(t.context.temp, "renderer", "_partial.html"),
+      "Change",
+      error => {
+        if (error) {
+          t.fail(error);
+          t.end();
+          throw error;
+        }
+
+        acetate.invalidateTemplate("_partial");
+
+        acetate.renderPage(page).then(output => {
+          t.is(output, "Change");
+          t.end();
+        });
       }
-
-      renderer.invalidateTemplate("_partial");
-
-      renderer.renderPage(page).then(output => {
-        t.is(output, "Change");
-        t.end();
-      });
-    });
+    );
   });
 });
 
 test("should render a markdown page", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -262,17 +286,17 @@ test("should render a markdown page", t => {
 
   const page = createPage("index.md", template);
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, "<h1>Markdown</h1>");
   });
 });
 
 test("should still interpolate variables in a markdown page", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -283,17 +307,17 @@ test("should still interpolate variables in a markdown page", t => {
     title: "Markdown"
   });
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, "<h1>Markdown</h1>");
   });
 });
 
 test("should render a markdown page in a layout", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -311,17 +335,17 @@ test("should render a markdown page in a layout", t => {
     layout: "_layout:main"
   });
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, expected);
   });
 });
 
 test("should render a page in a layout", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -339,17 +363,17 @@ test("should render a page in a layout", t => {
     layout: "_layout:main"
   });
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, expected);
   });
 });
 
 test.cb("should capture errors when rendering with a layout", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -361,7 +385,7 @@ test.cb("should capture errors when rendering with a layout", t => {
     layout: "_layout-error:main"
   });
 
-  t.throws(renderer.renderPage(page)).then(error => {
+  t.throws(acetate.renderPage(page)).then(error => {
     t.is(
       error.toString(),
       "PageRenderError: expected block end in < statement while rendering _layout-error.html(4:2)"
@@ -371,11 +395,11 @@ test.cb("should capture errors when rendering with a layout", t => {
 });
 
 test("should syntax highlight code blocks", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
   const template = stripIndent`
@@ -409,25 +433,31 @@ test("should syntax highlight code blocks", t => {
 
   const page = createPage("index.md", template);
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, expected);
   });
 });
 
-test("should use a custom syntax highlighter code blocks", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+test("should syntax highlight code blocks with a custom highlighter", t => {
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
-  renderer.hljs = {
+  acetate.highlight = {
     highlight: (lang, body) => {
-      return { language: lang, value: body };
+      return {
+        language: "foo",
+        value: "bar"
+      };
     },
     highlightAuto: body => {
-      return { language: undefined, value: body };
+      return {
+        language: "foo",
+        value: "bar"
+      };
     }
   };
 
@@ -435,47 +465,28 @@ test("should use a custom syntax highlighter code blocks", t => {
     \`\`\`
     var foo = bar;
     \`\`\`
-
-    \`\`\`js
-    var foo = bar;
-    \`\`\`
-
-    \`\`\`plain
-    var foo = bar;
-    \`\`\`
-
-    \`\`\`text
-    var foo = bar;
-    \`\`\`
   `;
 
   const expected = stripIndent`
-    <pre><code>var foo = bar;
-    </code></pre>
-    <pre><code class="js">var foo = bar;
-    </code></pre>
-    <pre><code class="plain">var foo = bar;
-    </code></pre>
-    <pre><code class="text">var foo = bar;
-    </code></pre>
+    <pre><code>bar</code></pre>
   `;
 
   const page = createPage("index.md", template);
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, expected);
   });
 });
 
 test("should register a custom helper that can be used in templates", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
-  renderer.helper("title", function(context, prefix) {
+  acetate.helper("title", function(context, prefix) {
     return `${prefix} | ${context.page.title}`;
   });
 
@@ -487,20 +498,20 @@ test("should register a custom helper that can be used in templates", t => {
     title: "Home"
   });
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, "My Site | Home");
   });
 });
 
 test("should pass options with defaults to helpers", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
-  renderer.helper(
+  acetate.helper(
     "link",
     function(context, url, text) {
       t.is(context.options.class, "acetate-link");
@@ -530,20 +541,20 @@ test("should pass options with defaults to helpers", t => {
     url: "/"
   });
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, '<a href="/" class="acetate-link active">Home</a>');
   });
 });
 
 test("should be able to handle errors thrown in custom helpers", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
-  renderer.helper("throw", function() {
+  acetate.helper("throw", function() {
     return nope.nope; // eslint-disable-line
   });
 
@@ -555,7 +566,7 @@ test("should be able to handle errors thrown in custom helpers", t => {
     url: "/"
   });
 
-  return t.throws(renderer.renderPage(page)).then(error => {
+  return t.throws(acetate.renderPage(page)).then(error => {
     t.regex(
       error.message,
       /CustomHelperError: error in custom helper `throw`: ReferenceError nope is not defined at .+\(\d+:\d+\) while rendering index\.html/
@@ -564,14 +575,14 @@ test("should be able to handle errors thrown in custom helpers", t => {
 });
 
 test("should register a custom block that can be used in templates", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
-  renderer.block(
+  acetate.block(
     "codeblock",
     function(context, body, highlightAs) {
       t.is(context.options.classes, "javascript");
@@ -593,20 +604,20 @@ test("should register a custom block that can be used in templates", t => {
 
   const page = createPage("index.html", template);
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, "<pre><code class=javascript>var foo = 'bar';</pre></code>");
   });
 });
 
 test("should register a custom filter that can be used in templates", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
-  renderer.filter("strong", function(value) {
+  acetate.filter("strong", function(value) {
     return `<strong>${value}</strong>`;
   });
 
@@ -616,20 +627,20 @@ test("should register a custom filter that can be used in templates", t => {
 
   const page = createPage("index.html", template);
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, "<strong>foo</strong>");
   });
 });
 
 test("should allow passing arguments in filters", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
-  renderer.filter("wrapInTag", function(value, tag) {
+  acetate.filter("wrapInTag", function(value, tag) {
     return `<${tag}>${value}</${tag}>`;
   });
 
@@ -639,20 +650,20 @@ test("should allow passing arguments in filters", t => {
 
   const page = createPage("index.html", template);
 
-  return renderer.renderPage(page).then(output => {
+  return acetate.renderPage(page).then(output => {
     t.is(output, "<strong>foo</strong>");
   });
 });
 
 test("should catch errors in custom filters", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
-  renderer.filter("throw", function() {
+  acetate.filter("throw", function() {
     return nope.nope; // eslint-disable-line
   });
 
@@ -662,7 +673,7 @@ test("should catch errors in custom filters", t => {
 
   const page = createPage("index.html", template);
 
-  return t.throws(renderer.renderPage(page)).then(error => {
+  return t.throws(acetate.renderPage(page)).then(error => {
     t.regex(
       error.message,
       /CustomHelperError: error in custom filter `throw`: ReferenceError nope is not defined at .+\(\d+:\d+\) while rendering index\.html/
@@ -671,14 +682,14 @@ test("should catch errors in custom filters", t => {
 });
 
 test("should register global variables", t => {
-  const root = path.join(t.context.temp, "renderer");
-
-  const renderer = new Renderer({
-    sourceDir: root,
-    log: "silent"
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "renderer",
+    log: "silent",
+    config: false
   });
 
-  renderer.global("foo", "bar");
+  acetate.global("foo", "bar");
 
   const template = stripIndent`
     {{ foo }}
@@ -686,7 +697,7 @@ test("should register global variables", t => {
 
   const page = createPage("index.html", template);
 
-  return renderer.renderPage(page).then(function(output) {
+  return acetate.renderPage(page).then(function(output) {
     t.is(output, "bar");
   });
 });

@@ -5,6 +5,69 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v1.3.5...master)
 
+## [2.0.0] - 2018-02-1
+
+* Custom `dest` and `url` properties are now respected by builds.
+* Headers on 404 page are now fixed
+* Default highlight.js instance is now exposed and can now be overwritten at `acetate.highlight`.
+
+## [2.0.0-rc.4] - 2017-08-11
+
+### Changed
+
+* Templates for pages in `src` and dymanically created pages that were created `createPage.fromTemplate()` will now be reloaded from disk every time they are requested in from the dev server.
+
+## [2.0.0-rc.3] - 2017-07-28
+
+### Fixes
+
+* Fix `ignore` option in loader
+
+## [2.0.0-rc.2] - 2017-07-27
+
+### Breaking Changes
+
+* `acetate.generate` has changed. Previously `acetate.generate` accepted a function with the following signature `function (pages, createPage, callback) { }`. This signate is now `function (createPage, callback) { }`. You will no longer recive an array of pages in your generator function.
+
+### Additions
+
+* Options for `acetate.load` now accepts a `basePath` option which will prepend a path to all pages loaded by that loader. For example:
+
+  ```js
+  acetate.load("**/*.+(md|html)", {
+    basePath: "doc"
+  });
+  ```
+
+  Will cause all pages to have `/doc/` prepended to their URLs and be output to the `/doc` folder when building.
+
+* A new config method `acetate.symlink(src, dest)` will create a symlink from a `src` directory, relative to `acetate.root` (usually `process.cwd()`) to a destination directory in your source folder. This should allow you to easily bring external directories into your acetate site, for example you could `acetate.symlink` a Git submodule.
+
+## [2.0.0-rc.1] - 2017-07-22
+
+### Major Architechure Changes
+
+* The development server now only transforms the requested pages rather then transforming the entire site. The leads to greatly improved rendering times.
+* The `Renderer`, `Transformer`, and `Loader` classed used by the `Acetate` class have all been refactored directly into the main `Acetate` class.
+
+### Breaking Changes
+
+* Logging methods (`log`, `info`, `debug`, 'success', `error`, `time`, and `timeEnd`) are no longer on instances of `Acetate`. They are available on under `acetate.log` object. You will need to make the following changes:
+  * `acetate.log(/* ... */)` => `acetate.log.log(/* ... */)`
+  * `acetate.info(/* ... */)` => `acetate.log.info(/* ... */)`
+  * `acetate.debug(/* ... */)` => `acetate.log.debug(/* ... */)`
+  * `acetate.success(/* ... */)` => `acetate.log.success(/* ... */)`
+  * `acetate.error(/* ... */)` => `acetate.log.error(/* ... */)`
+  * `acetate.time(/* ... */)` => `acetate.log.time(/* ... */)`
+  * `acetate.timeEnd(/* ... */)` => `acetate.log.timeEnd(/* ... */)`
+* `acetate.transformAync` has been removed. You can now use `acetate.transform` for the same purpose. You will need to make the following changes:
+  * `acetate.transformAsync(/* ... */)` => `acetate.transform(/* ... */)`.
+* `acetate.transformAll` and `acetate.transformAllAsync` have been removed. Removal of these funcations allows for the performance improvments in the development server.
+* The [MarkdownIt](https://markdown-it.github.io/markdown-it/) instance at `acetate.renderer.markdown` has been moved to `acetate.markdown`.
+* The [Nunjucks environment](https://mozilla.github.io/nunjucks/api.html#environment) instance at `acetate.renderer.nunjucks` has been moved to `acetate.nunjucks`.
+* `acetate.load` now accepts an options object with the following signateure `{ignore: ['glob'], metadata: {}}`. `ignore` will be an array of globs that this loader will ignore, and `metadata` will be the default metadata assigned to every page.
+* Use of `prettyURL` in page metadata has been removed. If you want to disable prettification of URLs you need to set `prettyURL` in the `metadata` option of `acetate.load` (see above).
+
 ## [1.3.5] - 2017-06-16
 
 ### Fixed
@@ -199,7 +262,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 * Extensions that are run inside extensions now run and execute after the extension that invoked them has finished.
 
-
 ## [0.4.0] - 2016-01-04
 
 ### Added
@@ -213,7 +275,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 * Console output from BrowserSync now has the `[Acetate]` prefix.
-* Tests now use [node-tap] (https://github.com/isaacs/node-tap)
+* Tests now use [node-tap](https://github.com/isaacs/node-tap)
 * Switch to [Coveralls.io](https://coveralls.io/github/patrickarlt/acetate) for code coverage reporting.
 * `acetate.helper` can now create helpers without arguments.
 
@@ -254,6 +316,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.2.1] - 2015-05-01
 
 ### Added
+
 * Lots of new tests. Test coverage should now be fairly high with only a few remaining edge cases
 * New `watcher:ready` event when the watcher starts watching files
 * New `watcher:start` event when the watcher starts
@@ -262,6 +325,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * New `page:clean` method for when a pages built output is deleted
 
 ### Changed
+
 * Improvements to `travis.yml`, readme and contributing guide.
 * Updated dependencies
 * Simplified framework for running tests and gathering coverage information
@@ -269,6 +333,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Previously `acetate.query(name, glob, builder)` and `acetate.transform(glob, transformer)` only accepted globs like `'**/*'` to filter there input. They can now accept functions like `function (page) { return page.transformMe; }` or simple objects `{ transformMe: true }` to filter pages before running the query or transform
 
 ### Fixed
+
 * It is not possible to run Acetate without a configuration file. Previously this worked but reported an error.
 * Edge cases with building pretty URLs for non HTML files have been fixed
 * Sever will now properly use a `404.html` page if it is present in your `src` folder.
@@ -277,38 +342,45 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.2.0] - 2015-04-25
 
 ### Changed
-- Large refactor to move to a factory based API and use composition to improve code clarity
-- `acetate.args` will no longer include Acetate command line arguments
-- The `options`, `args` `src`, `dest`, `root`, and `config` properties are now frozen and cannot be updated.
-- Update dependencies
+
+* Large refactor to move to a factory based API and use composition to improve code clarity
+* `acetate.args` will no longer include Acetate command line arguments
+* The `options`, `args` `src`, `dest`, `root`, and `config` properties are now frozen and cannot be updated.
+* Update dependencies
 
 ### Added
-- Additional CLI doc
-- Pages now have more public properties including `metadata` which is a read only copy of the metadata found in the file and `dirty` with will tell you if a page has changed since it was last built.
+
+* Additional CLI doc
+* Pages now have more public properties including `metadata` which is a read only copy of the metadata found in the file and `dirty` with will tell you if a page has changed since it was last built.
 
 ### Removed
-- Remove the `clean` option since it was buggy and did not operate how most people expect.
--
+
+* Remove the `clean` option since it was buggy and did not operate how most people expect.
+*
+
 ## [0.1.0] - 2015-04-17
 
 ### Added
-- tests for error handling
-- tests for edge cases in templates
-- tests for data loading
-- added release automation
-- added changelog
+
+* tests for error handling
+* tests for edge cases in templates
+* tests for data loading
+* added release automation
+* added changelog
 
 ### Changed
-- **BREAKING** `acetate.src` and `acetate.dest` are removed. Pass them as options or with the `-i` or `-o` flags on the command line
-- refactored error handling and logging to be more compact
-- refactored page loading to be simpler
-- move runner and CLI to event based system
+
+* **BREAKING** `acetate.src` and `acetate.dest` are removed. Pass them as options or with the `-i` or `-o` flags on the command line
+* refactored error handling and logging to be more compact
+* refactored page loading to be simpler
+* move runner and CLI to event based system
 
 ## 0.0.27 - 2015-04-13
 
 ### Added
-- Unit testing
-- Continuous integration
+
+* Unit testing
+* Continuous integration
 
 [0.1.0]: https://github.com/patrickarlt/acetate/compare/db93ca4703148fe1a962a8cc3ecca63ba19d08ed...v0.1.0
 [0.2.0]: https://github.com/patrickarlt/acetate/compare/v0.1.0...v0.2.0
@@ -327,15 +399,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.4.8]: https://github.com/patrickarlt/acetate/compare/v0.4.7...v0.4.8
 [0.4.9]: https://github.com/patrickarlt/acetate/compare/v0.4.8...v0.4.9
 [0.4.10]: https://github.com/patrickarlt/acetate/compare/v0.4.9...v0.4.10
-[0.4.11]:https://github.com/patrickarlt/acetate/compare/v0.4.10...v0.4.11
+[0.4.11]: https://github.com/patrickarlt/acetate/compare/v0.4.10...v0.4.11
 [1.0.0]: https://github.com/patrickarlt/acetate/compare/v0.4.11...v1.0.0
 [1.0.1]: https://github.com/patrickarlt/acetate/compare/v1.0.0...v1.0.1
 [1.0.2]: https://github.com/patrickarlt/acetate/compare/v1.0.1...v1.0.2
-[1.1.0]:https://github.com/patrickarlt/acetate/compare/v1.0.2...v1.1.0
-[1.1.1]:https://github.com/patrickarlt/acetate/compare/v1.1.0...v1.1.1
-[1.2.1]:https://github.com/patrickarlt/acetate/compare/v1.1.1...v1.2.1
-[1.3.1]:https://github.com/patrickarlt/acetate/compare/v1.2.1...v1.3.1
-[1.3.2]:https://github.com/patrickarlt/acetate/compare/v1.3.1...v1.3.2
-[1.3.3]:https://github.com/patrickarlt/acetate/compare/v1.3.2...v1.3.3
-[1.3.4]:https://github.com/patrickarlt/acetate/compare/v1.3.3...v1.3.4
-[1.3.5]:https://github.com/patrickarlt/acetate/compare/v1.3.4...v1.3.5
+[1.1.0]: https://github.com/patrickarlt/acetate/compare/v1.0.2...v1.1.0
+[1.1.1]: https://github.com/patrickarlt/acetate/compare/v1.1.0...v1.1.1
+[1.2.1]: https://github.com/patrickarlt/acetate/compare/v1.1.1...v1.2.1
+[1.3.1]: https://github.com/patrickarlt/acetate/compare/v1.2.1...v1.3.1
+[1.3.2]: https://github.com/patrickarlt/acetate/compare/v1.3.1...v1.3.2
+[1.3.3]: https://github.com/patrickarlt/acetate/compare/v1.3.2...v1.3.3
+[1.3.4]: https://github.com/patrickarlt/acetate/compare/v1.3.3...v1.3.4
+[1.3.5]: https://github.com/patrickarlt/acetate/compare/v1.3.4...v1.3.5
+[2.0.0-rc.1]: https://github.com/patrickarlt/acetate/compare/v1.3.5...2.0.0-rc.1
+[2.0.0-rc.2]: https://github.com/patrickarlt/acetate/compare/2.0.0-rc.1...2.0.0-rc.2

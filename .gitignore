@@ -31,3 +31,9 @@ node_modules
 # Test builds
 test/**/build/**/*
 test/**/output/**/*
+
+# NPM logs
+npm-debug.log?
+
+# Junk files
+.DS_Store
