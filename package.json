@@ -1,12 +1,10 @@
 {
   "name": "acetate",
   "description": "A layout and templating framework for static websites.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Patrick Arlt <patrick.arlt@gmail.com> (https://patrickarlt.com/)",
   "babel": {
-    "presets": [
-      "es2015"
-    ]
+    "presets": ["es2015"]
   },
   "bugs": {
     "url": "https://github.com/patrickarlt/acetate/issues/"
@@ -64,19 +62,11 @@
     "node": ">=6.0.0"
   },
   "homepage": "https://acetate.io",
-  "keywords": [
-    "site",
-    "static",
-    "template",
-    "templating"
-  ],
+  "keywords": ["site", "static", "template", "templating"],
   "license": "ISC",
   "main": "lib/Acetate.js",
   "nyc": {
-    "exclude": [
-      ".acetate_fixtures",
-      "test/**/*"
-    ]
+    "exclude": [".acetate_fixtures", "test/**/*"]
   },
   "repository": {
     "type": "git",
@@ -90,7 +80,8 @@
     "release": "npm publish && gh-release",
     "pretest": "npm run clean:fixtures && npm run lint",
     "test": "ava test/*.test.js --verbose --serial",
-    "test:coverage": "nyc --reporter text --reporter html --require babel-register ava test/*.test.js ",
+    "test:coverage":
+      "nyc --reporter text --reporter html --require babel-register ava test/*.test.js ",
     "precommit": "npm run prettier && npm run lint",
     "prepush": "npm test",
     "prettier": "prettier --write \"{lib,src}/**/*.js\""
