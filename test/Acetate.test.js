@@ -313,7 +313,6 @@ test("should create anchors code with a built in helper", t => {
     {% link '/nested/', 'Page', currentUrl='/' %}
     {% link '/nested/', 'Page', currentUrl='/nested/' %}
     {% link relativePath + '/nested/page/', 'Link With relativePath' %}
-
     `;
 
   const page = createPage("nested/page/index.html", template);
