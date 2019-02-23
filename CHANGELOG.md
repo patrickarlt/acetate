@@ -3,7 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v1.3.5...master)
+[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v2.0.3...master)
+
+## [2.0.3] - 2019-02-23
+
+- The `{$% link %}` helper no longer internal resolves pages.
+- When linking page like `{% link relativePath + '/nested/page/', 'Link With relativePath' %}` the `activeClass` is properly applied.
+- Links like `{% link '/nested/page#team', 'Team' %}` now have a trailing slash applied to the path
+- Add a new `startPath` option to the CLI.
 
 ## [2.0.2] - 2018-07-31
 
