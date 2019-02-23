@@ -311,7 +311,8 @@ test("should create anchors code with a built in helper", t => {
     {% link '/', 'Home', currentUrl='/nested/' %}
     {% link '/nested/', 'Page', currentUrl='/' %}
     {% link '/nested/', 'Page', currentUrl='/nested/' %}
-  `;
+    {% link relativePath + '/nested/page/', 'Backtracked Page' %}
+    `;
 
   const page = createPage("nested/page/index.html", template);
 
@@ -319,9 +320,9 @@ test("should create anchors code with a built in helper", t => {
     <a href="/">Home</a>
     <a href="/" data-foo="Foo" data-bar="Bar">Home</a>
     <a href="/" id="logo" class="nav-link">Home</a>
-    <a href="/nested/" class="is-active">Back</a>
-    <a href="/nested/" class="is-active back-link">Back</a>
-    <a href="/nested/" class="active back-link">Back</a>
+    <a href="../" class="is-active">Back</a>
+    <a href="../" class="is-active back-link">Back</a>
+    <a href="../" class="active back-link">Back</a>
     <a href="/nested/">Back</a>
     <a href="/nested/page/" class="is-active">Page</a>
     <a href="http://example.com" class="external-link">Example</a>
@@ -333,6 +334,7 @@ test("should create anchors code with a built in helper", t => {
     <a href="/">Home</a>
     <a href="/nested/">Page</a>
     <a href="/nested/" class="is-active">Page</a>
+    <a href="../../nested/page/" class="is-active">Backtracked Page</a>
   `;
 
   return acetate.renderPage(page).then(output => {
