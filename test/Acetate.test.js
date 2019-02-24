@@ -313,6 +313,7 @@ test("should create anchors code with a built in helper", t => {
     {% link '/nested/', 'Page', currentUrl='/' %}
     {% link '/nested/', 'Page', currentUrl='/nested/' %}
     {% link relativePath + '/nested/page/', 'Link With relativePath' %}
+    {% link '../../../latest/guide/', 'Guide', currentUrl='/latest/guide/create-a-starter-app/' %}
     `;
 
   const page = createPage("nested/page/index.html", template);
@@ -337,6 +338,7 @@ test("should create anchors code with a built in helper", t => {
     <a href="/nested/">Page</a>
     <a href="/nested/" class="is-active">Page</a>
     <a href="../../nested/page/" class="is-active">Link With relativePath</a>
+    <a href="../../../latest/guide/" class="is-active">Guide</a>
   `;
 
   return acetate.renderPage(page).then(output => {
