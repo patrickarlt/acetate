@@ -1,5 +1,5 @@
 const path = require("path");
-const uuid = require("node-uuid");
+const uuid = require("uuid/v1");
 const promisify = require("es6-promisify");
 
 const copy = promisify(require("ncp").ncp);
