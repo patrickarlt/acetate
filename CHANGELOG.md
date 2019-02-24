@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v2.0.3...master)
 
+## [2.0.5] - 2019-02-24
+
+- Changes to `ignore`, `dest` and `url` are now respected when set in transforms.
+
 ## [2.0.4] - 2019-02-23
 
 - Check the resolved version of the pathname inside the `{% link %}` helper to determine if the `is-active` class should be applied.
