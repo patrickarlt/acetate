@@ -313,9 +313,8 @@ test("should still interpolate variables in a markdown page", t => {
     t.is(
       output,
       stripIndent`
-      <h1>Markdown</h1>
-
-      <p><a href="../page.html">Test</a></p>
+        <h1>Markdown</h1>
+        <p><a href="../page.html">Test</a></p>
     `
     );
   });
