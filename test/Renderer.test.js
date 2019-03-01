@@ -301,14 +301,23 @@ test("should still interpolate variables in a markdown page", t => {
 
   const template = stripIndent`
     # {{title}}
+
+    [Test]({{relativePath}}/page.html)
   `;
 
-  const page = createPage("index.md", template, {
+  const page = createPage("test/index.md", template, {
     title: "Markdown"
   });
 
   return acetate.renderPage(page).then(output => {
-    t.is(output, "<h1>Markdown</h1>");
+    t.is(
+      output,
+      stripIndent`
+      <h1>Markdown</h1>
+
+      <p><a href="../page.html">Test</a></p>
+    `
+    );
   });
 });
 
