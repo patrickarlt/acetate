@@ -19,6 +19,7 @@
     "common-tags": "^1.8.0",
     "es6-promisify": "^5.0.0",
     "eslint-plugin-prettier": "^2.6.0",
+    "fs-extra": "^7.0.1",
     "glob": "^7.0.3",
     "graceful-fs": "^4.1.11",
     "highlight.js": "^9.9.0",

@@ -303,6 +303,14 @@ test("should still interpolate variables in a markdown page", t => {
     # {{title}}
 
     [Test]({{relativePath}}/page.html)
+
+    \`\`\`text
+    {
+      foo: {
+        bar: "baz"
+      }
+    }
+    \`\`\`
   `;
 
   const page = createPage("test/index.md", template, {
@@ -315,6 +323,12 @@ test("should still interpolate variables in a markdown page", t => {
       stripIndent`
         <h1>Markdown</h1>
         <p><a href="../page.html">Test</a></p>
+        <pre><code class="text">{
+          foo: {
+            bar: "baz"
+          }
+        }
+        </code></pre>
     `
     );
   });
