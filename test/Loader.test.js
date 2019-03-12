@@ -76,6 +76,24 @@ test("should load directories with symlinks", t => {
   });
 });
 
+test("should load directories with nested symlinks", t => {
+  const acetate = new Acetate({
+    root: t.context.temp,
+    sourceDir: "deeply-nested",
+    log: "silent",
+    config: false
+  });
+
+  acetate.symlink(path.join(t.context.temp, "deeply-nested"), "external");
+
+  acetate.load("**/*.+(md|html)");
+
+  return acetate.getPages().then(pages => {
+    const page = pages.find(page => page.src === "external/nested/page.html");
+    t.is(page.src, "external/nested/page.html");
+  });
+});
+
 test("should use an arbitrary function to generate pages", t => {
   const acetate = new Acetate({
     root: t.context.temp,
