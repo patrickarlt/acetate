@@ -1,7 +1,7 @@
 {
   "name": "acetate",
   "description": "A layout and templating framework for static websites.",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "author": "Patrick Arlt <patrick.arlt@gmail.com> (https://patrickarlt.com/)",
   "babel": {
     "presets": [

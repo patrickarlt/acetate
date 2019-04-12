@@ -3,12 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v2.0.3...master)
+[Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v2.0.8...master)
+
+
+## [2.0.8] - 2019-04-12
+
+- Added a `--strict` flag for the `acetate build` command. Builds with `--strict` enabled will now `process.exit(1)`.
 
 ## [2.0.7] - 2019-02-24
 
 - `acetate.symlink` now works properly against deeply nested directories.
-
 
 ## [2.0.6] - 2019-02-24
 
