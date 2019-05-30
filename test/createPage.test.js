@@ -44,9 +44,14 @@ test("should set `__isMarkdown`", t => {
 test("should set `__templateErrorOffset`", t => {
   const defaultOffset = createPage("index.html", "index page");
 
-  const pageWithOffset = createPage("index.html", "index page", {}, {
-    templateErrorOffset: 1
-  });
+  const pageWithOffset = createPage(
+    "index.html",
+    "index page",
+    {},
+    {
+      templateErrorOffset: 1
+    }
+  );
 
   t.is(defaultOffset.__templateErrorOffset, 0);
   t.is(pageWithOffset.__templateErrorOffset, 1);
@@ -77,21 +82,24 @@ test("should creat a page froma template string with default metadata", t => {
 });
 
 test("should throw on invalid metadata", t => {
-  const e = t.throws(function () {
+  const e = t.throws(function() {
     createPage.fromTemplateString("index.html", invalidMetadata);
   });
 
   t.is(e.name, "MetadataParseError");
-  t.is(e.message, `duplicated mapping key at index.html(${e.line}:${e.column})`);
-  t.is(typeof e.line, 'number');
-  t.is(typeof e.column, 'number');
+  t.is(
+    e.message,
+    `duplicated mapping key at index.html(${e.line}:${e.column})`
+  );
+  t.is(typeof e.line, "number");
+  t.is(typeof e.column, "number");
   t.is(e.file, "index.html");
 });
 
-test("should load a page from a template", (t) => {
+test("should load a page from a template", t => {
   const templatepath = path.join(t.context.temp, "create-page", "page.html");
 
-  return createPage.fromTemplate("page.html", templatepath).then((page) => {
+  return createPage.fromTemplate("page.html", templatepath).then(page => {
     t.is(page.src, "page.html");
     t.is(page.template, "Template");
     t.is(page.foo, "bar");
@@ -99,17 +107,66 @@ test("should load a page from a template", (t) => {
   });
 });
 
-test("should load a page from a template with default metadata", (t) => {
+test("should load a page from a template with default metadata", t => {
   const templatepath = path.join(t.context.temp, "create-page", "page.html");
 
-  return createPage.fromTemplate("page.html", templatepath, {
-    foo: "bar"
-  }).then((page) => {
-    t.is(page.foo, "bar");
-  });
+  return createPage
+    .fromTemplate("page.html", templatepath, {
+      foo: "bar"
+    })
+    .then(page => {
+      t.is(page.foo, "bar");
+    });
 });
 
-test("should prettyify index.html at the root level", (t) => {
+test("should load a page with external YAML metadata", t => {
+  const templatepath = path.join(
+    t.context.temp,
+    "create-page",
+    "external-yaml.html"
+  );
+
+  return createPage
+    .fromTemplate("external-yaml.html", templatepath)
+    .then(page => {
+      t.is(page.foo, "bar");
+    });
+});
+
+test("should load a page with external JSON metadata", t => {
+  const templatepath = path.join(
+    t.context.temp,
+    "create-page",
+    "external-json.html"
+  );
+
+  return createPage
+    .fromTemplate("external-yaml.html", templatepath)
+    .then(page => {
+      t.is(page.foo, "bar");
+    });
+});
+
+test("should load a page with source based metadata", t => {
+  const templatepath = path.join(
+    t.context.temp,
+    "create-page",
+    "external-json.html"
+  );
+
+  return createPage
+    .fromTemplate(metadata => {
+      return `${metadata.foo}.html`;
+    }, templatepath)
+    .then(page => {
+      t.is(page.src, "bar.html");
+      t.is(page.url, "/bar/");
+      t.is(page.dest, `bar${path.sep}index.html`);
+      t.is(page.foo, "bar");
+    });
+});
+
+test("should prettyify index.html at the root level", t => {
   const page = createPage("index.html");
 
   t.is(page.src, "index.html");
@@ -118,7 +175,7 @@ test("should prettyify index.html at the root level", (t) => {
   t.is(page.relativePath, ".");
 });
 
-test("should prettyify url for page at root of the source folder", (t) => {
+test("should prettyify url for page at root of the source folder", t => {
   const page = createPage("foo.html");
 
   t.is(page.src, "foo.html");
@@ -127,22 +184,22 @@ test("should prettyify url for page at root of the source folder", (t) => {
   t.is(page.relativePath, "..");
 });
 
-test("should prettyify urls for pages in nested directories", (t) => {
+test("should prettyify urls for pages in nested directories", t => {
   const page = createPage("foo/bar.html");
 
   t.is(page.src, "foo/bar.html");
-  t.is(page.dest, path.join('foo', 'bar', 'index.html'));
+  t.is(page.dest, path.join("foo", "bar", "index.html"));
   t.is(page.url, "/foo/bar/");
   t.is(page.relativePath, "../..");
 });
 
-test("should disable pretty urls", (t) => {
+test("should disable pretty urls", t => {
   const page = createPage("foo/bar.html", "", {
     prettyUrl: false
   });
 
   t.is(page.src, "foo/bar.html");
-  t.is(page.dest, path.join("foo","bar.html"));
+  t.is(page.dest, path.join("foo", "bar.html"));
   t.is(page.url, "/foo/bar.html");
   t.is(page.relativePath, "..");
 });
