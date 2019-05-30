@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Upcoming Changes](https://github.com/patrickarlt/acetate/compare/v2.0.8...master)
 
+## [2.1.0] - 2019-05-30
+
+- `createPage.fromTemplate` can now accept a function as its first parameter. This function gets all `metadata` and should return the `src`.
+- `createPage.fromTemplate` will now also check for and load external `PAGENAME.metadata.json` or `PAGENAME.metadata.yaml` as metadata. This metadata is treated as default metadata and inline metadata in the template file will override it.
 
 ## [2.0.8] - 2019-04-12
 
@@ -446,3 +450,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [1.3.5]: https://github.com/patrickarlt/acetate/compare/v1.3.4...v1.3.5
 [2.0.0-rc.1]: https://github.com/patrickarlt/acetate/compare/v1.3.5...2.0.0-rc.1
 [2.0.0-rc.2]: https://github.com/patrickarlt/acetate/compare/2.0.0-rc.1...2.0.0-rc.2
+[2.0.0-rc.3]: https://github.com/patrickarlt/acetate/compare/2.0.0-rc.2...2.0.0-rc.3
+[2.0.0-rc.4]: https://github.com/patrickarlt/acetate/compare/2.0.0-rc.3...2.0.0-rc.4
+[2.0.0]: https://github.com/patrickarlt/acetate/compare/2.0.0-rc.4...2.0.0
+[2.0.2]: https://github.com/patrickarlt/acetate/compare/2.0.0..2.0.2
+[2.0.3]: https://github.com/patrickarlt/acetate/compare/2.0.2..2.0.3
+[2.0.4]: https://github.com/patrickarlt/acetate/compare/2.0.3..2.0.4
+[2.0.5]: https://github.com/patrickarlt/acetate/compare/2.0.4..2.0.5
+[2.0.6]: https://github.com/patrickarlt/acetate/compare/2.0.5..2.0.6
+[2.0.7]: https://github.com/patrickarlt/acetate/compare/2.0.6..2.0.7
+[2.0.8]: https://github.com/patrickarlt/acetate/compare/2.0.7..2.0.8
+[2.1.0]: https://github.com/patrickarlt/acetate/compare/2.0.8..2.1.0
