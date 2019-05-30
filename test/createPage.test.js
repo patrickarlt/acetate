@@ -161,7 +161,7 @@ test("should load a page with source based metadata", t => {
     .then(page => {
       t.is(page.src, "bar.html");
       t.is(page.url, "/bar/");
-      t.is(page.dest, "bar/index.html");
+      t.is(page.dest, `bar${path.sep}index.html`);
       t.is(page.foo, "bar");
     });
 });
