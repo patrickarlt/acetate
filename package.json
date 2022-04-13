@@ -12,7 +12,7 @@
     "url": "https://github.com/patrickarlt/acetate/issues/"
   },
   "dependencies": {
-    "async": "^2.6.1",
+    "async": "^3.2.2",
     "browser-sync": "^2.24.4",
     "chalk": "^1.1.3",
     "chokidar": "^2.0.3",
